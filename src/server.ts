@@ -1,7 +1,5 @@
 import express, { Express } from 'express'
-import { usersRoutes } from './routes/users.routes'
-import { moviesRoutes } from './routes/movies.routes'
-import { gendersRoutes } from './routes/genders.routes'
+import { gendersRoutes, moviesRoutes, usersRoutes } from './routes'
 
 const morgan = require('morgan')
 const helmet = require('helmet')
