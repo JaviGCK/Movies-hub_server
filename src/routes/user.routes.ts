@@ -1,7 +1,7 @@
-import { Request, Response,  Router } from "express"
+import { Router } from "express"
 import { createUser, deleteUser, getAllUser, updateUser } from "../controllers/user.controllers"
 
-export const userRoutes = Router()
+export const userRoutes = Router() 
 
 userRoutes.get("/", getAllUser)
 
