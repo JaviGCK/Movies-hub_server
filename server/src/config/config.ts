@@ -39,7 +39,7 @@ const CONFIG: TConfig  = {
             PORT: process.env.PORT || 4002 
         },
         db: {
-            URI: process.env.MONGO_DB_URI || 'mongodb://localhost:27017/test_development' 
+            URI: process.env.MONGO_DB_URI || 'mongodb://localhost:27017/test_ development' 
         }
     }
 }
