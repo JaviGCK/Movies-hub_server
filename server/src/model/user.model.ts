@@ -23,7 +23,9 @@ const UserSchema = new Schema<IUserDocument> ({
         type: String,
         required: [true, 'Password is required']
     },
-    movies: String
+    movies: {
+        type: [{type: Schema.Types.ObjectId, ref: "Movies"}]
+    }
 }, {timestamps: true, versionKey: false})
 
 const UserModel = model<IUserDocument>("User", UserSchema)

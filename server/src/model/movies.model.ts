@@ -1,26 +1,21 @@
 import { Document, Schema, model } from "mongoose"
 
 interface IMoviesDocument extends Document {
-    id: String,
     name: String,
-    poster_image: String,
+    poster_image?: String,
     score: number,
-    genre: String
+    genre?: String[],
+    createdAt: Date,
+    updateAt: Date
 }
 
 const MoviesSchema = new Schema<IMoviesDocument> ({
-    id: {
-        type: String,
-        required: [true, 'id is required'],
-        unique: true
-    },
     name: {
         type: String,
         required: [true, 'Name is required']
     },
     poster_image: {
         type: String,
-        required: [true, 'Poster is required']
     },
     score: {
         type: Number,
@@ -28,9 +23,8 @@ const MoviesSchema = new Schema<IMoviesDocument> ({
     },
     genre: {
         type: String,
-        required: [true, 'Genre is required']
     },
-})
+}, {timestamps: true, versionKey: false})
 
 const MoviesModel = model<IMoviesDocument>("Movies", MoviesSchema)
 

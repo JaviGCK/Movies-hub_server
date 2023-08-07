@@ -5,7 +5,7 @@ export const moviesRoutes = Router()
 
 moviesRoutes.get('/', getAllMovies)
 
-moviesRoutes.post('/', createMovies)
+moviesRoutes.post('/:userId', createMovies)
 
 moviesRoutes.put('/:moviesID', updateMovies)
 

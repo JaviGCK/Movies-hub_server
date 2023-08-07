@@ -4,7 +4,7 @@ import UserModel from '../model/user.model'
 export const createUsers = async (req: Request, res: Response) => {
     const { name, email, password, movies } = req.body
 
-    try {
+    try { 
 
         if(!name || !email || !password) {
             res.status(400).send('Missing required fileds')
@@ -40,7 +40,7 @@ export const getUserById = async (req: Request, res: Response) => {
     const {userId} = req.params
     try {
 
-        const user = await UserModel.findById({_id: userId})
+        const user = await UserModel.findById({_id: userId}).populate('movies')
 
         res.status(201).send(user)
 
