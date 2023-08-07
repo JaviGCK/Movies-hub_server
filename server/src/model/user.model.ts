@@ -4,7 +4,7 @@ interface IUserDocument extends Document {
     name: string,
     email: string,
     password: string,
-    movies: string,
+    movies?: string[],
     createdAt: Date,
     updateAt: Date
 }
