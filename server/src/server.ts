@@ -16,6 +16,6 @@ app.use('/users', usersRoutes)
 
 app.use('/movies', moviesRoutes)
 
-app.use('/genders', gendersRoutes)
+app.use('/genres', gendersRoutes)
 
 export default app

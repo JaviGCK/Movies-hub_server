@@ -4,7 +4,7 @@ interface IMoviesDocument extends Document {
     name: String,
     poster_image?: String,
     score: number,
-    genre?: String[],
+    genres?: String[],
     createdAt: Date,
     updateAt: Date
 }
@@ -21,8 +21,8 @@ const MoviesSchema = new Schema<IMoviesDocument> ({
         type: Number,
         required: [true, 'Score is required']
     },
-    genre: {
-        type: String,
+    genres: {
+        type: [{type: Schema.Types.ObjectId, ref: "Genres"}]
     },
 }, {timestamps: true, versionKey: false})
 

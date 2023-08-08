@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import MoviesModel from "../model/movies.model";
-import UserModel from "../model/user.model";
+import UserModel from "../model/users.model";
 
 export const createMovies = async (req: Request, res: Response) => {
     const {name, poster_image, score, genre} = req.body
@@ -45,7 +45,7 @@ export const getMoviesById = async (req: Request, res: Response) => {
     const {moviesId} = req.params
     try {
 
-        const movies = await MoviesModel.findById({_id: moviesId}).populate('movies')
+        const movies = await MoviesModel.findById({_id: moviesId}).populate('genres')
 
         res.status(201).send(movies)
 
