@@ -5,9 +5,13 @@ import UserModel from "../model/user.model";
 export const createMovies = async (req: Request, res: Response) => {
     const {name, poster_image, score, genre} = req.body
     const {userId} = req.params
-console.log(userId);
+
     try { 
 
+        if(!name || !score) {
+            res.status(400).send('Missing required fileds')
+            return
+        }
         const newMovie = await MoviesModel.create({
             name,
             poster_image,
@@ -52,11 +56,11 @@ export const getMoviesById = async (req: Request, res: Response) => {
 
 export const updateMovies = async (req: Request, res: Response) => {
     const {moviesId} = req.params
-    const {name} = req.body
+    const {score} = req.body
     try {
 
         const movie = await MoviesModel.findByIdAndUpdate({_id: moviesId}, 
-            {$set: {name: name}
+            {$set: {score: score}
         }, {new: true})
 
         res.status(200).send(movie)
@@ -66,6 +70,14 @@ export const updateMovies = async (req: Request, res: Response) => {
     }
 }
 
-export const deleteMovies = (req: Request, res: Response) => {
-    res.status(200).send('Movie delete')
+export const deleteMovies = async (req: Request, res: Response) => {
+    const {moviesId} = req.params
+    try {
+
+        await MoviesModel.findByIdAndDelete({_id: moviesId})
+
+        res.status(200).send('Movie has been deleted')
+    } catch (error) {
+        res.status(500).send(error)
+    }
 }

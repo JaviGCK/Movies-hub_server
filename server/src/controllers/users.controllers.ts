@@ -69,9 +69,9 @@ export const deleteUsers = async (req: Request, res: Response) => {
     const {userId} = req.params
     try {
 
-        const user = await UserModel.findByIdAndDelete({_id: userId})
+        await UserModel.findByIdAndDelete({_id: userId})
 
-        res.status(204).send()
+        res.status(204).send('User has been deleted')
 
     } catch (error) {
         res.status(500).send(error)

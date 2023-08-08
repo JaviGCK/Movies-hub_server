@@ -7,6 +7,6 @@ moviesRoutes.get('/', getAllMovies)
 
 moviesRoutes.post('/:userId', createMovies)
 
-moviesRoutes.put('/:moviesID', updateMovies)
+moviesRoutes.put('/:moviesId', updateMovies)
 
-moviesRoutes.delete('/:moviesID', deleteMovies)
+moviesRoutes.delete('/:moviesId', deleteMovies)
