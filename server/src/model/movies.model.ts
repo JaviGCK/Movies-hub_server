@@ -9,7 +9,7 @@ interface IMoviesDocument extends Document {
     updateAt: Date
 }
 
-const MoviesSchema = new Schema<IMoviesDocument> ({
+const MoviesSchema = new Schema<IMoviesDocument>({
     name: {
         type: String,
         required: [true, 'Name is required']
@@ -22,9 +22,9 @@ const MoviesSchema = new Schema<IMoviesDocument> ({
         required: [true, 'Score is required']
     },
     genres: {
-        type: [{type: Schema.Types.ObjectId, ref: "Genres"}]
+        type: [{ type: Schema.Types.ObjectId, ref: "Genres" }]
     },
-}, {timestamps: true, versionKey: false})
+}, { timestamps: true, versionKey: false })
 
 const MoviesModel = model<IMoviesDocument>("Movies", MoviesSchema)
 

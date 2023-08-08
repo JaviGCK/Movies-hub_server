@@ -4,13 +4,13 @@ interface IGenreDocument extends Document {
     name: String
 }
 
-const GenreSchema = new Schema<IGenreDocument> ({
+const GenreSchema = new Schema<IGenreDocument>({
     name: {
         type: String,
         required: [true, 'Name is required']
     }
 })
 
-const GenreModel = model<IGenreDocument> ("Genres", GenreSchema)
+const GenreModel = model<IGenreDocument>("Genres", GenreSchema)
 
 export default GenreModel

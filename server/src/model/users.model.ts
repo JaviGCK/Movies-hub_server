@@ -9,7 +9,7 @@ interface IUserDocument extends Document {
     updateAt: Date
 }
 
-const UserSchema = new Schema<IUserDocument> ({
+const UserSchema = new Schema<IUserDocument>({
     name: {
         type: String,
         required: [true, 'Name is required']
@@ -24,9 +24,9 @@ const UserSchema = new Schema<IUserDocument> ({
         required: [true, 'Password is required']
     },
     movies: {
-        type: [{type: Schema.Types.ObjectId, ref: "Movies"}]
+        type: [{ type: Schema.Types.ObjectId, ref: "Movies" }]
     }
-}, {timestamps: true, versionKey: false})
+}, { timestamps: true, versionKey: false })
 
 const UserModel = model<IUserDocument>("User", UserSchema)
 

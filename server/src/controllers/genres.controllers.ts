@@ -10,7 +10,7 @@ export const createGenres = async (req: Request, res: Response) => {
             name
         });
 
-        await MoviesModel.findByIdAndUpdate({_id: moviesId}, {
+        await MoviesModel.findByIdAndUpdate({ _id: moviesId }, {
             $push: { genres: newGenre._id }
         }, { new: true });
 
@@ -22,14 +22,14 @@ export const createGenres = async (req: Request, res: Response) => {
 
 
 export const deleteGenders = async (req: Request, res: Response) => {
-    const {genresId} = req.params
+    const { genresId } = req.params
 
-    try{
+    try {
 
-        await GenreModel.findByIdAndDelete({_id: genresId})
+        await GenreModel.findByIdAndDelete({ _id: genresId })
 
         res.status(200).send('Gender has been deleted')
-        
+
     } catch (error) {
         res.status(500).send(error)
     }

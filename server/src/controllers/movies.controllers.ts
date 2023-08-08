@@ -3,12 +3,12 @@ import MoviesModel from "../model/movies.model";
 import UserModel from "../model/users.model";
 
 export const createMovies = async (req: Request, res: Response) => {
-    const {name, poster_image, score, genre} = req.body
-    const {userId} = req.params
+    const { name, poster_image, score, genre } = req.body
+    const { userId } = req.params
 
-    try { 
+    try {
 
-        if(!name || !score) {
+        if (!name || !score) {
             res.status(400).send('Missing required fileds')
             return
         }
@@ -19,9 +19,9 @@ export const createMovies = async (req: Request, res: Response) => {
             genre
         })
 
-         await UserModel.findByIdAndUpdate({_id: userId}, {
-            $push: {movies:  newMovie._id}
-        }, {new: true})
+        await UserModel.findByIdAndUpdate({ _id: userId }, {
+            $push: { movies: newMovie._id }
+        }, { new: true })
 
         res.status(201).send(newMovie)
     } catch (error) {
@@ -29,52 +29,53 @@ export const createMovies = async (req: Request, res: Response) => {
     }
 }
 
-export const getAllMovies = async  (req: Request, res:Response) => {
+export const getAllMovies = async (req: Request, res: Response) => {
     try {
-        
+
         const allUser = await UserModel.find()
 
         res.status(201).send(allUser)
 
-    } catch (error){
+    } catch (error) {
         res.status(500).send(error)
     }
 }
 
 export const getMoviesById = async (req: Request, res: Response) => {
-    const {moviesId} = req.params
+    const { moviesId } = req.params
     try {
 
-        const movies = await MoviesModel.findById({_id: moviesId}).populate('genres')
+        const movies = await MoviesModel.findById({ _id: moviesId }).populate('genres')
 
         res.status(201).send(movies)
 
-    } catch (error){
+    } catch (error) {
         res.status(500).send(error)
     }
 }
 
 export const updateMovies = async (req: Request, res: Response) => {
-    const {moviesId} = req.params
-    const {score} = req.body
+    const { moviesId } = req.params
+    const { score } = req.body
     try {
 
-        const movie = await MoviesModel.findByIdAndUpdate({_id: moviesId}, 
-            {$set: {score: score}
-        }, {new: true})
+        const movie = await MoviesModel.findByIdAndUpdate({ _id: moviesId },
+            {
+                $set: { score: score }
+            }, { new: true })
 
         res.status(200).send(movie)
 
-    } catch (error){
+    } catch (error) {
         res.status(500).send(error)
     }
 }
 
 export const deleteMovies = async (req: Request, res: Response) => {
-    const {moviesId} = req.params
+    const { moviesId } = req.params
     try {
 
-        await MoviesModel.findByIdAndDelete({_id: moviesId})
+        await MoviesModel.findByIdAndDelete({ _id: moviesId })
 
         res.status(200).send('Movie has been deleted')
     } catch (error) {
