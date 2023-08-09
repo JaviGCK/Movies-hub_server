@@ -1,14 +1,19 @@
 import { Router } from 'express'
-import { createMovie } from "../controllers/movies.controller"
+import { createMovie, getAllMovies, getMovieById, removeMovies, removeMovieById, updateMovie } from "../controllers/movies.controller"
 
 export const moviesRoutes = Router()
 
-moviesRoutes.get('/')
+moviesRoutes
 
-moviesRoutes.get('/:moviesId')
+    .post('/:userId', createMovie)
 
-moviesRoutes.post('/:userId', createMovie)
+    .get('/', getAllMovies)
 
-moviesRoutes.put('/:moviesId')
+    .get('/:movieId', getMovieById)
 
-moviesRoutes.delete('/:moviesId')
+
+    .put("/:movieId", updateMovie)
+
+    .delete('/', removeMovies)
+
+    .delete("/:movieId", removeMovieById)

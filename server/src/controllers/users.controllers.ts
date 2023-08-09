@@ -49,6 +49,9 @@ export const getUserById = async (req: Request, res: Response) => {
 
             where: {
                 id: userId
+            },
+            include: {
+                movies: true
             }
         })
 
@@ -88,8 +91,8 @@ export const updateUser = async (req: Request, res: Response) => {
 
         res.status(500).send(error)
     }
-
 }
+
 export const removeUser = async (req: Request, res: Response) => {
 
     const { userId } = req.params;
@@ -106,7 +109,7 @@ export const removeUser = async (req: Request, res: Response) => {
             }
         })
 
-        res.status(204).send('User was deleted')
+        res.status(204).send('User has been deleted')
 
     } catch (error) {
 

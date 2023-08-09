@@ -27,6 +27,6 @@ model Movie {
   score     Int
   createdAt DateTime @default(now())
   updateAt  DateTime @updatedAt
-  User      User?    @relation(fields: [userId], references: [id])
+  User      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String?  @db.ObjectId
 }
