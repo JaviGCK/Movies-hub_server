@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { createUsers, deleteUsers, getAllUsers, getUserById, updateUsers } from '../controllers/users.controllers'
+import { createUsers, getAllUsers, getUserById, removeUser, updateUser } from '../controllers/users.controllers'
 import { check } from '../middleware/check.middleware'
 
 export const usersRoutes = Router()
@@ -10,6 +10,6 @@ usersRoutes.get('/', getAllUsers)
 
 usersRoutes.get('/:userId', getUserById)
 
-usersRoutes.put('/:userId', updateUsers)
+usersRoutes.put('/:userId', updateUser)
 
-usersRoutes.delete('/:userId', deleteUsers)
+usersRoutes.delete('/:userId', removeUser)

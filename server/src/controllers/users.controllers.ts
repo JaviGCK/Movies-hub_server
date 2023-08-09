@@ -1,5 +1,4 @@
 import { Request, Response } from 'express'
-import UserModel from '../model/users.model'
 import prisma from '../db/clientPrisma'
 
 export const createUsers = async (req: Request, res: Response) => {
@@ -27,56 +26,91 @@ export const createUsers = async (req: Request, res: Response) => {
 }
 
 export const getAllUsers = async (req: Request, res: Response) => {
+
     try {
 
-        const allUser = await prisma.user.findMany()
+        const allUsers = await prisma.user.findMany()
 
-        res.status(201).send(allUser)
+        res.status(200).send(allUsers)
 
     } catch (error) {
+
         res.status(500).send(error)
     }
 }
 
 export const getUserById = async (req: Request, res: Response) => {
-    const { userId } = req.params
+
+    const { userId } = req.params;
+
     try {
 
-        const user = await UserModel.findById({ _id: userId }).populate('movies')
+        const user = await prisma.user.findUnique({
 
-        res.status(201).send(user)
+            where: {
+                id: userId
+            }
+        })
+
+        res.status(200).send(user);
 
     } catch (error) {
+
         res.status(500).send(error)
     }
 }
 
-export const updateUsers = async (req: Request, res: Response) => {
-    const { userId } = req.params
-    const { name } = req.body
+export const updateUser = async (req: Request, res: Response) => {
+
+    const { userId } = req.params;
+
+    const { name, email, password } = req.body;
+
     try {
 
-        const user = await UserModel.findByIdAndUpdate({ _id: userId },
-            {
-                $set: { name: name }
-            }, { new: true })
 
-        res.status(200).send(user)
+        const updatedUser = await prisma.user.update({
+
+            where: {
+
+                id: userId
+            },
+            data: {
+
+                name,
+                email,
+                password
+            }
+        })
+        res.status(200).send(updatedUser)
 
     } catch (error) {
+
         res.status(500).send(error)
     }
+
 }
+export const removeUser = async (req: Request, res: Response) => {
 
-export const deleteUsers = async (req: Request, res: Response) => {
-    const { userId } = req.params
+    const { userId } = req.params;
+
+
+
     try {
 
-        await UserModel.findByIdAndDelete({ _id: userId })
+        await prisma.user.delete({
 
-        res.status(204).send('User has been deleted')
+            where: {
+
+                id: userId
+            }
+        })
+
+        res.status(204).send('User was deleted')
 
     } catch (error) {
+
         res.status(500).send(error)
     }
+
 }
