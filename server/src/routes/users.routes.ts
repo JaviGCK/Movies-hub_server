@@ -1,10 +1,10 @@
 import { Router } from 'express'
 import { createUsers, getAllUsers, getUserById, removeUser, updateUser } from '../controllers/users.controllers'
-import { check } from '../middleware/check.middleware'
+import { check, uniqueEmail } from '../middleware/check.middleware'
 
 export const usersRoutes = Router()
 
-usersRoutes.post('/', check, createUsers)
+usersRoutes.post('/', check, uniqueEmail, createUsers)
 
 usersRoutes.get('/', getAllUsers)
 
