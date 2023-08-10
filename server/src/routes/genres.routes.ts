@@ -1,8 +1,8 @@
 import { Router } from 'express'
 import { createGenres, deleteGenre } from '../controllers/genres.controllers'
 
-export const gendersRoutes = Router()
+export const genresRoutes = Router()
 
-gendersRoutes.post('/:moviesId', createGenres)
+genresRoutes.post('/:moviesId', createGenres)
 
-gendersRoutes.delete('/:genresId', deleteGenre)
+genresRoutes.delete('/:genresId', deleteGenre)

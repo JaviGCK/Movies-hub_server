@@ -1,5 +1,5 @@
 import express, { Express } from 'express'
-import { gendersRoutes, moviesRoutes, usersRoutes } from './routes'
+import { genresRoutes, moviesRoutes, usersRoutes } from './routes'
 
 const morgan = require('morgan')
 const helmet = require('helmet')
@@ -16,6 +16,6 @@ app.use('/users', usersRoutes)
 
 app.use('/movies', moviesRoutes)
 
-app.use('/genres', gendersRoutes)
+app.use('/genres', genresRoutes)
 
 export default app

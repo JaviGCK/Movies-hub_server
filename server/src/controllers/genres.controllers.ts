@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import GenreModel from "../model/genres.model";
 import prisma from "../db/clientPrisma";
 
 export const createGenres = async (req: Request, res: Response) => {
