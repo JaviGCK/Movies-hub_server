@@ -43,7 +43,7 @@ export const getAllMovies = async (req: Request, res: Response) => {
 }
 
 export const getMovieById = async (req: Request, res: Response) => {
-
+    const { name } = req.body
     const { movieId } = req.params;
 
     try {
@@ -52,6 +52,10 @@ export const getMovieById = async (req: Request, res: Response) => {
 
             where: {
                 id: movieId
+            }, include: {
+                genres: {
+                    select: name
+                }
             }
         })
 
@@ -114,7 +118,7 @@ export const removeMovies = async (req: Request, res: Response) => {
 }
 
 export const removeMovieById = async (req: Request, res: Response) => {
-
+    const { name } = req.body
     const { movieId } = req.params;
 
     try {
@@ -122,12 +126,16 @@ export const removeMovieById = async (req: Request, res: Response) => {
         await prisma.movie.delete({
 
             where: {
-
                 id: movieId
+            },
+            include: {
+                genres: {
+                    select: name
+                }
             }
         })
 
-        res.status(204).send('Movie `${name}` has been deleted')
+        res.status(204).send('Movie has been deleted')
 
     } catch (error) {
 

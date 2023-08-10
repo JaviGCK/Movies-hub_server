@@ -1,18 +1,22 @@
 import { Request, Response } from "express";
 import GenreModel from "../model/genres.model";
-import MoviesModel from "../model/movies.model";
+import prisma from "../db/clientPrisma";
 
 export const createGenres = async (req: Request, res: Response) => {
     const { name } = req.body;
     const { moviesId } = req.params;
     try {
-        const newGenre = await GenreModel.create({
-            name
-        });
+        const newGenre = await prisma.genre.create({
 
-        await MoviesModel.findByIdAndUpdate({ _id: moviesId }, {
-            $push: { genres: newGenre._id }
-        }, { new: true });
+            data: {
+                name,
+                Movie: {
+                    connect: {
+                        id: moviesId
+                    }
+                }
+            }
+        })
 
         res.status(200).send(newGenre);
     } catch (error) {
@@ -21,13 +25,17 @@ export const createGenres = async (req: Request, res: Response) => {
 };
 
 
-export const deleteGenders = async (req: Request, res: Response) => {
+export const deleteGenre = async (req: Request, res: Response) => {
+    const { name } = req.body
     const { genresId } = req.params
 
     try {
 
-        await GenreModel.findByIdAndDelete({ _id: genresId })
-
+        await prisma.genre.delete({
+            where: {
+                id: genresId
+            }
+        })
         res.status(200).send('Gender has been deleted')
 
     } catch (error) {

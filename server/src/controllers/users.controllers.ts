@@ -40,8 +40,8 @@ export const getAllUsers = async (req: Request, res: Response) => {
 }
 
 export const getUserById = async (req: Request, res: Response) => {
-
-    const { userId } = req.params;
+    const { name } = req.body
+    const { userId } = req.params
 
     try {
 
@@ -51,7 +51,10 @@ export const getUserById = async (req: Request, res: Response) => {
                 id: userId
             },
             include: {
-                movies: true
+                movies: {
+                    select: name
+                }
+
             }
         })
 
