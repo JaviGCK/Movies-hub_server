@@ -1,8 +1,12 @@
 import { Router } from 'express'
-import { createGenres, deleteGenre } from '../controllers/genres.controllers'
+import { createGenres, deleteGenre, getAllGenres } from '../controllers/genres.controllers'
 
 export const genresRoutes = Router()
 
-genresRoutes.post('/:moviesId', createGenres)
+genresRoutes
 
-genresRoutes.delete('/:genresId', deleteGenre)
+    .post('/:moviesId', createGenres)
+
+    .get('/', getAllGenres)
+
+    .delete('/:genresId', deleteGenre)

@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
-import prisma from '../db/clientPrisma'
+import { prismaClient } from '../db/clientPrisma'
+import { converToType } from '../helpers/utils'
 
 export const createUsers = async (req: Request, res: Response) => {
     const { name, email, password } = req.body
@@ -11,7 +12,7 @@ export const createUsers = async (req: Request, res: Response) => {
             return
         }
 
-        const newUser = await prisma.user.create({
+        const newUser = await prismaClient.user.create({
             data: {
                 name,
                 email,
@@ -29,7 +30,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
 
     try {
 
-        const allUsers = await prisma.user.findMany()
+        const allUsers = await prismaClient.user.findMany()
 
         res.status(200).send(allUsers)
 
@@ -40,19 +41,25 @@ export const getAllUsers = async (req: Request, res: Response) => {
 }
 
 export const getUserById = async (req: Request, res: Response) => {
-    const { name } = req.body
     const { userId } = req.params
 
     try {
 
-        const user = await prisma.user.findUnique({
+        const user = await prismaClient.user.findUnique({
 
             where: {
-                id: userId
+                id: converToType(userId)
             },
             include: {
                 movies: {
-                    select: name
+                    select: {
+                        name: true,
+                        genres: {
+                            select: {
+                                name: true
+                            }
+                        }
+                    }
                 }
 
             }
@@ -75,11 +82,11 @@ export const updateUser = async (req: Request, res: Response) => {
     try {
 
 
-        const updatedUser = await prisma.user.update({
+        const updatedUser = await prismaClient.user.update({
 
             where: {
 
-                id: userId
+                id: converToType(userId)
             },
             data: {
 
@@ -104,11 +111,11 @@ export const removeUser = async (req: Request, res: Response) => {
 
     try {
 
-        await prisma.user.delete({
+        await prismaClient.user.delete({
 
             where: {
 
-                id: userId
+                id: converToType(userId)
             }
         })
 

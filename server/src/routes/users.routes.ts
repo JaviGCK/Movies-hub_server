@@ -4,12 +4,14 @@ import { check, uniqueEmail } from '../middleware/check.middleware'
 
 export const usersRoutes = Router()
 
-usersRoutes.post('/', check, uniqueEmail, createUsers)
+usersRoutes
 
-usersRoutes.get('/', getAllUsers)
+    .post('/', check, createUsers)
 
-usersRoutes.get('/:userId', getUserById)
+    .get('/', getAllUsers)
 
-usersRoutes.put('/:userId', updateUser)
+    .get('/:userId', getUserById)
 
-usersRoutes.delete('/:userId', removeUser)
+    .put('/:userId', updateUser)
+
+    .delete('/:userId', removeUser)

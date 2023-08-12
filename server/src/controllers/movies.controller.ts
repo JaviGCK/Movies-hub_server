@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import prisma from "../db/clientPrisma";
+import { prismaClient } from "../db/clientPrisma";
+import { converToType } from '../helpers/utils'
 
 export const createMovie = async (req: Request, res: Response) => {
 
@@ -9,7 +10,7 @@ export const createMovie = async (req: Request, res: Response) => {
 
     try {
 
-        const newMovie = await prisma.movie.create({
+        const newMovie = await prismaClient.movie.create({
 
             data: {
                 name,
@@ -17,7 +18,7 @@ export const createMovie = async (req: Request, res: Response) => {
                 score,
                 User: {
                     connect: {
-                        id: userId
+                        id: converToType(userId)
                     }
                 }
             }
@@ -34,7 +35,8 @@ export const createMovie = async (req: Request, res: Response) => {
 export const getAllMovies = async (req: Request, res: Response) => {
 
     try {
-        const movies = await prisma.movie.findMany()
+
+        const movies = await prismaClient.movie.findMany()
 
         res.status(201).send(movies)
     } catch (error) {
@@ -48,10 +50,10 @@ export const getMovieById = async (req: Request, res: Response) => {
 
     try {
 
-        const movie = await prisma.movie.findUnique({
+        const movie = await prismaClient.movie.findUnique({
 
             where: {
-                id: movieId
+                id: converToType(movieId)
             }, include: {
                 genres: {
                     select: name
@@ -73,9 +75,10 @@ export const updateMovie = async (req: Request, res: Response) => {
     const { name, url, score } = req.body;
 
     try {
-        const existingMovie = await prisma.movie.findUnique({
+
+        const existingMovie = await prismaClient.movie.findUnique({
             where: {
-                id: movieId
+                id: converToType(movieId)
             }
         });
 
@@ -83,9 +86,10 @@ export const updateMovie = async (req: Request, res: Response) => {
             return res.status(404).send({ error: "Movie not found." });
         }
 
-        const updatedMovie = await prisma.movie.update({
+        const updatedMovie = await prismaClient.movie.update({
             where: {
-                id: movieId
+
+                id: converToType(movieId)
             },
             data: {
                 name,
@@ -102,11 +106,10 @@ export const updateMovie = async (req: Request, res: Response) => {
 
 
 export const removeMovies = async (req: Request, res: Response) => {
-    const { name } = req.body
 
     try {
 
-        await prisma.movie.deleteMany()
+        await prismaClient.movie.deleteMany()
 
         res.status(204).send('All Movies has been deleted')
 
@@ -123,10 +126,10 @@ export const removeMovieById = async (req: Request, res: Response) => {
 
     try {
 
-        await prisma.movie.delete({
+        await prismaClient.movie.delete({
 
             where: {
-                id: movieId
+                id: converToType(movieId)
             },
             include: {
                 genres: {
