@@ -29,13 +29,13 @@ model Movie {
     genres    Genre[]
     createdAt DateTime @default(now())
     updateAt  DateTime @updatedAt
-    User      User?    @relation(fields: [userId], references: [id])
+    User      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId    Int?
 }
 
 model Genre {
     id      Int    @id @default(autoincrement())
     name    String
-    Movie   Movie? @relation(fields: [movieId], references: [id])
+    Movie   Movie? @relation(fields: [movieId], references: [id], onDelete: Cascade)
     movieId Int?
 }
