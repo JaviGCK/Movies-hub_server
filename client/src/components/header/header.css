@@ -1,0 +1,25 @@
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5vh;
+}
+
+.title-header {
+    font-size: 2.4rem;
+    font-family: Bowlby one;
+    letter-spacing: 0.05rem;
+}
+
+.title-span {
+    color: #e51e1e;
+}
+
+.title-separate {
+    width: 5vw;
+}
+
+.login-icon {
+    width: 5vh;
+    height: 5vh;
+}
