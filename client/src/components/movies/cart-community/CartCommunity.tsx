@@ -1,15 +1,8 @@
 import { FC } from 'react';
 import './cartCommunity.css';
-import { Genre } from '../../community/types';
+import { CartCommunityProps } from '../types';
 
-interface CartCommunityProps {
-    poster: string;
-    origin: string;
-    year: number;
-    name: string;
-    genres?: Genre[];
-    score: number;
-}
+
 
 export const CartCommunity: FC<CartCommunityProps> = ({ poster, origin, year, name, genres, score }) => {
     return (

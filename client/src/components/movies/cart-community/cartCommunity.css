@@ -1,8 +1,8 @@
 .cart-detail {
     border: 1px solid #a8a4a4;
-    width: 75vw;
+    width: 90vw;
     height: 60vh;
-    margin-top: 5vh;
+    margin-bottom: 5vh;
     view-timeline-name: --revealing-image;
     view-timeline-axis: block;
 
@@ -44,7 +44,7 @@
     grid-column: 1/3;
     display: grid;
     grid-template-columns: 65% auto;
-    grid-template-rows: auto auto auto;
+    grid-template-rows: auto auto auto auto;
 }
 
 .cart-origin {
@@ -55,15 +55,18 @@
 }
 
 .cart-year {
+    grid-row: 1/2;
     margin-left: 2vw;
 }
 
 .cart-name {
+    grid-row: 2/3;
     font-size: 1.5rem;
     margin-left: 2vw;
 }
 
 .cart-genre {
+    grid-row: 3/4;
     margin-left: 2vw;
     font-size: 1rem;
     color: #a8a4a4;

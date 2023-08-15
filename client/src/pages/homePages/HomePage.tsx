@@ -1,5 +1,5 @@
 
-import { Community } from '../../components/community/Community'
+import { Community } from '../../components/movies/community.movies/Community'
 import { Header } from '../../components/header/Header'
 
 export const HomePage = () => {

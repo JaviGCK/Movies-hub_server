@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { CartCommunity } from '../carts/cart-community/CartCommunity';
+import { CartCommunity } from '../cart-community/CartCommunity';
 import './community.css'
 import { PiFilmReelLight } from 'react-icons/pi'
-import { Movies } from './types';
+import { Movies } from '../types';
 
 export const Community = () => {
     const [movies, setMovies] = useState<Movies[]>([]);;
