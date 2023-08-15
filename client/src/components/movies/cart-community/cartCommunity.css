@@ -3,6 +3,7 @@
     width: 90vw;
     height: 60vh;
     margin-bottom: 5vh;
+    cursor: pointer;
     view-timeline-name: --revealing-image;
     view-timeline-axis: block;
 

@@ -10,6 +10,7 @@ export type Movies = {
 };
 
 export interface CartCommunityProps {
+    id: number;
     poster: string;
     origin: string;
     year: number;

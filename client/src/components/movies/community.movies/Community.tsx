@@ -32,6 +32,7 @@ export const Community = () => {
                     movies.map((movie) => (
                         <CartCommunity
                             key={movie.id}
+                            id={movie.id}
                             poster={movie.poster}
                             origin={movie.origin}
                             year={movie.year}
