@@ -1,8 +1,15 @@
 import { FC } from 'react';
-import './cartCommunity.css'
-import { Movies } from './types';
+import './cartCommunity.css';
 
-export const CartCommunity: FC<Movies> = ({ poster, origin, name, genre, score }) => {
+interface CartCommunityProps {
+    poster: string;
+    origin: string;
+    name: string;
+    genre: string;
+    score: number;
+}
+
+export const CartCommunity: FC<CartCommunityProps> = ({ poster, origin, name, genre, score }) => {
     return (
         <section className="cart-detail">
             <div className='cart-poster'>

@@ -1,5 +1,5 @@
 export type Movies = {
-    key: number;
+    id: number;
     poster: string;
     origin: string;
     name: string;

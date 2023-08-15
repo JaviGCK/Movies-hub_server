@@ -1,0 +1,62 @@
+.cart-detail {
+    border: 1px solid #a8a4a4;
+    width: 75vw;
+    height: 60vh;
+    margin-top: 5vh;
+    view-timeline-name: --revealing-image;
+    view-timeline-axis: block;
+
+    animation-name: show;
+    animation-timing-function: ease;
+    animation-fill-mode: both;
+    animation-timeline: --revealing-image;
+
+    animation-range: entry 25% cover 50%;
+}
+
+@keyframes show {
+    from {
+        opacity: 0;
+        scale: 25%;
+    }
+
+    to {
+        opacity: 1;
+        scale: 100%;
+    }
+}
+
+.cart-detail {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto 25%;
+}
+
+.cart-poster {
+    grid-column: 1/3;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-color: aqua;
+}
+
+.cart-text-detail {
+    grid-column: 1/3;
+    display: grid;
+    grid-template-columns: 65% auto;
+    grid-template-rows: auto auto auto;
+    background-color: aquamarine;
+}
+
+.cart-score-dasboard {
+    grid-column: 2/3;
+    grid-row: 1/5;
+    display: flex;
+    align-items: center;
+    background-color: blueviolet;
+}
+
+.cart-score {
+    font-size: 1.2rem;
+    font-weight: bold;
+}

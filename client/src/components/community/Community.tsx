@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { CartCommunity } from '../carts/cart-community/CartCommunity';
 import './community.css'
 import { PiFilmReelLight } from 'react-icons/pi'
-import { Movies } from '../carts/cart-community/types';
+import { Movies } from './types';
 
 export const Community = () => {
     const [movies, setMovies] = useState<Movies[]>([]);;
@@ -28,16 +28,21 @@ export const Community = () => {
                 <PiFilmReelLight className='community-icon' />
             </div>
             <div className='community-container-movies'>
-                {movies.map((movie) => (
-                    <CartCommunity
-                        key={movie.key}
-                        poster={movie.poster}
-                        origin={movie.origin}
-                        name={movie.name}
-                        genre={movie.genre}
-                        score={movie.score}
-                    />
-                ))}
+                {Array.isArray(movies) ? (
+                    movies.map((movie) => (
+                        <CartCommunity
+                            key={movie.id}
+                            poster={movie.poster}
+                            origin={movie.origin}
+                            name={movie.name}
+                            genre={movie.genre}
+                            score={movie.score}
+                        />
+                    ))
+                ) : (
+                    <p>No movies available</p>
+                )}
+
             </div>
         </section>
     );
