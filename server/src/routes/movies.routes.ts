@@ -5,7 +5,7 @@ export const moviesRoutes = Router()
 
 moviesRoutes
 
-    .post('/:userId', createMovie)
+    .post('/', createMovie)
 
     .get('/', getAllMovies)
 

@@ -4,45 +4,54 @@ import { converToType } from '../helpers/utils'
 
 export const createMovie = async (req: Request, res: Response) => {
 
-    const { name, url, score } = req.body;
-
-    const { userId } = req.params;
+    const { name, origin, poster, year, score, description } = req.body;
 
     try {
 
         const newMovie = await prismaClient.movie.create({
-
             data: {
                 name,
-                url,
-                score,
-                User: {
-                    connect: {
-                        id: converToType(userId)
-                    }
-                }
+                origin,
+                poster,
+                year,
+                description
             }
-        })
-        res.status(201).send(newMovie)
+        });
+
+        res.status(201).send(newMovie);
 
     } catch (error) {
 
-        res.status(500).send(error)
+        res.status(500).send(error);
     }
-
 }
+
 
 export const getAllMovies = async (req: Request, res: Response) => {
 
     try {
+        const movies = await prismaClient.movie.findMany({
+            include: {
+                genres: {
+                    select: {
+                        name: true
+                    }
+                },
+                score: {
+                    select: {
+                        score: true
+                    }
+                }
+            }
+        });
 
-        const movies = await prismaClient.movie.findMany()
-
-        res.status(201).send(movies)
+        res.status(200).send(movies);
     } catch (error) {
-        res.status(500).send(error)
+        res.status(500).send(error);
     }
 }
+
+
 
 export const getMovieById = async (req: Request, res: Response) => {
     const { name } = req.body
