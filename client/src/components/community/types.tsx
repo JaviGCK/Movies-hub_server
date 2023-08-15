@@ -2,7 +2,13 @@ export type Movies = {
     id: number;
     poster: string;
     origin: string;
+    year: number;
     name: string;
-    genre: string;
+    genres?: Genre[];
     score: number;
 };
+
+export type Genre = {
+    name: string;
+};
+

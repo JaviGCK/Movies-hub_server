@@ -34,8 +34,9 @@ export const Community = () => {
                             key={movie.id}
                             poster={movie.poster}
                             origin={movie.origin}
+                            year={movie.year}
                             name={movie.name}
-                            genre={movie.genre}
+                            genres={movie.genres}
                             score={movie.score}
                         />
                     ))

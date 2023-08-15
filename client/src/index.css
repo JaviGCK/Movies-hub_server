@@ -24,9 +24,7 @@
   4. Improve text rendering
 */
 body {
-  font-family:
-    Bowlby One,
-    Boogaloo sans-serif;
+  font-family: Boogaloo, sans-serif;
   width: 100vw;
   height: 100vh;
   line-height: 1.5;
