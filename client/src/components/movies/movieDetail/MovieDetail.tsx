@@ -1,5 +1,7 @@
+import './movieDetail.css'
 import { FC } from "react";
 import { Movies } from "../types";
+import { calculateAverageScore } from '../../../utils/average';
 
 
 interface MovieDetailProps {
@@ -7,23 +9,35 @@ interface MovieDetailProps {
 }
 
 export const MovieDetail: FC<MovieDetailProps> = ({ movie }) => {
+
     return (
-        <section className="movie-detail-conatiner">
-            <div className="cart-poster">
-                <img src={movie.poster} alt={movie.name} />
-            </div>
-            <div className="cart-text-detail">
-                <p className="cart-origin">
-                    {movie.origin}
-                    <span className="cart-year">{movie.year}</span>
-                </p>
-                <h2 className="cart-name">{movie.name}</h2>
-                <p className="cart-genre">
-                    {movie.genres && movie.genres.map((genre) => genre.name).join("/")}
-                </p>
-                <div className="cart-score-dasboard">
-                    <span className="cart-score">{movie.score}</span>
+        <section className="movie-detail-section">
+            <div className="movie-detail-container">
+                <div className="movie-poster">
+                    <img src={movie.poster} alt={movie.name} />
                 </div>
+
+                <div className="movie-text-detail">
+                    <div className="movie-header-container">
+                        <h2 className="movie-name">{movie.name}
+                            <span className="movie-year">{movie.year}</span>
+                        </h2>
+                        <div className="cart-score-dashboard">
+                            {movie.score && (
+                                <div className="cart-score">
+                                    {calculateAverageScore(movie.score).toFixed(2)}
+                                </div>
+                            )}
+                        </div>
+
+                    </div>
+
+                    <p className="movie-genre">
+                        {movie.genres && movie.genres.map((genre) => genre.name).join("/")}
+                    </p>
+                    <p className='movie-description'>{movie.description}</p>
+                </div>
+
                 <button>Add Comment</button>
                 <button>Add Score</button>
             </div>

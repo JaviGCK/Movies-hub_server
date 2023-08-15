@@ -1,0 +1,59 @@
+.movie-detail-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.movie-detail-container {
+    width: 100vw;
+    height: 100vh;
+    padding: 2vw;
+}
+
+.movie-poster {
+    height: 40vh;
+    background-color: antiquewhite;
+}
+
+.movie-text-detail {
+    max-height: 40vh;
+}
+
+.movie-header-container {
+    display: flex;
+}
+
+.movie-name {
+    font-size: 2rem;
+}
+
+.movie-year {
+    font-size: 1rem;
+    margin-left: 2vw;
+    color: #a8a4a4;
+}
+
+.movie-score-dasboard {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: 10vw;
+    width: 15vw;
+    height: 15vw;
+    background-color: #20bff1;
+}
+
+.movie-score {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.movie-genre {
+    color: #a8a4a4;
+}
+
+.movie-description {
+    margin-top: 2vh;
+    color: #a8a4a4;
+}

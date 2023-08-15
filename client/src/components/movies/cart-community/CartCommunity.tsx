@@ -2,6 +2,7 @@ import { FC } from 'react';
 import './cartCommunity.css';
 import { CartCommunityProps } from '../types';
 import { Link } from 'react-router-dom';
+import { calculateAverageScore } from '../../../utils/average';
 
 
 
@@ -18,8 +19,12 @@ export const CartCommunity: FC<CartCommunityProps> = ({ id, poster, origin, year
                     <p className='cart-genre'>
                         {genres && genres.map((genre) => genre.name).join('/')}
                     </p>
-                    <div className='cart-score-dasboard'>
-                        <span className='cart-score'>{score}</span>
+                    <div className="cart-score-dashboard">
+                        {score && (
+                            <div className="cart-score">
+                                {calculateAverageScore(score).toFixed(2)}
+                            </div>
+                        )}
                     </div>
                 </div>
             </section>

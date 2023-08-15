@@ -6,7 +6,7 @@ export type Movies = {
     name: string;
     genres?: Genre[];
     description?: string;
-    score: number;
+    score?: Score[];
 };
 
 export interface CartCommunityProps {
@@ -16,11 +16,14 @@ export interface CartCommunityProps {
     year: number;
     name: string;
     genres?: Genre[];
-    score: number;
+    score?: Score[];
 }
 
 export type Genre = {
     name: string;
 };
 
+export type Score = {
+    score: number;
+}
 
