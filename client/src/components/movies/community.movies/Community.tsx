@@ -25,7 +25,7 @@ export const Community = () => {
         <section className='community-section'>
             <div className='community-container-title'>
                 <h2 className='community-title'>Community Movies</h2>
-                <PiFilmReelLight className='community-icon' />
+                <PiFilmReelLight className="community-icon" />
             </div>
             <div className='community-container-movies'>
                 {Array.isArray(movies) ? (
