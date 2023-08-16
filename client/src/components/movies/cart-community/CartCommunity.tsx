@@ -8,7 +8,7 @@ import { calculateAverageScore } from '../../../utils/average';
 
 export const CartCommunity: FC<CartCommunityProps> = ({ id, poster, origin, year, name, genres, score }) => {
     return (
-        <Link to={`/movie/${id}`}>
+        <Link to={`/movie/${id}`} className='cart-link'>
             <section className="cart-detail">
                 <div className='cart-poster'>
                     <img src={poster} alt={name} />

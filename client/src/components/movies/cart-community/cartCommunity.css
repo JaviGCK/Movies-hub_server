@@ -1,3 +1,8 @@
+.cart-link {
+    text-decoration: none;
+    color: inherit;
+}
+
 .cart-detail {
     border: 1px solid #a8a4a4;
     width: 90vw;

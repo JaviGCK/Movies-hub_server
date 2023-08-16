@@ -3,3 +3,4 @@ export const fetchAllMovies = async () => {
     const dataFetched = await response.json();
     return dataFetched;
 }
+
