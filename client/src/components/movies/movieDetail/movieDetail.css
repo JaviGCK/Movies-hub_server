@@ -35,10 +35,12 @@
 
 .movie-score-dasboard {
     display: flex;
-    align-items: center;
-    justify-content: center;
     margin-left: auto;
     margin-right: 10vw;
+    width: 15vw;
+    height: 15vw;
+    background-color: #20bff1;
+    place-self: center;
     width: 15vw;
     height: 15vw;
     background-color: #20bff1;

@@ -11,6 +11,7 @@ export const Header = () => {
     const handleAuthClick = () => {
         if (isAuthenticated) {
             setShowGoodbyeMessage(true);
+            localStorage.removeItem('hasShownWelcomeMessage');
             setTimeout(() => {
                 setShowGoodbyeMessage(false);
                 logout();
@@ -21,15 +22,16 @@ export const Header = () => {
     };
 
     useEffect(() => {
-        if (isAuthenticated && user) {
-            user.nickname || user.email;
+        const hasShownWelcomeMessage = localStorage.getItem('hasShownWelcomeMessage');
+        if (isAuthenticated && user && !hasShownWelcomeMessage) {
             setShowWelcomeMessage(true);
-
+            localStorage.setItem('hasShownWelcomeMessage', 'true');
             setTimeout(() => {
                 setShowWelcomeMessage(false);
             }, 5000);
         }
     }, [isAuthenticated, user]);
+
 
     return (
         <header className='header'>

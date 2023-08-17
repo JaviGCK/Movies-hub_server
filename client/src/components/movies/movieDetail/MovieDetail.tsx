@@ -12,8 +12,8 @@ interface MovieDetailProps {
 
 export const MovieDetail: FC<MovieDetailProps> = ({ movie }) => {
     const { score } = useScoreContext();
-
     const [averageScore, setAverageScore] = useState<number | null>(null);
+    const [numVotes, setNumVotes] = useState<number>(0);
 
     useEffect(() => {
         if (Array.isArray(movie.score) && movie.score.length > 0) {
@@ -24,6 +24,7 @@ export const MovieDetail: FC<MovieDetailProps> = ({ movie }) => {
             }
 
             setAverageScore(calculateAverageScore(combinedScores));
+            setNumVotes(combinedScores.length);
         }
     }, [movie.score, score]);
 
@@ -37,25 +38,28 @@ export const MovieDetail: FC<MovieDetailProps> = ({ movie }) => {
                 <div className="movie-text-detail">
                     <div className="movie-header-container">
                         <h2 className="movie-name">
-                            {movie.name}
-                            <span className="movie-year">{movie.year}</span>
+                            Original Title: {movie.name}
+                            <span className="movie-year">({movie.year})</span>
                         </h2>
-                        <div className="cart-score-dashboard">
-                            <div className="cart-score">
-                                {averageScore !== null ? averageScore.toFixed(2) : score}
+                        <div className="movie-score-dashboard">
+                            <div className="movie-score">
+                                {averageScore !== null ? averageScore.toFixed(1) : score}
+                            </div>
+                            <div className="movie-votes">
+                                {numVotes} {numVotes === 1 ? 'vote' : 'votes'}
                             </div>
                         </div>
                     </div>
 
                     <p className="movie-genre">
-                        {movie.genres && movie.genres.map((genre) => genre.name).join("/")}
+                        Genres: {movie.genres && movie.genres.map((genre) => genre.name).join(", ")}
                     </p>
                     <p className='movie-description'>{movie.description}</p>
                 </div>
-
-                <Review />
-                <AddScore movieId={movie.id} />
             </div>
+
+            <Review />
+            <AddScore movieId={movie.id} />
         </section>
     );
 };

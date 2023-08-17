@@ -4,8 +4,9 @@ import './community.css'
 import { PiFilmReelLight } from 'react-icons/pi'
 import { Movies } from '../types';
 
+
 export const Community = () => {
-    const [movies, setMovies] = useState<Movies[]>([]);;
+    const [movies, setMovies] = useState<Movies[]>([]);
 
     useEffect(() => {
         const fetchAllMovies = async () => {
@@ -25,7 +26,9 @@ export const Community = () => {
         <section className='community-section'>
             <div className='community-container-title'>
                 <h2 className='community-title'>Community Movies</h2>
-                <PiFilmReelLight className="community-icon" />
+                <div className="community-icon">
+                    <PiFilmReelLight />
+                </div>
             </div>
             <div className='community-container-movies'>
                 {Array.isArray(movies) ? (
@@ -44,9 +47,7 @@ export const Community = () => {
                 ) : (
                     <p>No movies available</p>
                 )}
-
             </div>
         </section>
     );
 }
-

@@ -43,7 +43,7 @@ export const AddScore: FC<AddScoreProps> = ({ movieId }) => {
     const renderScoreButtons = () => {
         const scoreButtons = [];
 
-        for (let score = 0; score <= 10; score++) {
+        for (let score = 1; score <= 10; score++) {
             scoreButtons.push(
                 <button
                     key={score}
