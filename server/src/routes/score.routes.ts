@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { createScore, deleteScore, getAllScore } from '../controllers/score.controller'
+import { createScore, deleteScore, deleteScoreById, getAllScore, updateScore } from '../controllers/score.controller'
 
 export const scoreRoutes = Router()
 
@@ -9,4 +9,8 @@ scoreRoutes
 
     .get('/', getAllScore)
 
-    .delete('/:genresId', deleteScore)
+    .put("/:scoreId", updateScore)
+
+    .delete('/:scoreId', deleteScoreById)
+
+    .delete('/', deleteScore)

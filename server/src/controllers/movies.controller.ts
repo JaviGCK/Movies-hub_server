@@ -66,6 +66,10 @@ export const getMovieById = async (req: Request, res: Response) => {
             }, include: {
                 genres: {
                     select: name
+                }, score: {
+                    select: {
+                        score: true
+                    }
                 }
             }
         })

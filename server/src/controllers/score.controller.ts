@@ -39,8 +39,40 @@ export const getAllScore = async (req: Request, res: Response) => {
     }
 }
 
+export const updateScore = async (req: Request, res: Response) => {
+    const { scoreId } = req.params
+    const { score } = req.body
 
-export const deleteScore = async (req: Request, res: Response) => {
+    try {
+        const existingScore = await prismaClient.score.findUnique({
+            where: {
+                id: converToType(scoreId)
+
+            }
+
+        });
+        if (!existingScore) {
+            return res.status(404).send({ error: "Movie not found." });
+        }
+        const updatedScore = await prismaClient.score.update({
+            where: {
+
+                id: converToType(scoreId)
+            },
+            data: {
+                score
+            }
+        });
+
+        res.status(200).send(updatedScore);
+    } catch (error) {
+
+        res.status(500).send(error)
+    }
+}
+
+
+export const deleteScoreById = async (req: Request, res: Response) => {
 
     const { scoreId } = req.params
 
@@ -52,6 +84,19 @@ export const deleteScore = async (req: Request, res: Response) => {
             }
         })
         res.status(200).send('Score has been deleted')
+
+    } catch (error) {
+        res.status(500).send(error)
+    }
+}
+
+export const deleteScore = async (req: Request, res: Response) => {
+
+    try {
+
+        await prismaClient.score.deleteMany()
+
+        res.status(200).send('Scores has been deleted')
 
     } catch (error) {
         res.status(500).send(error)
