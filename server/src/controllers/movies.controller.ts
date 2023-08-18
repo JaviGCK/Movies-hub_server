@@ -68,6 +68,7 @@ export const getMovieById = async (req: Request, res: Response) => {
                     select: name
                 }, score: {
                     select: {
+                        id: true,
                         score: true
                     }
                 }
