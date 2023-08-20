@@ -1,42 +1,51 @@
-import { FC, useState, useEffect } from "react";
+import { FC } from "react";
 import './score.css';
 import { useScoreContext } from "../../../context/ScoreContext";
+import { useAuth0 } from "@auth0/auth0-react";
 
 interface AddScoreProps {
     movieId: number;
+    scoreId: number | null;
 }
 
-export const AddScore: FC<AddScoreProps> = ({ movieId }) => {
-    const { score, setScore } = useScoreContext();
-    const [voted, setVoted] = useState(false);
+export const AddScore: FC<AddScoreProps> = ({ movieId, scoreId }) => {
+    const { setScore } = useScoreContext();
+    const { getAccessTokenSilently } = useAuth0();
 
-    useEffect(() => {
-        // Check if the user has already voted
-        if (score !== null) {
-            setVoted(true);
-        }
-    }, [score]);
-
-    const handleScoreButtonClick = async (score: number) => {
-        if (!voted) {
-            try {
+    const handleScoreButtonClick = async (newScore: number) => {
+        try {
+            const token = await getAccessTokenSilently();
+            if (scoreId === null) {
                 const response = await fetch(`http://localhost:8080/score/${movieId}`, {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
                     },
-                    body: JSON.stringify({ score }),
+                    body: JSON.stringify({ score: newScore }),
                 });
 
                 if (response.ok) {
-                    setScore(score);
-                    setVoted(true);
+                    setScore(newScore);
                 } else {
                     console.error("Error to add score");
                 }
-            } catch (error) {
-                console.error("Error to add score:", error);
+            } else {
+                const response = await fetch(`http://localhost:8080/score/${scoreId}`, {
+                    method: "PUT",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({ score: newScore }),
+                });
+
+                if (response.ok) {
+                    setScore(newScore);
+                } else {
+                    console.error("Error to update score");
+                }
             }
+        } catch (error) {
+            console.error("Error:", error);
         }
     };
 
@@ -47,9 +56,8 @@ export const AddScore: FC<AddScoreProps> = ({ movieId }) => {
             scoreButtons.push(
                 <button
                     key={score}
-                    className={voted && score === score ? "selected" : ""}
+                    className={score === score ? "selected" : ""}
                     onClick={() => handleScoreButtonClick(score)}
-                    disabled={voted}
                 >
                     {score}
                 </button>

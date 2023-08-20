@@ -2,25 +2,33 @@ import { FC, useState, useEffect } from "react";
 import './movieDetail.css';
 import { Movies, Score } from "../types";
 import { calculateAverageScore } from '../../../utils/average';
-import { Review } from '../review/Review';
 import { AddScore } from "../score/AddScore";
 import { useScoreContext } from "../../../context/ScoreContext";
+
+
+
 
 interface MovieDetailProps {
     movie: Movies;
 }
 
 export const MovieDetail: FC<MovieDetailProps> = ({ movie }) => {
+    console.log(movie);
+
     const { score } = useScoreContext();
     const [averageScore, setAverageScore] = useState<number | null>(null);
-    const [numVotes, setNumVotes] = useState<number>(0);
+    const [numVotes, setNumVotes] = useState<number>(movie.score ? movie.score.length : 0);
+    const [showMenuVotes, setShowMenuVotes] = useState<boolean>(false);
 
     useEffect(() => {
         if (Array.isArray(movie.score) && movie.score.length > 0) {
             const combinedScores: Score[] = [...movie.score];
 
             if (score !== null) {
-                combinedScores.push({ score });
+                const lastScore = combinedScores[combinedScores.length - 1];
+                const newScoreId = lastScore ? lastScore.id + 1 : 1;
+
+                combinedScores.push({ id: newScoreId, score: score });
             }
 
             setAverageScore(calculateAverageScore(combinedScores));
@@ -49,17 +57,29 @@ export const MovieDetail: FC<MovieDetailProps> = ({ movie }) => {
                                 {numVotes} {numVotes === 1 ? 'vote' : 'votes'}
                             </div>
                         </div>
+                        {!showMenuVotes && (
+                            <button onClick={() => setShowMenuVotes(true)}>Vote</button>
+                        )}
                     </div>
+                    {showMenuVotes && (
+                        <div className="side-menu">
+                            <AddScore
+                                movieId={movie.id}
+                                scoreId={
+                                    movie.score && movie.score.length > 0 ? movie.score[movie.score.length - 1].id : null
+                                }
+                            />
+                            <button onClick={() => setShowMenuVotes(false)}>Close</button>
+                        </div>
+                    )}
 
                     <p className="movie-genre">
                         Genres: {movie.genres && movie.genres.map((genre) => genre.name).join(", ")}
                     </p>
                     <p className='movie-description'>{movie.description}</p>
                 </div>
-            </div>
 
-            <Review />
-            <AddScore movieId={movie.id} />
+            </div>
         </section>
     );
 };

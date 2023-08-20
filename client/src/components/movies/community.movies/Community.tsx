@@ -3,6 +3,7 @@ import { CartCommunity } from '../cart-community/CartCommunity';
 import './community.css'
 import { PiFilmReelLight } from 'react-icons/pi'
 import { Movies } from '../types';
+import { AdminMenu } from '../../admin/AdminMenu';
 
 
 export const Community = () => {
@@ -24,6 +25,7 @@ export const Community = () => {
 
     return (
         <section className='community-section'>
+            <AdminMenu />
             <div className='community-container-title'>
                 <h2 className='community-title'>Community Movies</h2>
                 <div className="community-icon">

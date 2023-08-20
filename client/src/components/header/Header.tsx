@@ -3,6 +3,7 @@ import { BiLogIn, BiLogOut } from 'react-icons/bi';
 import { useAuth0 } from "@auth0/auth0-react";
 import { useState, useEffect } from 'react';
 
+
 export const Header = () => {
     const { loginWithRedirect, logout, user, isAuthenticated } = useAuth0();
     const [showWelcomeMessage, setShowWelcomeMessage] = useState(false);
@@ -50,6 +51,7 @@ export const Header = () => {
                     See you soon, {user?.nickname || user?.email}!
                 </div>
             )}
+
         </header>
     );
 };

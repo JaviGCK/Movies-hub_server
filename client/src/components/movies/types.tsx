@@ -24,6 +24,7 @@ export type Genre = {
 };
 
 export type Score = {
+    id: number;
     score: number;
 }
 
