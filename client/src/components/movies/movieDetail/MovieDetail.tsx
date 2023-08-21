@@ -1,23 +1,17 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import './movieDetail.css';
 import { Movies, Score } from "../types";
 import { calculateAverageScore } from '../../../utils/average';
 import { AddScore } from "../score/AddScore";
 import { useScoreContext } from "../../../context/ScoreContext";
 
-
-
-
 interface MovieDetailProps {
     movie: Movies;
 }
 
 export const MovieDetail: FC<MovieDetailProps> = ({ movie }) => {
-    console.log(movie);
-
     const { score } = useScoreContext();
     const [averageScore, setAverageScore] = useState<number | null>(null);
-    const [numVotes, setNumVotes] = useState<number>(movie.score ? movie.score.length : 0);
     const [showMenuVotes, setShowMenuVotes] = useState<boolean>(false);
 
     useEffect(() => {
@@ -32,9 +26,10 @@ export const MovieDetail: FC<MovieDetailProps> = ({ movie }) => {
             }
 
             setAverageScore(calculateAverageScore(combinedScores));
-            setNumVotes(combinedScores.length);
         }
     }, [movie.score, score]);
+
+    const numVotes = Array.isArray(score) ? score.length : 0;
 
     return (
         <section className="movie-detail-section">
@@ -51,10 +46,10 @@ export const MovieDetail: FC<MovieDetailProps> = ({ movie }) => {
                         </h2>
                         <div className="movie-score-dashboard">
                             <div className="movie-score">
-                                {averageScore !== null ? averageScore.toFixed(1) : score}
+                                {averageScore !== null ? averageScore.toFixed(1) : "N/A"}
                             </div>
                             <div className="movie-votes">
-                                {numVotes} {numVotes === 1 ? 'vote' : 'votes'}
+                                {numVotes} {numVotes === 1 ? 'Rating' : 'Ratings'}
                             </div>
                         </div>
                         {!showMenuVotes && (
@@ -65,9 +60,6 @@ export const MovieDetail: FC<MovieDetailProps> = ({ movie }) => {
                         <div className="side-menu">
                             <AddScore
                                 movieId={movie.id}
-                                scoreId={
-                                    movie.score && movie.score.length > 0 ? movie.score[movie.score.length - 1].id : null
-                                }
                             />
                             <button onClick={() => setShowMenuVotes(false)}>Close</button>
                         </div>
@@ -78,7 +70,6 @@ export const MovieDetail: FC<MovieDetailProps> = ({ movie }) => {
                     </p>
                     <p className='movie-description'>{movie.description}</p>
                 </div>
-
             </div>
         </section>
     );

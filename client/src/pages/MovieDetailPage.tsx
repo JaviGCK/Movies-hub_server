@@ -27,9 +27,11 @@ export const MovieDetailPage: FC = () => {
 
         fetchMovieDetails();
     }, [id, getAccessTokenSilently]);
+
     return (
         <div>
             {movie ? <MovieDetail movie={movie} /> : <p>Loading...</p>}
+
         </div>
     );
 };

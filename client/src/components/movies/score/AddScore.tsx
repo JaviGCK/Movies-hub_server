@@ -1,24 +1,54 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import './score.css';
 import { useScoreContext } from "../../../context/ScoreContext";
 import { useAuth0 } from "@auth0/auth0-react";
 
 interface AddScoreProps {
     movieId: number;
-    scoreId: number | null;
 }
 
-export const AddScore: FC<AddScoreProps> = ({ movieId, scoreId }) => {
-    const { setScore } = useScoreContext();
+export const AddScore: FC<AddScoreProps> = ({ movieId }) => {
+    const { score, setScore } = useScoreContext();
     const { getAccessTokenSilently } = useAuth0();
+    const [hasVoted, setHasVoted] = useState(false);
+
+    useEffect(() => {
+
+        const checkUserVote = async () => {
+            try {
+                const token = await getAccessTokenSilently();
+                const response = await fetch(`http://localhost:8080/movies/${movieId}`, {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+
+                    if (data.hasVoted) {
+                        setHasVoted(true);
+                    }
+                } else {
+                    console.error("Error to check");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        };
+
+        checkUserVote();
+    }, [getAccessTokenSilently, movieId]);
 
     const handleScoreButtonClick = async (newScore: number) => {
         try {
-            const token = await getAccessTokenSilently();
-            if (scoreId === null) {
+            if (!hasVoted) {
+                const token = await getAccessTokenSilently();
                 const response = await fetch(`http://localhost:8080/score/${movieId}`, {
                     method: "POST",
                     headers: {
+                        'Content-Type': 'application/json',
                         Authorization: `Bearer ${token}`,
                     },
                     body: JSON.stringify({ score: newScore }),
@@ -26,23 +56,12 @@ export const AddScore: FC<AddScoreProps> = ({ movieId, scoreId }) => {
 
                 if (response.ok) {
                     setScore(newScore);
+                    setHasVoted(true);
                 } else {
-                    console.error("Error to add score");
+                    console.error("Error al agregar la puntuación");
                 }
             } else {
-                const response = await fetch(`http://localhost:8080/score/${scoreId}`, {
-                    method: "PUT",
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                    body: JSON.stringify({ score: newScore }),
-                });
-
-                if (response.ok) {
-                    setScore(newScore);
-                } else {
-                    console.error("Error to update score");
-                }
+                console.log("El usuario ya ha votado para esta película.");
             }
         } catch (error) {
             console.error("Error:", error);
@@ -52,14 +71,15 @@ export const AddScore: FC<AddScoreProps> = ({ movieId, scoreId }) => {
     const renderScoreButtons = () => {
         const scoreButtons = [];
 
-        for (let score = 1; score <= 10; score++) {
+        for (let i = 1; i <= 10; i++) {
             scoreButtons.push(
                 <button
-                    key={score}
-                    className={score === score ? "selected" : ""}
-                    onClick={() => handleScoreButtonClick(score)}
+                    key={i}
+                    className={i === score ? "selected" : ""}
+                    onClick={() => handleScoreButtonClick(i)}
+                    disabled={hasVoted}
                 >
-                    {score}
+                    {i}
                 </button>
             );
         }

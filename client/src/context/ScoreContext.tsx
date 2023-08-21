@@ -22,11 +22,10 @@ interface ScoreProviderProps {
 export const ScoreProvider: React.FC<ScoreProviderProps> = ({ children }) => {
     const [score, setScore] = useState<number | null>(null);
 
+
     return (
         <ScoreContext.Provider value={{ score, setScore }}>
             {children}
         </ScoreContext.Provider>
     );
 };
-
-

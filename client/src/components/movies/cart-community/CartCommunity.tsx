@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 import { calculateAverageScore } from '../../../utils/average';
 
 export const CartCommunity: FC<CartCommunityProps> = ({ id, poster, origin, year, name, genres, score }) => {
-    const averageScore = calculateAverageScore(score);
+
+    const averageScore = score ? calculateAverageScore(score) : 0;
     const numVotes = score ? score.length : 0;
 
     return (
@@ -25,7 +26,7 @@ export const CartCommunity: FC<CartCommunityProps> = ({ id, poster, origin, year
                             {averageScore.toFixed(1)}
                         </div>
                         <div className="cart-votes">
-                            {numVotes} {numVotes === 1 ? 'vote' : 'votes'}
+                            {numVotes} {numVotes === 1 ? 'Rating' : 'Ratings'}
                         </div>
                     </div>
                 </div>

@@ -2,6 +2,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import React, { FC, useState } from 'react';
 
 
+
 export const MoviesForm: FC = () => {
     const [formData, setFormData] = useState({
         id: '',
@@ -24,7 +25,10 @@ export const MoviesForm: FC = () => {
     const { getAccessTokenSilently } = useAuth0();
 
     const handleCreate = async () => {
+
+
         try {
+
             const formDataWithYearAsNumber = {
                 ...formData,
                 year: parseInt(formData.year, 10),
@@ -58,6 +62,7 @@ export const MoviesForm: FC = () => {
     };
 
     const handleUpdate = async (movieId: any) => {
+
         try {
             const token = await getAccessTokenSilently();
 
@@ -74,7 +79,7 @@ export const MoviesForm: FC = () => {
                 method: 'PUT',
                 headers: {
                     Authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json',
+
                 },
                 body: JSON.stringify(updatedMovieData),
             });

@@ -7,6 +7,7 @@ export type Movies = {
     genres?: Genre[];
     description?: string;
     score?: Score[];
+    numVotes?: number;
 };
 
 export interface CartCommunityProps {
