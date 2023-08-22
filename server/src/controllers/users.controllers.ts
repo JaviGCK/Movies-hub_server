@@ -7,7 +7,7 @@ export const createUsers = async (req: Request, res: Response) => {
 
     try {
 
-        if (!name || !email || !password) {
+        if (!email) {
             res.status(400).send('Missing required fileds')
             return
         }

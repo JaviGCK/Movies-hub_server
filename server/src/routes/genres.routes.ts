@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import { createGenres, deleteGenre, getAllGenres } from '../controllers/genres.controllers'
+import { checkJwtMiddleware } from '../middleware/checkjwt.middleware'
 
 export const genresRoutes = Router()
 
@@ -7,6 +8,6 @@ genresRoutes
 
     .post('/:moviesId', createGenres)
 
-    .get('/', getAllGenres)
+    .get('/', checkJwtMiddleware, getAllGenres)
 
-    .delete('/:genresId', deleteGenre)
+    .delete('/:genresId', checkJwtMiddleware, deleteGenre)

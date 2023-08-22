@@ -6,7 +6,7 @@ export const usersRoutes = Router()
 
 usersRoutes
 
-    .post('/', check, createUsers)
+    .post('/', createUsers)
 
     .get('/', getAllUsers)
 

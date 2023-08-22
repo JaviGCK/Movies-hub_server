@@ -2,11 +2,13 @@ import { Request, Response } from "express";
 import { prismaClient } from "../db/clientPrisma";
 import { converToType } from '../helpers/utils'
 
+
 export const createMovie = async (req: Request, res: Response) => {
 
     const { name, origin, poster, year, score, description } = req.body;
 
     try {
+
 
         const newMovie = await prismaClient.movie.create({
             data: {

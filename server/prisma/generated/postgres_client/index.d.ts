@@ -1183,13 +1183,15 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
-    movies: number
+    score: number
     Comment: number
+    Movie: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
-    movies?: boolean | UserCountOutputTypeCountMoviesArgs
+    score?: boolean | UserCountOutputTypeCountScoreArgs
     Comment?: boolean | UserCountOutputTypeCountCommentArgs
+    Movie?: boolean | UserCountOutputTypeCountMovieArgs
   }
 
   // Custom InputTypes
@@ -1208,8 +1210,8 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountMoviesArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
-    where?: MovieWhereInput
+  export type UserCountOutputTypeCountScoreArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    where?: ScoreWhereInput
   }
 
 
@@ -1218,6 +1220,14 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountCommentArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     where?: CommentWhereInput
+  }
+
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMovieArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    where?: MovieWhereInput
   }
 
 
@@ -1486,8 +1496,9 @@ export namespace Prisma {
     password?: boolean
     createdAt?: boolean
     updateAt?: boolean
-    movies?: boolean | User$moviesArgs<ExtArgs>
+    score?: boolean | User$scoreArgs<ExtArgs>
     Comment?: boolean | User$CommentArgs<ExtArgs>
+    Movie?: boolean | User$MovieArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1501,8 +1512,9 @@ export namespace Prisma {
   }
 
   export type UserInclude<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
-    movies?: boolean | User$moviesArgs<ExtArgs>
+    score?: boolean | User$scoreArgs<ExtArgs>
     Comment?: boolean | User$CommentArgs<ExtArgs>
+    Movie?: boolean | User$MovieArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -1510,8 +1522,9 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      movies: Prisma.$MoviePayload<ExtArgs>[]
+      score: Prisma.$ScorePayload<ExtArgs>[]
       Comment: Prisma.$CommentPayload<ExtArgs>[]
+      Movie: Prisma.$MoviePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetResult<{
       id: number
@@ -1885,9 +1898,11 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
-    movies<T extends User$moviesArgs<ExtArgs> = {}>(args?: Subset<T, User$moviesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MoviePayload<ExtArgs>, T, 'findMany'> | Null>;
+    score<T extends User$scoreArgs<ExtArgs> = {}>(args?: Subset<T, User$scoreArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ScorePayload<ExtArgs>, T, 'findMany'> | Null>;
 
     Comment<T extends User$CommentArgs<ExtArgs> = {}>(args?: Subset<T, User$CommentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    Movie<T extends User$MovieArgs<ExtArgs> = {}>(args?: Subset<T, User$MovieArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MoviePayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2235,23 +2250,23 @@ export namespace Prisma {
 
 
   /**
-   * User.movies
+   * User.score
    */
-  export type User$moviesArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type User$scoreArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Movie
+     * Select specific fields to fetch from the Score
      */
-    select?: MovieSelect<ExtArgs> | null
+    select?: ScoreSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: MovieInclude<ExtArgs> | null
-    where?: MovieWhereInput
-    orderBy?: MovieOrderByWithRelationInput | MovieOrderByWithRelationInput[]
-    cursor?: MovieWhereUniqueInput
+    include?: ScoreInclude<ExtArgs> | null
+    where?: ScoreWhereInput
+    orderBy?: ScoreOrderByWithRelationInput | ScoreOrderByWithRelationInput[]
+    cursor?: ScoreWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: MovieScalarFieldEnum | MovieScalarFieldEnum[]
+    distinct?: ScoreScalarFieldEnum | ScoreScalarFieldEnum[]
   }
 
 
@@ -2273,6 +2288,27 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
+  }
+
+
+  /**
+   * User.Movie
+   */
+  export type User$MovieArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Movie
+     */
+    select?: MovieSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MovieInclude<ExtArgs> | null
+    where?: MovieWhereInput
+    orderBy?: MovieOrderByWithRelationInput | MovieOrderByWithRelationInput[]
+    cursor?: MovieWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MovieScalarFieldEnum | MovieScalarFieldEnum[]
   }
 
 
@@ -3408,30 +3444,35 @@ export namespace Prisma {
     id: number | null
     score: number | null
     movieId: number | null
+    userId: number | null
   }
 
   export type ScoreSumAggregateOutputType = {
     id: number | null
     score: number | null
     movieId: number | null
+    userId: number | null
   }
 
   export type ScoreMinAggregateOutputType = {
     id: number | null
     score: number | null
     movieId: number | null
+    userId: number | null
   }
 
   export type ScoreMaxAggregateOutputType = {
     id: number | null
     score: number | null
     movieId: number | null
+    userId: number | null
   }
 
   export type ScoreCountAggregateOutputType = {
     id: number
     score: number
     movieId: number
+    userId: number
     _all: number
   }
 
@@ -3440,30 +3481,35 @@ export namespace Prisma {
     id?: true
     score?: true
     movieId?: true
+    userId?: true
   }
 
   export type ScoreSumAggregateInputType = {
     id?: true
     score?: true
     movieId?: true
+    userId?: true
   }
 
   export type ScoreMinAggregateInputType = {
     id?: true
     score?: true
     movieId?: true
+    userId?: true
   }
 
   export type ScoreMaxAggregateInputType = {
     id?: true
     score?: true
     movieId?: true
+    userId?: true
   }
 
   export type ScoreCountAggregateInputType = {
     id?: true
     score?: true
     movieId?: true
+    userId?: true
     _all?: true
   }
 
@@ -3557,6 +3603,7 @@ export namespace Prisma {
     id: number
     score: number
     movieId: number | null
+    userId: number | null
     _count: ScoreCountAggregateOutputType | null
     _avg: ScoreAvgAggregateOutputType | null
     _sum: ScoreSumAggregateOutputType | null
@@ -3582,17 +3629,21 @@ export namespace Prisma {
     id?: boolean
     score?: boolean
     movieId?: boolean
+    userId?: boolean
     Movie?: boolean | Score$MovieArgs<ExtArgs>
+    User?: boolean | Score$UserArgs<ExtArgs>
   }, ExtArgs["result"]["score"]>
 
   export type ScoreSelectScalar = {
     id?: boolean
     score?: boolean
     movieId?: boolean
+    userId?: boolean
   }
 
   export type ScoreInclude<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     Movie?: boolean | Score$MovieArgs<ExtArgs>
+    User?: boolean | Score$UserArgs<ExtArgs>
   }
 
 
@@ -3600,11 +3651,13 @@ export namespace Prisma {
     name: "Score"
     objects: {
       Movie: Prisma.$MoviePayload<ExtArgs> | null
+      User: Prisma.$UserPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetResult<{
       id: number
       score: number
       movieId: number | null
+      userId: number | null
     }, ExtArgs["result"]["score"]>
     composites: {}
   }
@@ -3972,6 +4025,8 @@ export namespace Prisma {
 
     Movie<T extends Score$MovieArgs<ExtArgs> = {}>(args?: Subset<T, Score$MovieArgs<ExtArgs>>): Prisma__MovieClient<$Result.GetResult<Prisma.$MoviePayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
+    User<T extends Score$UserArgs<ExtArgs> = {}>(args?: Subset<T, Score$UserArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4003,6 +4058,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Score", 'Int'>
     readonly score: FieldRef<"Score", 'Int'>
     readonly movieId: FieldRef<"Score", 'Int'>
+    readonly userId: FieldRef<"Score", 'Int'>
   }
     
 
@@ -4327,6 +4383,22 @@ export namespace Prisma {
      */
     include?: MovieInclude<ExtArgs> | null
     where?: MovieWhereInput
+  }
+
+
+  /**
+   * Score.User
+   */
+  export type Score$UserArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
   }
 
 
@@ -6326,7 +6398,8 @@ export namespace Prisma {
   export const ScoreScalarFieldEnum: {
     id: 'id',
     score: 'score',
-    movieId: 'movieId'
+    movieId: 'movieId',
+    userId: 'userId'
   };
 
   export type ScoreScalarFieldEnum = (typeof ScoreScalarFieldEnum)[keyof typeof ScoreScalarFieldEnum]
@@ -6449,8 +6522,9 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updateAt?: DateTimeFilter<"User"> | Date | string
-    movies?: MovieListRelationFilter
+    score?: ScoreListRelationFilter
     Comment?: CommentListRelationFilter
+    Movie?: MovieListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -6460,8 +6534,9 @@ export namespace Prisma {
     password?: SortOrder
     createdAt?: SortOrder
     updateAt?: SortOrder
-    movies?: MovieOrderByRelationAggregateInput
+    score?: ScoreOrderByRelationAggregateInput
     Comment?: CommentOrderByRelationAggregateInput
+    Movie?: MovieOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -6474,8 +6549,9 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updateAt?: DateTimeFilter<"User"> | Date | string
-    movies?: MovieListRelationFilter
+    score?: ScoreListRelationFilter
     Comment?: CommentListRelationFilter
+    Movie?: MovieListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -6597,14 +6673,18 @@ export namespace Prisma {
     id?: IntFilter<"Score"> | number
     score?: IntFilter<"Score"> | number
     movieId?: IntNullableFilter<"Score"> | number | null
+    userId?: IntNullableFilter<"Score"> | number | null
     Movie?: XOR<MovieNullableRelationFilter, MovieWhereInput> | null
+    User?: XOR<UserNullableRelationFilter, UserWhereInput> | null
   }
 
   export type ScoreOrderByWithRelationInput = {
     id?: SortOrder
     score?: SortOrder
     movieId?: SortOrderInput | SortOrder
+    userId?: SortOrderInput | SortOrder
     Movie?: MovieOrderByWithRelationInput
+    User?: UserOrderByWithRelationInput
   }
 
   export type ScoreWhereUniqueInput = Prisma.AtLeast<{
@@ -6614,13 +6694,16 @@ export namespace Prisma {
     NOT?: ScoreWhereInput | ScoreWhereInput[]
     score?: IntFilter<"Score"> | number
     movieId?: IntNullableFilter<"Score"> | number | null
+    userId?: IntNullableFilter<"Score"> | number | null
     Movie?: XOR<MovieNullableRelationFilter, MovieWhereInput> | null
+    User?: XOR<UserNullableRelationFilter, UserWhereInput> | null
   }, "id">
 
   export type ScoreOrderByWithAggregationInput = {
     id?: SortOrder
     score?: SortOrder
     movieId?: SortOrderInput | SortOrder
+    userId?: SortOrderInput | SortOrder
     _count?: ScoreCountOrderByAggregateInput
     _avg?: ScoreAvgOrderByAggregateInput
     _max?: ScoreMaxOrderByAggregateInput
@@ -6635,6 +6718,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Score"> | number
     score?: IntWithAggregatesFilter<"Score"> | number
     movieId?: IntNullableWithAggregatesFilter<"Score"> | number | null
+    userId?: IntNullableWithAggregatesFilter<"Score"> | number | null
   }
 
   export type GenreWhereInput = {
@@ -6745,8 +6829,9 @@ export namespace Prisma {
     password: string
     createdAt?: Date | string
     updateAt?: Date | string
-    movies?: MovieCreateNestedManyWithoutUserInput
+    score?: ScoreCreateNestedManyWithoutUserInput
     Comment?: CommentCreateNestedManyWithoutUserInput
+    Movie?: MovieCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -6756,8 +6841,9 @@ export namespace Prisma {
     password: string
     createdAt?: Date | string
     updateAt?: Date | string
-    movies?: MovieUncheckedCreateNestedManyWithoutUserInput
+    score?: ScoreUncheckedCreateNestedManyWithoutUserInput
     Comment?: CommentUncheckedCreateNestedManyWithoutUserInput
+    Movie?: MovieUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -6766,8 +6852,9 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    movies?: MovieUpdateManyWithoutUserNestedInput
+    score?: ScoreUpdateManyWithoutUserNestedInput
     Comment?: CommentUpdateManyWithoutUserNestedInput
+    Movie?: MovieUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -6777,8 +6864,9 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    movies?: MovieUncheckedUpdateManyWithoutUserNestedInput
+    score?: ScoreUncheckedUpdateManyWithoutUserNestedInput
     Comment?: CommentUncheckedUpdateManyWithoutUserNestedInput
+    Movie?: MovieUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -6817,7 +6905,7 @@ export namespace Prisma {
     updateAt?: Date | string
     genres?: GenreCreateNestedManyWithoutMovieInput
     score?: ScoreCreateNestedManyWithoutMovieInput
-    User?: UserCreateNestedOneWithoutMoviesInput
+    User?: UserCreateNestedOneWithoutMovieInput
     Comment?: CommentCreateNestedManyWithoutMovieInput
   }
 
@@ -6846,7 +6934,7 @@ export namespace Prisma {
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     genres?: GenreUpdateManyWithoutMovieNestedInput
     score?: ScoreUpdateManyWithoutMovieNestedInput
-    User?: UserUpdateOneWithoutMoviesNestedInput
+    User?: UserUpdateOneWithoutMovieNestedInput
     Comment?: CommentUpdateManyWithoutMovieNestedInput
   }
 
@@ -6902,29 +6990,34 @@ export namespace Prisma {
   export type ScoreCreateInput = {
     score: number
     Movie?: MovieCreateNestedOneWithoutScoreInput
+    User?: UserCreateNestedOneWithoutScoreInput
   }
 
   export type ScoreUncheckedCreateInput = {
     id?: number
     score: number
     movieId?: number | null
+    userId?: number | null
   }
 
   export type ScoreUpdateInput = {
     score?: IntFieldUpdateOperationsInput | number
     Movie?: MovieUpdateOneWithoutScoreNestedInput
+    User?: UserUpdateOneWithoutScoreNestedInput
   }
 
   export type ScoreUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     score?: IntFieldUpdateOperationsInput | number
     movieId?: NullableIntFieldUpdateOperationsInput | number | null
+    userId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ScoreCreateManyInput = {
     id?: number
     score: number
     movieId?: number | null
+    userId?: number | null
   }
 
   export type ScoreUpdateManyMutationInput = {
@@ -6935,6 +7028,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     score?: IntFieldUpdateOperationsInput | number
     movieId?: NullableIntFieldUpdateOperationsInput | number | null
+    userId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type GenreCreateInput = {
@@ -7056,10 +7150,10 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type MovieListRelationFilter = {
-    every?: MovieWhereInput
-    some?: MovieWhereInput
-    none?: MovieWhereInput
+  export type ScoreListRelationFilter = {
+    every?: ScoreWhereInput
+    some?: ScoreWhereInput
+    none?: ScoreWhereInput
   }
 
   export type CommentListRelationFilter = {
@@ -7068,11 +7162,21 @@ export namespace Prisma {
     none?: CommentWhereInput
   }
 
-  export type MovieOrderByRelationAggregateInput = {
+  export type MovieListRelationFilter = {
+    every?: MovieWhereInput
+    some?: MovieWhereInput
+    none?: MovieWhereInput
+  }
+
+  export type ScoreOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type CommentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MovieOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -7176,12 +7280,6 @@ export namespace Prisma {
     none?: GenreWhereInput
   }
 
-  export type ScoreListRelationFilter = {
-    every?: ScoreWhereInput
-    some?: ScoreWhereInput
-    none?: ScoreWhereInput
-  }
-
   export type UserNullableRelationFilter = {
     is?: UserWhereInput | null
     isNot?: UserWhereInput | null
@@ -7193,10 +7291,6 @@ export namespace Prisma {
   }
 
   export type GenreOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type ScoreOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -7273,30 +7367,35 @@ export namespace Prisma {
     id?: SortOrder
     score?: SortOrder
     movieId?: SortOrder
+    userId?: SortOrder
   }
 
   export type ScoreAvgOrderByAggregateInput = {
     id?: SortOrder
     score?: SortOrder
     movieId?: SortOrder
+    userId?: SortOrder
   }
 
   export type ScoreMaxOrderByAggregateInput = {
     id?: SortOrder
     score?: SortOrder
     movieId?: SortOrder
+    userId?: SortOrder
   }
 
   export type ScoreMinOrderByAggregateInput = {
     id?: SortOrder
     score?: SortOrder
     movieId?: SortOrder
+    userId?: SortOrder
   }
 
   export type ScoreSumOrderByAggregateInput = {
     id?: SortOrder
     score?: SortOrder
     movieId?: SortOrder
+    userId?: SortOrder
   }
 
   export type GenreCountOrderByAggregateInput = {
@@ -7360,6 +7459,20 @@ export namespace Prisma {
     userId?: SortOrder
   }
 
+  export type ScoreCreateNestedManyWithoutUserInput = {
+    create?: XOR<ScoreCreateWithoutUserInput, ScoreUncheckedCreateWithoutUserInput> | ScoreCreateWithoutUserInput[] | ScoreUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ScoreCreateOrConnectWithoutUserInput | ScoreCreateOrConnectWithoutUserInput[]
+    createMany?: ScoreCreateManyUserInputEnvelope
+    connect?: ScoreWhereUniqueInput | ScoreWhereUniqueInput[]
+  }
+
+  export type CommentCreateNestedManyWithoutUserInput = {
+    create?: XOR<CommentCreateWithoutUserInput, CommentUncheckedCreateWithoutUserInput> | CommentCreateWithoutUserInput[] | CommentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutUserInput | CommentCreateOrConnectWithoutUserInput[]
+    createMany?: CommentCreateManyUserInputEnvelope
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+  }
+
   export type MovieCreateNestedManyWithoutUserInput = {
     create?: XOR<MovieCreateWithoutUserInput, MovieUncheckedCreateWithoutUserInput> | MovieCreateWithoutUserInput[] | MovieUncheckedCreateWithoutUserInput[]
     connectOrCreate?: MovieCreateOrConnectWithoutUserInput | MovieCreateOrConnectWithoutUserInput[]
@@ -7367,7 +7480,14 @@ export namespace Prisma {
     connect?: MovieWhereUniqueInput | MovieWhereUniqueInput[]
   }
 
-  export type CommentCreateNestedManyWithoutUserInput = {
+  export type ScoreUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ScoreCreateWithoutUserInput, ScoreUncheckedCreateWithoutUserInput> | ScoreCreateWithoutUserInput[] | ScoreUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ScoreCreateOrConnectWithoutUserInput | ScoreCreateOrConnectWithoutUserInput[]
+    createMany?: ScoreCreateManyUserInputEnvelope
+    connect?: ScoreWhereUniqueInput | ScoreWhereUniqueInput[]
+  }
+
+  export type CommentUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<CommentCreateWithoutUserInput, CommentUncheckedCreateWithoutUserInput> | CommentCreateWithoutUserInput[] | CommentUncheckedCreateWithoutUserInput[]
     connectOrCreate?: CommentCreateOrConnectWithoutUserInput | CommentCreateOrConnectWithoutUserInput[]
     createMany?: CommentCreateManyUserInputEnvelope
@@ -7381,13 +7501,6 @@ export namespace Prisma {
     connect?: MovieWhereUniqueInput | MovieWhereUniqueInput[]
   }
 
-  export type CommentUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<CommentCreateWithoutUserInput, CommentUncheckedCreateWithoutUserInput> | CommentCreateWithoutUserInput[] | CommentUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: CommentCreateOrConnectWithoutUserInput | CommentCreateOrConnectWithoutUserInput[]
-    createMany?: CommentCreateManyUserInputEnvelope
-    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
-  }
-
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -7396,18 +7509,18 @@ export namespace Prisma {
     set?: Date | string
   }
 
-  export type MovieUpdateManyWithoutUserNestedInput = {
-    create?: XOR<MovieCreateWithoutUserInput, MovieUncheckedCreateWithoutUserInput> | MovieCreateWithoutUserInput[] | MovieUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: MovieCreateOrConnectWithoutUserInput | MovieCreateOrConnectWithoutUserInput[]
-    upsert?: MovieUpsertWithWhereUniqueWithoutUserInput | MovieUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: MovieCreateManyUserInputEnvelope
-    set?: MovieWhereUniqueInput | MovieWhereUniqueInput[]
-    disconnect?: MovieWhereUniqueInput | MovieWhereUniqueInput[]
-    delete?: MovieWhereUniqueInput | MovieWhereUniqueInput[]
-    connect?: MovieWhereUniqueInput | MovieWhereUniqueInput[]
-    update?: MovieUpdateWithWhereUniqueWithoutUserInput | MovieUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: MovieUpdateManyWithWhereWithoutUserInput | MovieUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: MovieScalarWhereInput | MovieScalarWhereInput[]
+  export type ScoreUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ScoreCreateWithoutUserInput, ScoreUncheckedCreateWithoutUserInput> | ScoreCreateWithoutUserInput[] | ScoreUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ScoreCreateOrConnectWithoutUserInput | ScoreCreateOrConnectWithoutUserInput[]
+    upsert?: ScoreUpsertWithWhereUniqueWithoutUserInput | ScoreUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ScoreCreateManyUserInputEnvelope
+    set?: ScoreWhereUniqueInput | ScoreWhereUniqueInput[]
+    disconnect?: ScoreWhereUniqueInput | ScoreWhereUniqueInput[]
+    delete?: ScoreWhereUniqueInput | ScoreWhereUniqueInput[]
+    connect?: ScoreWhereUniqueInput | ScoreWhereUniqueInput[]
+    update?: ScoreUpdateWithWhereUniqueWithoutUserInput | ScoreUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ScoreUpdateManyWithWhereWithoutUserInput | ScoreUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ScoreScalarWhereInput | ScoreScalarWhereInput[]
   }
 
   export type CommentUpdateManyWithoutUserNestedInput = {
@@ -7424,15 +7537,7 @@ export namespace Prisma {
     deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
-  export type MovieUncheckedUpdateManyWithoutUserNestedInput = {
+  export type MovieUpdateManyWithoutUserNestedInput = {
     create?: XOR<MovieCreateWithoutUserInput, MovieUncheckedCreateWithoutUserInput> | MovieCreateWithoutUserInput[] | MovieUncheckedCreateWithoutUserInput[]
     connectOrCreate?: MovieCreateOrConnectWithoutUserInput | MovieCreateOrConnectWithoutUserInput[]
     upsert?: MovieUpsertWithWhereUniqueWithoutUserInput | MovieUpsertWithWhereUniqueWithoutUserInput[]
@@ -7444,6 +7549,28 @@ export namespace Prisma {
     update?: MovieUpdateWithWhereUniqueWithoutUserInput | MovieUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: MovieUpdateManyWithWhereWithoutUserInput | MovieUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: MovieScalarWhereInput | MovieScalarWhereInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type ScoreUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ScoreCreateWithoutUserInput, ScoreUncheckedCreateWithoutUserInput> | ScoreCreateWithoutUserInput[] | ScoreUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ScoreCreateOrConnectWithoutUserInput | ScoreCreateOrConnectWithoutUserInput[]
+    upsert?: ScoreUpsertWithWhereUniqueWithoutUserInput | ScoreUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ScoreCreateManyUserInputEnvelope
+    set?: ScoreWhereUniqueInput | ScoreWhereUniqueInput[]
+    disconnect?: ScoreWhereUniqueInput | ScoreWhereUniqueInput[]
+    delete?: ScoreWhereUniqueInput | ScoreWhereUniqueInput[]
+    connect?: ScoreWhereUniqueInput | ScoreWhereUniqueInput[]
+    update?: ScoreUpdateWithWhereUniqueWithoutUserInput | ScoreUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ScoreUpdateManyWithWhereWithoutUserInput | ScoreUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ScoreScalarWhereInput | ScoreScalarWhereInput[]
   }
 
   export type CommentUncheckedUpdateManyWithoutUserNestedInput = {
@@ -7460,6 +7587,20 @@ export namespace Prisma {
     deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
   }
 
+  export type MovieUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MovieCreateWithoutUserInput, MovieUncheckedCreateWithoutUserInput> | MovieCreateWithoutUserInput[] | MovieUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MovieCreateOrConnectWithoutUserInput | MovieCreateOrConnectWithoutUserInput[]
+    upsert?: MovieUpsertWithWhereUniqueWithoutUserInput | MovieUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MovieCreateManyUserInputEnvelope
+    set?: MovieWhereUniqueInput | MovieWhereUniqueInput[]
+    disconnect?: MovieWhereUniqueInput | MovieWhereUniqueInput[]
+    delete?: MovieWhereUniqueInput | MovieWhereUniqueInput[]
+    connect?: MovieWhereUniqueInput | MovieWhereUniqueInput[]
+    update?: MovieUpdateWithWhereUniqueWithoutUserInput | MovieUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MovieUpdateManyWithWhereWithoutUserInput | MovieUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MovieScalarWhereInput | MovieScalarWhereInput[]
+  }
+
   export type GenreCreateNestedManyWithoutMovieInput = {
     create?: XOR<GenreCreateWithoutMovieInput, GenreUncheckedCreateWithoutMovieInput> | GenreCreateWithoutMovieInput[] | GenreUncheckedCreateWithoutMovieInput[]
     connectOrCreate?: GenreCreateOrConnectWithoutMovieInput | GenreCreateOrConnectWithoutMovieInput[]
@@ -7474,9 +7615,9 @@ export namespace Prisma {
     connect?: ScoreWhereUniqueInput | ScoreWhereUniqueInput[]
   }
 
-  export type UserCreateNestedOneWithoutMoviesInput = {
-    create?: XOR<UserCreateWithoutMoviesInput, UserUncheckedCreateWithoutMoviesInput>
-    connectOrCreate?: UserCreateOrConnectWithoutMoviesInput
+  export type UserCreateNestedOneWithoutMovieInput = {
+    create?: XOR<UserCreateWithoutMovieInput, UserUncheckedCreateWithoutMovieInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMovieInput
     connect?: UserWhereUniqueInput
   }
 
@@ -7536,14 +7677,14 @@ export namespace Prisma {
     deleteMany?: ScoreScalarWhereInput | ScoreScalarWhereInput[]
   }
 
-  export type UserUpdateOneWithoutMoviesNestedInput = {
-    create?: XOR<UserCreateWithoutMoviesInput, UserUncheckedCreateWithoutMoviesInput>
-    connectOrCreate?: UserCreateOrConnectWithoutMoviesInput
-    upsert?: UserUpsertWithoutMoviesInput
+  export type UserUpdateOneWithoutMovieNestedInput = {
+    create?: XOR<UserCreateWithoutMovieInput, UserUncheckedCreateWithoutMovieInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMovieInput
+    upsert?: UserUpsertWithoutMovieInput
     disconnect?: UserWhereInput | boolean
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMoviesInput, UserUpdateWithoutMoviesInput>, UserUncheckedUpdateWithoutMoviesInput>
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMovieInput, UserUpdateWithoutMovieInput>, UserUncheckedUpdateWithoutMovieInput>
   }
 
   export type CommentUpdateManyWithoutMovieNestedInput = {
@@ -7616,6 +7757,12 @@ export namespace Prisma {
     connect?: MovieWhereUniqueInput
   }
 
+  export type UserCreateNestedOneWithoutScoreInput = {
+    create?: XOR<UserCreateWithoutScoreInput, UserUncheckedCreateWithoutScoreInput>
+    connectOrCreate?: UserCreateOrConnectWithoutScoreInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type MovieUpdateOneWithoutScoreNestedInput = {
     create?: XOR<MovieCreateWithoutScoreInput, MovieUncheckedCreateWithoutScoreInput>
     connectOrCreate?: MovieCreateOrConnectWithoutScoreInput
@@ -7624,6 +7771,16 @@ export namespace Prisma {
     delete?: MovieWhereInput | boolean
     connect?: MovieWhereUniqueInput
     update?: XOR<XOR<MovieUpdateToOneWithWhereWithoutScoreInput, MovieUpdateWithoutScoreInput>, MovieUncheckedUpdateWithoutScoreInput>
+  }
+
+  export type UserUpdateOneWithoutScoreNestedInput = {
+    create?: XOR<UserCreateWithoutScoreInput, UserUncheckedCreateWithoutScoreInput>
+    connectOrCreate?: UserCreateOrConnectWithoutScoreInput
+    upsert?: UserUpsertWithoutScoreInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutScoreInput, UserUpdateWithoutScoreInput>, UserUncheckedUpdateWithoutScoreInput>
   }
 
   export type MovieCreateNestedOneWithoutGenresInput = {
@@ -7806,6 +7963,48 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
+  export type ScoreCreateWithoutUserInput = {
+    score: number
+    Movie?: MovieCreateNestedOneWithoutScoreInput
+  }
+
+  export type ScoreUncheckedCreateWithoutUserInput = {
+    id?: number
+    score: number
+    movieId?: number | null
+  }
+
+  export type ScoreCreateOrConnectWithoutUserInput = {
+    where: ScoreWhereUniqueInput
+    create: XOR<ScoreCreateWithoutUserInput, ScoreUncheckedCreateWithoutUserInput>
+  }
+
+  export type ScoreCreateManyUserInputEnvelope = {
+    data: ScoreCreateManyUserInput | ScoreCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CommentCreateWithoutUserInput = {
+    comment: string
+    Movie?: MovieCreateNestedOneWithoutCommentInput
+  }
+
+  export type CommentUncheckedCreateWithoutUserInput = {
+    id?: number
+    comment: string
+    movieId?: number | null
+  }
+
+  export type CommentCreateOrConnectWithoutUserInput = {
+    where: CommentWhereUniqueInput
+    create: XOR<CommentCreateWithoutUserInput, CommentUncheckedCreateWithoutUserInput>
+  }
+
+  export type CommentCreateManyUserInputEnvelope = {
+    data: CommentCreateManyUserInput | CommentCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type MovieCreateWithoutUserInput = {
     poster: string
     origin: string
@@ -7843,25 +8042,56 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type CommentCreateWithoutUserInput = {
-    comment: string
-    Movie?: MovieCreateNestedOneWithoutCommentInput
+  export type ScoreUpsertWithWhereUniqueWithoutUserInput = {
+    where: ScoreWhereUniqueInput
+    update: XOR<ScoreUpdateWithoutUserInput, ScoreUncheckedUpdateWithoutUserInput>
+    create: XOR<ScoreCreateWithoutUserInput, ScoreUncheckedCreateWithoutUserInput>
   }
 
-  export type CommentUncheckedCreateWithoutUserInput = {
-    id?: number
-    comment: string
-    movieId?: number | null
+  export type ScoreUpdateWithWhereUniqueWithoutUserInput = {
+    where: ScoreWhereUniqueInput
+    data: XOR<ScoreUpdateWithoutUserInput, ScoreUncheckedUpdateWithoutUserInput>
   }
 
-  export type CommentCreateOrConnectWithoutUserInput = {
+  export type ScoreUpdateManyWithWhereWithoutUserInput = {
+    where: ScoreScalarWhereInput
+    data: XOR<ScoreUpdateManyMutationInput, ScoreUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ScoreScalarWhereInput = {
+    AND?: ScoreScalarWhereInput | ScoreScalarWhereInput[]
+    OR?: ScoreScalarWhereInput[]
+    NOT?: ScoreScalarWhereInput | ScoreScalarWhereInput[]
+    id?: IntFilter<"Score"> | number
+    score?: IntFilter<"Score"> | number
+    movieId?: IntNullableFilter<"Score"> | number | null
+    userId?: IntNullableFilter<"Score"> | number | null
+  }
+
+  export type CommentUpsertWithWhereUniqueWithoutUserInput = {
     where: CommentWhereUniqueInput
+    update: XOR<CommentUpdateWithoutUserInput, CommentUncheckedUpdateWithoutUserInput>
     create: XOR<CommentCreateWithoutUserInput, CommentUncheckedCreateWithoutUserInput>
   }
 
-  export type CommentCreateManyUserInputEnvelope = {
-    data: CommentCreateManyUserInput | CommentCreateManyUserInput[]
-    skipDuplicates?: boolean
+  export type CommentUpdateWithWhereUniqueWithoutUserInput = {
+    where: CommentWhereUniqueInput
+    data: XOR<CommentUpdateWithoutUserInput, CommentUncheckedUpdateWithoutUserInput>
+  }
+
+  export type CommentUpdateManyWithWhereWithoutUserInput = {
+    where: CommentScalarWhereInput
+    data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type CommentScalarWhereInput = {
+    AND?: CommentScalarWhereInput | CommentScalarWhereInput[]
+    OR?: CommentScalarWhereInput[]
+    NOT?: CommentScalarWhereInput | CommentScalarWhereInput[]
+    id?: IntFilter<"Comment"> | number
+    comment?: StringFilter<"Comment"> | string
+    movieId?: IntNullableFilter<"Comment"> | number | null
+    userId?: IntNullableFilter<"Comment"> | number | null
   }
 
   export type MovieUpsertWithWhereUniqueWithoutUserInput = {
@@ -7895,32 +8125,6 @@ export namespace Prisma {
     userId?: IntNullableFilter<"Movie"> | number | null
   }
 
-  export type CommentUpsertWithWhereUniqueWithoutUserInput = {
-    where: CommentWhereUniqueInput
-    update: XOR<CommentUpdateWithoutUserInput, CommentUncheckedUpdateWithoutUserInput>
-    create: XOR<CommentCreateWithoutUserInput, CommentUncheckedCreateWithoutUserInput>
-  }
-
-  export type CommentUpdateWithWhereUniqueWithoutUserInput = {
-    where: CommentWhereUniqueInput
-    data: XOR<CommentUpdateWithoutUserInput, CommentUncheckedUpdateWithoutUserInput>
-  }
-
-  export type CommentUpdateManyWithWhereWithoutUserInput = {
-    where: CommentScalarWhereInput
-    data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type CommentScalarWhereInput = {
-    AND?: CommentScalarWhereInput | CommentScalarWhereInput[]
-    OR?: CommentScalarWhereInput[]
-    NOT?: CommentScalarWhereInput | CommentScalarWhereInput[]
-    id?: IntFilter<"Comment"> | number
-    comment?: StringFilter<"Comment"> | string
-    movieId?: IntNullableFilter<"Comment"> | number | null
-    userId?: IntNullableFilter<"Comment"> | number | null
-  }
-
   export type GenreCreateWithoutMovieInput = {
     name: string
   }
@@ -7942,11 +8146,13 @@ export namespace Prisma {
 
   export type ScoreCreateWithoutMovieInput = {
     score: number
+    User?: UserCreateNestedOneWithoutScoreInput
   }
 
   export type ScoreUncheckedCreateWithoutMovieInput = {
     id?: number
     score: number
+    userId?: number | null
   }
 
   export type ScoreCreateOrConnectWithoutMovieInput = {
@@ -7959,28 +8165,30 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type UserCreateWithoutMoviesInput = {
+  export type UserCreateWithoutMovieInput = {
     name: string
     email: string
     password: string
     createdAt?: Date | string
     updateAt?: Date | string
+    score?: ScoreCreateNestedManyWithoutUserInput
     Comment?: CommentCreateNestedManyWithoutUserInput
   }
 
-  export type UserUncheckedCreateWithoutMoviesInput = {
+  export type UserUncheckedCreateWithoutMovieInput = {
     id?: number
     name: string
     email: string
     password: string
     createdAt?: Date | string
     updateAt?: Date | string
+    score?: ScoreUncheckedCreateNestedManyWithoutUserInput
     Comment?: CommentUncheckedCreateNestedManyWithoutUserInput
   }
 
-  export type UserCreateOrConnectWithoutMoviesInput = {
+  export type UserCreateOrConnectWithoutMovieInput = {
     where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutMoviesInput, UserUncheckedCreateWithoutMoviesInput>
+    create: XOR<UserCreateWithoutMovieInput, UserUncheckedCreateWithoutMovieInput>
   }
 
   export type CommentCreateWithoutMovieInput = {
@@ -8045,42 +8253,35 @@ export namespace Prisma {
     data: XOR<ScoreUpdateManyMutationInput, ScoreUncheckedUpdateManyWithoutMovieInput>
   }
 
-  export type ScoreScalarWhereInput = {
-    AND?: ScoreScalarWhereInput | ScoreScalarWhereInput[]
-    OR?: ScoreScalarWhereInput[]
-    NOT?: ScoreScalarWhereInput | ScoreScalarWhereInput[]
-    id?: IntFilter<"Score"> | number
-    score?: IntFilter<"Score"> | number
-    movieId?: IntNullableFilter<"Score"> | number | null
-  }
-
-  export type UserUpsertWithoutMoviesInput = {
-    update: XOR<UserUpdateWithoutMoviesInput, UserUncheckedUpdateWithoutMoviesInput>
-    create: XOR<UserCreateWithoutMoviesInput, UserUncheckedCreateWithoutMoviesInput>
+  export type UserUpsertWithoutMovieInput = {
+    update: XOR<UserUpdateWithoutMovieInput, UserUncheckedUpdateWithoutMovieInput>
+    create: XOR<UserCreateWithoutMovieInput, UserUncheckedCreateWithoutMovieInput>
     where?: UserWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutMoviesInput = {
+  export type UserUpdateToOneWithWhereWithoutMovieInput = {
     where?: UserWhereInput
-    data: XOR<UserUpdateWithoutMoviesInput, UserUncheckedUpdateWithoutMoviesInput>
+    data: XOR<UserUpdateWithoutMovieInput, UserUncheckedUpdateWithoutMovieInput>
   }
 
-  export type UserUpdateWithoutMoviesInput = {
+  export type UserUpdateWithoutMovieInput = {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    score?: ScoreUpdateManyWithoutUserNestedInput
     Comment?: CommentUpdateManyWithoutUserNestedInput
   }
 
-  export type UserUncheckedUpdateWithoutMoviesInput = {
+  export type UserUncheckedUpdateWithoutMovieInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    score?: ScoreUncheckedUpdateManyWithoutUserNestedInput
     Comment?: CommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -8109,7 +8310,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updateAt?: Date | string
     genres?: GenreCreateNestedManyWithoutMovieInput
-    User?: UserCreateNestedOneWithoutMoviesInput
+    User?: UserCreateNestedOneWithoutMovieInput
     Comment?: CommentCreateNestedManyWithoutMovieInput
   }
 
@@ -8132,6 +8333,32 @@ export namespace Prisma {
     create: XOR<MovieCreateWithoutScoreInput, MovieUncheckedCreateWithoutScoreInput>
   }
 
+  export type UserCreateWithoutScoreInput = {
+    name: string
+    email: string
+    password: string
+    createdAt?: Date | string
+    updateAt?: Date | string
+    Comment?: CommentCreateNestedManyWithoutUserInput
+    Movie?: MovieCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutScoreInput = {
+    id?: number
+    name: string
+    email: string
+    password: string
+    createdAt?: Date | string
+    updateAt?: Date | string
+    Comment?: CommentUncheckedCreateNestedManyWithoutUserInput
+    Movie?: MovieUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutScoreInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutScoreInput, UserUncheckedCreateWithoutScoreInput>
+  }
+
   export type MovieUpsertWithoutScoreInput = {
     update: XOR<MovieUpdateWithoutScoreInput, MovieUncheckedUpdateWithoutScoreInput>
     create: XOR<MovieCreateWithoutScoreInput, MovieUncheckedCreateWithoutScoreInput>
@@ -8152,7 +8379,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     genres?: GenreUpdateManyWithoutMovieNestedInput
-    User?: UserUpdateOneWithoutMoviesNestedInput
+    User?: UserUpdateOneWithoutMovieNestedInput
     Comment?: CommentUpdateManyWithoutMovieNestedInput
   }
 
@@ -8170,6 +8397,38 @@ export namespace Prisma {
     Comment?: CommentUncheckedUpdateManyWithoutMovieNestedInput
   }
 
+  export type UserUpsertWithoutScoreInput = {
+    update: XOR<UserUpdateWithoutScoreInput, UserUncheckedUpdateWithoutScoreInput>
+    create: XOR<UserCreateWithoutScoreInput, UserUncheckedCreateWithoutScoreInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutScoreInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutScoreInput, UserUncheckedUpdateWithoutScoreInput>
+  }
+
+  export type UserUpdateWithoutScoreInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Comment?: CommentUpdateManyWithoutUserNestedInput
+    Movie?: MovieUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutScoreInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Comment?: CommentUncheckedUpdateManyWithoutUserNestedInput
+    Movie?: MovieUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type MovieCreateWithoutGenresInput = {
     poster: string
     origin: string
@@ -8179,7 +8438,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updateAt?: Date | string
     score?: ScoreCreateNestedManyWithoutMovieInput
-    User?: UserCreateNestedOneWithoutMoviesInput
+    User?: UserCreateNestedOneWithoutMovieInput
     Comment?: CommentCreateNestedManyWithoutMovieInput
   }
 
@@ -8222,7 +8481,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     score?: ScoreUpdateManyWithoutMovieNestedInput
-    User?: UserUpdateOneWithoutMoviesNestedInput
+    User?: UserUpdateOneWithoutMovieNestedInput
     Comment?: CommentUpdateManyWithoutMovieNestedInput
   }
 
@@ -8250,7 +8509,7 @@ export namespace Prisma {
     updateAt?: Date | string
     genres?: GenreCreateNestedManyWithoutMovieInput
     score?: ScoreCreateNestedManyWithoutMovieInput
-    User?: UserCreateNestedOneWithoutMoviesInput
+    User?: UserCreateNestedOneWithoutMovieInput
   }
 
   export type MovieUncheckedCreateWithoutCommentInput = {
@@ -8278,7 +8537,8 @@ export namespace Prisma {
     password: string
     createdAt?: Date | string
     updateAt?: Date | string
-    movies?: MovieCreateNestedManyWithoutUserInput
+    score?: ScoreCreateNestedManyWithoutUserInput
+    Movie?: MovieCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCommentInput = {
@@ -8288,7 +8548,8 @@ export namespace Prisma {
     password: string
     createdAt?: Date | string
     updateAt?: Date | string
-    movies?: MovieUncheckedCreateNestedManyWithoutUserInput
+    score?: ScoreUncheckedCreateNestedManyWithoutUserInput
+    Movie?: MovieUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCommentInput = {
@@ -8317,7 +8578,7 @@ export namespace Prisma {
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     genres?: GenreUpdateManyWithoutMovieNestedInput
     score?: ScoreUpdateManyWithoutMovieNestedInput
-    User?: UserUpdateOneWithoutMoviesNestedInput
+    User?: UserUpdateOneWithoutMovieNestedInput
   }
 
   export type MovieUncheckedUpdateWithoutCommentInput = {
@@ -8351,7 +8612,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    movies?: MovieUpdateManyWithoutUserNestedInput
+    score?: ScoreUpdateManyWithoutUserNestedInput
+    Movie?: MovieUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCommentInput = {
@@ -8361,7 +8623,20 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    movies?: MovieUncheckedUpdateManyWithoutUserNestedInput
+    score?: ScoreUncheckedUpdateManyWithoutUserNestedInput
+    Movie?: MovieUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type ScoreCreateManyUserInput = {
+    id?: number
+    score: number
+    movieId?: number | null
+  }
+
+  export type CommentCreateManyUserInput = {
+    id?: number
+    comment: string
+    movieId?: number | null
   }
 
   export type MovieCreateManyUserInput = {
@@ -8375,10 +8650,38 @@ export namespace Prisma {
     updateAt?: Date | string
   }
 
-  export type CommentCreateManyUserInput = {
-    id?: number
-    comment: string
-    movieId?: number | null
+  export type ScoreUpdateWithoutUserInput = {
+    score?: IntFieldUpdateOperationsInput | number
+    Movie?: MovieUpdateOneWithoutScoreNestedInput
+  }
+
+  export type ScoreUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    score?: IntFieldUpdateOperationsInput | number
+    movieId?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type ScoreUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    score?: IntFieldUpdateOperationsInput | number
+    movieId?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type CommentUpdateWithoutUserInput = {
+    comment?: StringFieldUpdateOperationsInput | string
+    Movie?: MovieUpdateOneWithoutCommentNestedInput
+  }
+
+  export type CommentUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
+    movieId?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type CommentUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
+    movieId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type MovieUpdateWithoutUserInput = {
@@ -8419,23 +8722,6 @@ export namespace Prisma {
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type CommentUpdateWithoutUserInput = {
-    comment?: StringFieldUpdateOperationsInput | string
-    Movie?: MovieUpdateOneWithoutCommentNestedInput
-  }
-
-  export type CommentUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    comment?: StringFieldUpdateOperationsInput | string
-    movieId?: NullableIntFieldUpdateOperationsInput | number | null
-  }
-
-  export type CommentUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    comment?: StringFieldUpdateOperationsInput | string
-    movieId?: NullableIntFieldUpdateOperationsInput | number | null
-  }
-
   export type GenreCreateManyMovieInput = {
     id?: number
     name: string
@@ -8444,6 +8730,7 @@ export namespace Prisma {
   export type ScoreCreateManyMovieInput = {
     id?: number
     score: number
+    userId?: number | null
   }
 
   export type CommentCreateManyMovieInput = {
@@ -8468,16 +8755,19 @@ export namespace Prisma {
 
   export type ScoreUpdateWithoutMovieInput = {
     score?: IntFieldUpdateOperationsInput | number
+    User?: UserUpdateOneWithoutScoreNestedInput
   }
 
   export type ScoreUncheckedUpdateWithoutMovieInput = {
     id?: IntFieldUpdateOperationsInput | number
     score?: IntFieldUpdateOperationsInput | number
+    userId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ScoreUncheckedUpdateManyWithoutMovieInput = {
     id?: IntFieldUpdateOperationsInput | number
     score?: IntFieldUpdateOperationsInput | number
+    userId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type CommentUpdateWithoutMovieInput = {

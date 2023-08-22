@@ -16,10 +16,11 @@ model User {
   name      String
   email     String    @unique
   password  String
-  movies    Movie[]
+  score     Score[]
   createdAt DateTime  @default(now())
   updateAt  DateTime  @updatedAt
   Comment   Comment[]
+  Movie     Movie[]
 }
 
 model Movie {
@@ -41,8 +42,10 @@ model Movie {
 model Score {
   id      String  @id @default(auto()) @map("_id") @db.ObjectId
   score   String
-  Movie   Movie?  @relation(fields: [movieId], references: [id])
+  Movie   Movie?  @relation(fields: [movieId], references: [id], onDelete: Cascade)
   movieId String? @db.ObjectId
+  User    User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId  String? @db.ObjectId
 }
 
 model Genre {

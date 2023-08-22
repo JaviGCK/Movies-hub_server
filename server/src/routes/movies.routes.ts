@@ -5,7 +5,7 @@ import { createMovie, getAllMovies, getMovieById, removeMovies, removeMovieById,
 export const moviesRoutes = Router();
 
 moviesRoutes
-    .post('/', checkJwtMiddleware, createMovie)
+    .post('/', createMovie)
     .get('/', getAllMovies)
     .get('/:movieId', checkJwtMiddleware, getMovieById)
     .put('/:movieId', checkJwtMiddleware, updateMovie)

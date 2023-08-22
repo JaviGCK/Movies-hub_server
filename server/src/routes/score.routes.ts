@@ -1,6 +1,8 @@
 import { Router } from 'express'
 import { createScore, deleteScore, deleteScoreById, getAllScore, updateScore } from '../controllers/score.controller'
 
+import { checkJwtMiddleware } from '../middleware/checkjwt.middleware'
+
 export const scoreRoutes = Router()
 
 scoreRoutes
@@ -9,8 +11,8 @@ scoreRoutes
 
     .get('/', getAllScore)
 
-    .put("/:scoreId", updateScore)
+    .put("/:scoreId", checkJwtMiddleware, updateScore)
 
-    .delete('/:scoreId', deleteScoreById)
+    .delete('/:scoreId', checkJwtMiddleware, deleteScoreById)
 
-    .delete('/', deleteScore)
+    .delete('/', checkJwtMiddleware, deleteScore)

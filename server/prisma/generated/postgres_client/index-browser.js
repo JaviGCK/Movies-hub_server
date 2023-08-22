@@ -145,7 +145,8 @@ exports.Prisma.MovieScalarFieldEnum = {
 exports.Prisma.ScoreScalarFieldEnum = {
   id: 'id',
   score: 'score',
-  movieId: 'movieId'
+  movieId: 'movieId',
+  userId: 'userId'
 };
 
 exports.Prisma.GenreScalarFieldEnum = {

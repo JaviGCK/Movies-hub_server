@@ -2,9 +2,13 @@ import { Request, Response } from "express";
 import { prismaClient } from "../db/clientPrisma";
 import { converToType } from '../helpers/utils'
 
+
 export const createScore = async (req: Request, res: Response) => {
+
     const { score } = req.body;
     const { moviesId } = req.params;
+
+
     try {
 
         const newScore = await prismaClient.score.create({
@@ -14,8 +18,10 @@ export const createScore = async (req: Request, res: Response) => {
                 Movie: {
                     connect: {
                         id: converToType(moviesId)
-                    }
+                    },
                 }
+
+
             }
         })
 
@@ -48,6 +54,12 @@ export const updateScore = async (req: Request, res: Response) => {
             where: {
                 id: converToType(scoreId)
 
+            }, include: {
+                user: {
+                    select: {
+                        name: true
+                    }
+                }
             }
 
         });
