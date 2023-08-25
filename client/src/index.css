@@ -1,4 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bowlby+One&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Boogaloo&family=Bowlby+One&display=swap");
 
 /*
   1. Use a more-intuitive box-sizing model.
@@ -22,13 +24,13 @@
   4. Improve text rendering
 */
 body {
-  font-family: "Nunito Sans", sans-serif;
+  font-family: Boogaloo, sans-serif;
   width: 100vw;
   height: 100vh;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  background-color: #0e0016;
-  color: #f1f1f1;
+  background-color: #f1f1f1;
+  color: #0e0016;
 }
 
 /*
