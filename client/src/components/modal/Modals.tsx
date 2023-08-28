@@ -1,25 +1,19 @@
-import './modals.css'
+import './modals.css';
 import { useState } from 'react';
 import { FaFilm, FaUser, FaTags } from 'react-icons/fa';
 import ReactModal from 'react-modal';
-import { CreateMoviesForm } from '../forms/CreateMovieForm';
-import { ListGenres } from '../list/ListGenres';
-import { ListUser } from '../list/ListUser';
+import { CreateMovieForm } from '../forms/CreateMovieForm';
+import { InfoGenres } from '../info/InfoGenres';
+import { UserInfo } from '../info/UserInfo';
 
-
-export const Modals = () => {
-
-
-
+export const Modals = ({ userData }: { userData: UserData | null }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedForm, setSelectedForm] = useState(null);
-
 
     const openModal = (form: any) => {
         setSelectedForm(form);
         setIsModalOpen(true);
     };
-
 
     const closeModal = () => {
         setSelectedForm(null);
@@ -28,7 +22,6 @@ export const Modals = () => {
 
     return (
         <>
-
             <div>
                 <ul className="modal-list">
                     <li onClick={() => openModal('user')}><FaUser /></li>
@@ -36,9 +29,6 @@ export const Modals = () => {
                     <li onClick={() => openModal('genre')}><FaTags /></li>
                 </ul>
             </div>
-
-
-
 
             <ReactModal
                 isOpen={isModalOpen}
@@ -48,12 +38,11 @@ export const Modals = () => {
             >
                 <button onClick={closeModal}>X</button>
 
-                {selectedForm === 'user' && <ListUser />}
-                {selectedForm === 'movie' && <CreateMoviesForm />}
-                {selectedForm === 'genre' && <ListGenres />}
+                {selectedForm === 'user' && <UserInfo userData={userData} />}
+
+                {selectedForm === 'movie' && <CreateMovieForm />}
+                {selectedForm === 'genre' && <InfoGenres />}
             </ReactModal>
         </>
     );
 };
-
-
