@@ -1,17 +1,17 @@
 import './loginPage.css'
-import { Link } from 'react-router-dom';
 import { BiLogIn } from 'react-icons/bi'
+import { useAuth0 } from '@auth0/auth0-react';
 
 export const LoginPage = () => {
-
+    const { loginWithRedirect } = useAuth0()
     return (
         <section>
             <div className='login'>
                 <h1 className='login-title'>Movies<span className='login-title-span'>H</span>ub</h1>
-                <Link to='/home' className='login-div'>
+                <button onClick={(): Promise<void> => loginWithRedirect()} className='login-div'>
                     <h2 className='login-h2'>Log In</h2>
                     <BiLogIn className='login-icon' />
-                </Link>
+                </button>
             </div>
         </section>
     );

@@ -39,20 +39,20 @@ export const CreateMovieForm = () => {
 
         if (response.status === 201) {
 
-          console.log('Película creada con éxito');
+          console.log('Movie created successfully');
           setFormData({
             name: '',
             url: '',
             score: '',
           });
         } else {
-          console.error('Error al crear la película. Código de estado:', response.status);
+          console.error('Error creating movie. status code:', response.status);
         }
       } catch (error) {
-        console.error('Error al crear la película:', error);
+        console.error('Error creating movie:', error);
       }
     } else {
-      console.error('Por favor, completa todos los campos del formulario.');
+      console.error('Please complete all the fields of the form.');
     }
   };
 

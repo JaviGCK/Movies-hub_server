@@ -1,26 +1,36 @@
 import { useEffect, useState } from 'react';
 import { Modals } from '../modal/Modals';
-import { fetchDataUser } from '../../api/apiFetch';
-
-
+import { fetchDataUser, createUserIfNotExists } from '../../api/apiFetch';
+import { useAuth0 } from '@auth0/auth0-react';
 
 export const MoviesList = () => {
   const [userData, setUserData] = useState<UserData | null>(null);
-  const userId = 1;
+  const { isAuthenticated, user } = useAuth0();
 
   useEffect(() => {
-    fetchDataUser(userId)
-      .then((data) => {
-        if (data && data.email) {
-          setUserData(data);
-        } else {
-          console.error('User data does not contain email');
+    const fetchUserData = async () => {
+      if (isAuthenticated && user && user.sub) {
+        try {
+          const userId = user.sub; // Obtén el ID único del usuario autenticado
+
+          // Intenta obtener los datos del usuario
+          const userFromDatabase = await fetchDataUser(userId);
+
+          // Si el usuario no existe, créalo
+          if (!userFromDatabase) {
+            const newUser = await createUserIfNotExists(userId);
+            setUserData(newUser);
+          } else {
+            setUserData(userFromDatabase);
+          }
+        } catch (error) {
+          console.error('Error fetching or creating user data:', error);
         }
-      })
-      .catch((error) => {
-        console.error('Error fetching user data:', error);
-      });
-  }, [userId]);
+      }
+    };
+
+    fetchUserData();
+  }, [user, isAuthenticated]);
 
   return (
     <section>
@@ -47,10 +57,8 @@ export const MoviesList = () => {
           ) : (
             <p>No movies found for this user.</p>
           )}
-
         </div>
       )}
-
     </section>
   );
 };
