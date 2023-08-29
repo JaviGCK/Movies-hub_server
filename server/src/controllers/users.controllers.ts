@@ -3,20 +3,15 @@ import { prismaClient } from '../db/clientPrisma'
 import { converToType } from '../helpers/utils'
 
 export const createUsers = async (req: Request, res: Response) => {
-    const { name, email, password } = req.body
+    const { name, email } = req.body
 
     try {
 
-        if (!name || !email || !password) {
-            res.status(400).send('Missing required fileds')
-            return
-        }
 
         const newUser = await prismaClient.user.create({
             data: {
                 name,
                 email,
-                password
             }
         })
 
@@ -46,22 +41,24 @@ export const getUserById = async (req: Request, res: Response) => {
     try {
 
         const user = await prismaClient.user.findUnique({
-
             where: {
                 id: converToType(userId)
             },
             include: {
                 movies: {
                     select: {
+                        id: true,
                         name: true,
+                        url: true,
+                        score: true,
                         genres: {
                             select: {
+                                id: true,
                                 name: true
                             }
                         }
                     }
                 }
-
             }
         })
 

@@ -1,12 +1,5 @@
 import dotenv from "dotenv"
 
-type TConfig = {
-    [key: string]: EnvironmentConfig
-}
-
-type EnvironmentConfig = {
-    app: AppConfig
-}
 
 type AppConfig = {
     PORT: string | number
@@ -20,10 +13,15 @@ if (process.env.NODE_ENV === 'production') {
 
 const ENV = process.env.NODE_ENV ?? "development"
 
-const CONFIG: TConfig = {
+const CONFIG = {
     development: {
         app: {
             PORT: process.env.PORT || 4001
+        },
+        auth0: {
+            client_origin: process.env.APP_ORIGIN,
+            audience: process.env.AUTH0_AUDIENCE,
+            issuer: process.env.AUTH0_ISSUER,
         }
 
     },
@@ -34,4 +32,4 @@ const CONFIG: TConfig = {
     }
 }
 
-export default CONFIG[ENV]
+export default CONFIG
