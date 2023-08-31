@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
+import { DeleteGenre } from '../actions/DeleteGenre';
 
-type Genre = {
+interface Genre {
     id: number;
     name: string;
     movieId: number;
-};
+}
 
 export const InfoGenres = () => {
-    const [genres, setGenres] = useState<string[]>([]);
+    const [genres, setGenres] = useState<Genre[]>([]);
+
     useEffect(() => {
         const fetchDataGenres = async () => {
             try {
@@ -20,33 +22,29 @@ export const InfoGenres = () => {
                 const dataFetched: Genre[] = await response.json();
 
                 if (dataFetched && Array.isArray(dataFetched)) {
-
-                    const uniqueGenres = new Set<string>();
-
-                    dataFetched.forEach((genre) => {
-                        uniqueGenres.add(genre.name);
-                    });
-
-                    const uniqueGenreArray = Array.from(uniqueGenres);
-
-                    setGenres(uniqueGenreArray);
+                    setGenres(dataFetched);
                 } else {
-                    console.warn("Invalid gender response:", dataFetched);
+                    console.warn("Invalid genre response:", dataFetched);
                 }
             } catch (error) {
                 console.error('Error fetching genres data:', error);
             }
-        }
+        };
 
         fetchDataGenres();
     }, []);
+
+
 
     return (
         <div>
             <h2>Genres</h2>
             <ul>
-                {genres.map((genre, index) => (
-                    <li key={index}>{genre}</li>
+                {genres.map((genre) => (
+                    <li key={genre.id}>
+                        {genre.name}
+                        <DeleteGenre genreId={genre.id} />
+                    </li>
                 ))}
             </ul>
         </div>

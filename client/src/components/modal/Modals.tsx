@@ -1,24 +1,32 @@
 import './modals.css';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { FaFilm, FaUser, FaTags } from 'react-icons/fa';
 import ReactModal from 'react-modal';
-import { CreateMovieForm } from '../forms/CreateMovieForm';
+import { CreateMovie } from '../actions/CreateMovie';
 import { InfoGenres } from '../info/InfoGenres';
 import { UserInfo } from '../info/UserInfo';
 
-export const Modals = ({ userData }: { userData: UserData | null }) => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedForm, setSelectedForm] = useState(null);
+interface ModalsProps {
+    userData: UserData | null;
+    onActionSuccess: () => void;
+}
 
-    const openModal = (form: any) => {
+export const Modals: React.FC<ModalsProps> = ({ userData, onActionSuccess }) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedForm, setSelectedForm] = useState<string | null>(null);
+
+    const openModal = (form: string) => {
         setSelectedForm(form);
         setIsModalOpen(true);
     };
 
-    const closeModal = () => {
+    const closeModal = useCallback(() => {
         setSelectedForm(null);
         setIsModalOpen(false);
-    };
+        if (selectedForm) {
+            onActionSuccess();
+        }
+    }, [selectedForm, onActionSuccess]);
 
     return (
         <>
@@ -40,7 +48,9 @@ export const Modals = ({ userData }: { userData: UserData | null }) => {
 
                 {selectedForm === 'user' && <UserInfo userData={userData} />}
 
-                {selectedForm === 'movie' && <CreateMovieForm />}
+                {selectedForm === 'movie' && userData?.id && (
+                    <CreateMovie userId={userData.id} onCreateSuccess={closeModal} />
+                )}
                 {selectedForm === 'genre' && <InfoGenres />}
             </ReactModal>
         </>
