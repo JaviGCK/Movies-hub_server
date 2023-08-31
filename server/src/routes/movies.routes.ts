@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import { createMovie, getAllMovies, getMovieById, removeMovies, removeMovieById, updateMovie } from "../controllers/movies.controller"
 
+
 export const moviesRoutes = Router()
 
 moviesRoutes
