@@ -7,7 +7,7 @@ cloudinary.config({
     secure: true
 });
 
-export async function uploadUrl(filepath: any) {
+export async function uploadImage(filepath: string) {
     return await
         cloudinary.uploader.upload(filepath, {
             folder: 'MoviesHub'

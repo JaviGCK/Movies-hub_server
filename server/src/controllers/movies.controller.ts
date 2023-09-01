@@ -1,36 +1,32 @@
 import { Request, Response } from "express";
 import { prismaClient } from "../db/clientPrisma";
 import { converToType } from '../helpers/utils'
-import { uploadUrl } from '../helpers/cloudinary'
+import { uploadImage } from '../helpers/cloudinary'
 
 
 export const createMovie = async (req: Request, res: Response) => {
-    const { name, score } = req.body;
+    const { name, score, url } = req.body;
     const { userId } = req.params;
 
     try {
-        if (req.files?.image) {
-            const imageUploadResult = await uploadUrl(req.files.image);
 
-            const newMovie = await prismaClient.movie.create({
-                data: {
-                    name,
-                    url: imageUploadResult.secure_url,
-                    score,
-                    User: {
-                        connect: {
-                            id: converToType(userId)
-                        }
+
+        const newMovie = await prismaClient.movie.create({
+            data: {
+                name,
+                url,
+                score,
+                User: {
+                    connect: {
+                        id: converToType(userId)
                     }
                 }
-            });
+            }
+        });
 
-            res.status(201).send(newMovie);
-        } else {
-
-            res.status(400).send('You must provide an image for the movie.');
-        }
-    } catch (error) {
+        res.status(201).send(newMovie);
+    }
+    catch (error) {
         res.status(500).send(error);
     }
 }
