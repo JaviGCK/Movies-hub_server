@@ -1,8 +1,9 @@
-import React from 'react';
+import './moviesListDetail.css'
 import { AddGenre } from '../actions/AddGenre';
 import { DeleteMovie } from '../actions/DeleteMovie';
 import { DeleteGenre } from '../actions/DeleteGenre';
 import { UpdateMovie } from '../actions/UpdateMovie';
+import { useAuth0 } from '@auth0/auth0-react';
 
 interface Movie {
     id: number;
@@ -21,33 +22,40 @@ interface MoviesListDetailProps {
 }
 
 export const MoviesListDetail: React.FC<MoviesListDetailProps> = ({ movies, onActionSuccess }) => {
+
+    const { user } = useAuth0()
+
     return (
-        <div>
-            <h2>Movies Detail</h2>
+        <section className='list-movies-section'>
+            <h2 className='list-movies-title'>Movie's {user?.name}</h2>
             {Array.isArray(movies) && movies.length > 0 ? (
-                <ul>
+                <ul className='list-movies-ul'>
                     {movies.map((movie, index) => (
-                        <li key={index}>
-                            <p>Name: {movie.name}</p>
-                            <p>URL: {movie.url}</p>
-                            <p>Score: {movie.score}</p>
-                            <p>Genres:</p>
-                            <ul>
+                        <li className='list-movies-li' key={index}>
+                            <p className='movie-property'>Name: {movie.name}</p>
+                            <p className='movie-property'>URL: {movie.url}</p>
+                            <p className='movie-property'>Score: {movie.score}</p>
+                            <p className='movie-property'>Genres:</p>
+                            <ul className='list-genres-ul'>
                                 {movie.genres?.map((genre, genreIndex) => (
-                                    <li key={genreIndex}>
-                                        {genre.name} <DeleteGenre genreId={genre.id} onActionSuccess={onActionSuccess} />
+                                    <li className='list-genre-li' key={genreIndex}>
+                                        {genre.name}{' '}
+                                        <DeleteGenre genreId={genre.id} onActionSuccess={onActionSuccess} />
                                     </li>
                                 ))}
                             </ul>
                             <DeleteMovie movieId={movie.id} onActionSuccess={onActionSuccess} />
                             <AddGenre movieId={movie.id} onActionSuccess={onActionSuccess} />
-                            <UpdateMovie movieId={movie.id} onActionSuccess={onActionSuccess} />
+                            <button className='update-button'>
+                                <UpdateMovie movieId={movie.id} onUpdateSuccess={onActionSuccess} />
+                            </button>
                         </li>
                     ))}
                 </ul>
             ) : (
-                <p>No movies found.</p>
+                <p className='no-movies-found'>No movies found.</p>
             )}
-        </div>
+        </section>
     );
+
 };

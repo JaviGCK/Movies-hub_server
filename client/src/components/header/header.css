@@ -17,6 +17,10 @@ header {
     color: #e51e1e;
 }
 
+.header-button {
+    border-style: none;
+}
+
 .header-icon {
     font-size: 2.5rem;
 }
