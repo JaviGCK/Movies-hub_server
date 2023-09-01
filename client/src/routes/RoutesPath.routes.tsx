@@ -1,22 +1,21 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HomePage } from '../pages/HomePage';
 import { LoginPage } from '../pages/login/LoginPage';
-import { PrivateRoute } from './PrivateRoute';
+import { useAuth0 } from '@auth0/auth0-react';
 
-interface RoutesPathProps {
-    children: React.ReactNode;
-}
+export const RoutesPath = () => {
+    const { isAuthenticated } = useAuth0();
 
-export const RoutesPath: React.FC<RoutesPathProps> = ({ children }) => {
     return (
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<LoginPage />} />
-
-                <PrivateRoute>
-                    <Route path="/home" element={<HomePage />} />
-                </PrivateRoute>
+                <Route
+                    path="/home"
+                    element={isAuthenticated ? <HomePage /> : <LoginPage />}
+                />
             </Routes>
         </BrowserRouter>
     );
-};
+}
+
