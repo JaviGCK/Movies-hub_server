@@ -1,44 +1,26 @@
 import React, { useState } from 'react';
-import ReactModal from 'react-modal';
 import { MovieForm } from '../forms/MovieForm';
 
 interface UpdateMovieProps {
     movieId: number;
-    onActionSuccess?: () => void;
+    onUpdateSuccess: () => void;
 }
 
-export const UpdateMovie: React.FC<UpdateMovieProps> = ({ movieId, onActionSuccess }) => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+export const UpdateMovie: React.FC<UpdateMovieProps> = ({ movieId, onUpdateSuccess }) => {
+    const [success, setSuccess] = useState(false);
 
     const handleUpdateSuccess = () => {
-        console.log('Movie updated successfully');
-        if (onActionSuccess) {
-            onActionSuccess();
-        }
-        closeModal();
-    };
-
-    const openModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const closeModal = () => {
-        setIsModalOpen(false);
+        setSuccess(true);
+        onUpdateSuccess();
     };
 
     return (
         <div>
-            <button onClick={openModal}>Update Movie</button>
-            <ReactModal
-                isOpen={isModalOpen}
-                onRequestClose={closeModal}
-                contentLabel="Update Movie Modal"
-                appElement={document.getElementById('root')!}
-            >
-                <h3>Update Movie</h3>
-                <MovieForm movieId={movieId} onUpdate={handleUpdateSuccess} />
-                <button onClick={closeModal}>Close</button>
-            </ReactModal>
+            {success ? (
+                <p>Movie updated successfully!</p>
+            ) : (
+                <MovieForm movieId={movieId} onActionSuccess={handleUpdateSuccess} />
+            )}
         </div>
     );
 };

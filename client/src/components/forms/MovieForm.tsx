@@ -5,7 +5,7 @@ interface MovieFormProps {
     userId?: number;
     movieId?: number;
     onUpdate?: () => void;
-    onActionSuccess?: () => void; // New prop to trigger list update
+    onActionSuccess?: () => void;
 }
 
 export const MovieForm: React.FC<MovieFormProps> = ({ userId, movieId, onUpdate, onActionSuccess }) => {
@@ -55,7 +55,7 @@ export const MovieForm: React.FC<MovieFormProps> = ({ userId, movieId, onUpdate,
                         onUpdate();
                     }
                     if (onActionSuccess) {
-                        onActionSuccess(); // Trigger list update
+                        onActionSuccess();
                     }
                 } else {
                     console.log('Movie created successfully');
