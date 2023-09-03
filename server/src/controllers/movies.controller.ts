@@ -33,6 +33,7 @@ export const createMovie = async (req: Request, res: Response) => {
 
 
 
+
 export const getAllMovies = async (req: Request, res: Response) => {
 
     try {

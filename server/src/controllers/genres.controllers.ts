@@ -7,23 +7,38 @@ export const createGenres = async (req: Request, res: Response) => {
     const { moviesId } = req.params;
     try {
 
-        const newGenre = await prismaClient.genre.create({
+        const movie = await prismaClient.movie.findUnique({
+            where: {
+                id: converToType(moviesId)
+            },
+            include: {
+                genres: true
+            }
+        });
 
-            data: {
-                name,
-                Movie: {
-                    connect: {
-                        id: converToType(moviesId)
+        if (movie?.genres?.length < 3) {
+
+            const newGenre = await prismaClient.genre.create({
+                data: {
+                    name,
+                    Movie: {
+                        connect: {
+                            id: converToType(moviesId)
+                        }
                     }
                 }
-            }
-        })
+            });
 
-        res.status(200).send(newGenre);
+            return res.status(200).send(newGenre);
+        } else {
+
+            return res.status(400).send("Only 3 genres per movie");
+        }
     } catch (error) {
-        res.status(500).send(error);
+        return res.status(500).send(error);
     }
 }
+
 
 export const getAllGenres = async (req: Request, res: Response) => {
 
