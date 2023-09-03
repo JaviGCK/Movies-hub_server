@@ -2,9 +2,9 @@ import './modals.css';
 import { useState, useCallback } from 'react';
 import { FaFilm, FaUser, FaTags } from 'react-icons/fa';
 import ReactModal from 'react-modal';
-import { CreateMovie } from '../actions/CreateMovie';
-import { InfoGenres } from '../info/InfoGenres';
-import { UserInfo } from '../info/UserInfo';
+import { CreateMovie } from '../menu/CreateMovie';
+import { InfoGenres } from '../menu/InfoGenres';
+import { UserInfo } from '../menu/UserInfo';
 
 interface ModalsProps {
     userData: UserData | null;
@@ -51,7 +51,9 @@ export const Modals: React.FC<ModalsProps> = ({ userData, onActionSuccess }) => 
                 {selectedForm === 'movie' && userData?.id && (
                     <CreateMovie userId={userData.id} onCreateSuccess={closeModal} />
                 )}
-                {selectedForm === 'genre' && <InfoGenres />}
+                {selectedForm === 'genre' && <InfoGenres onActionSuccess={onActionSuccess} />
+
+                }
             </ReactModal>
         </>
     );

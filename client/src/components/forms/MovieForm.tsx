@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { createMovie, updateMovie } from '../../api/apiFetch';
+import './movieForm.css';
+import { useState } from 'react';
+import { createMoviePost, updateMoviePut } from '../../api/apiFetch';
 
 interface MovieFormProps {
     userId?: number;
@@ -15,12 +16,17 @@ export const MovieForm: React.FC<MovieFormProps> = ({ userId, movieId, onUpdate,
         score: '',
     });
 
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData(prevFormData => ({
             ...prevFormData,
             [name]: value,
         }));
+        setErrorMessage(null);
+        setSuccessMessage(null);
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -29,6 +35,11 @@ export const MovieForm: React.FC<MovieFormProps> = ({ userId, movieId, onUpdate,
         const { name, url, score } = formData;
 
         if (userId || movieId) {
+            if (!name || !url || !score) {
+                setErrorMessage('All fields are required');
+                return;
+            }
+
             try {
                 const movieData = {
                     name: name || undefined,
@@ -39,9 +50,9 @@ export const MovieForm: React.FC<MovieFormProps> = ({ userId, movieId, onUpdate,
                 let response;
 
                 if (userId) {
-                    response = await createMovie(userId, movieData);
+                    response = await createMoviePost(userId, movieData);
                 } else if (movieId) {
-                    response = await updateMovie(movieId, movieData);
+                    response = await updateMoviePut(movieId, movieData);
                 }
 
                 if (response && response.status === 200) {
@@ -57,23 +68,23 @@ export const MovieForm: React.FC<MovieFormProps> = ({ userId, movieId, onUpdate,
                     if (onActionSuccess) {
                         onActionSuccess();
                     }
-                } else {
-                    console.log('Movie created successfully');
+                    setSuccessMessage('Movie created successfully');
+
                 }
             } catch (error) {
                 console.error('Error:', error);
             }
         } else {
-            console.error('Please provide user or movie ID.');
+            console.error('Please provide a user or movie ID.');
         }
     };
 
-
-
     return (
-        <div>
-            <h3>{userId ? 'Create Movie' : 'Update Movie'}</h3>
+        <div className='form-div'>
+            <h2 className='form-header'>{userId ? 'Create Movie' : 'Update Movie'}</h2>
             <form onSubmit={handleSubmit}>
+                {errorMessage && <p className="error-message">{errorMessage}</p>}
+                {successMessage && <p className="success-message">{successMessage}</p>}
                 <div>
                     <label htmlFor="name">Name:</label>
                     <input
@@ -82,6 +93,7 @@ export const MovieForm: React.FC<MovieFormProps> = ({ userId, movieId, onUpdate,
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
+                        required={userId !== undefined}
                     />
                 </div>
                 <div>
@@ -92,6 +104,7 @@ export const MovieForm: React.FC<MovieFormProps> = ({ userId, movieId, onUpdate,
                         name="url"
                         value={formData.url}
                         onChange={handleChange}
+                        required={userId !== undefined}
                     />
                 </div>
                 <div>
@@ -102,6 +115,7 @@ export const MovieForm: React.FC<MovieFormProps> = ({ userId, movieId, onUpdate,
                         name="score"
                         value={formData.score}
                         onChange={handleChange}
+                        required={userId !== undefined}
                     />
                 </div>
                 <div>

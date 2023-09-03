@@ -8,8 +8,8 @@ export const fetchDataAllUsers = async (): Promise<UserData[]> => {
 
         if (!response.ok) {
             const errorText = await response.text();
-            console.error(`Error en la solicitud: ${response.status} ${response.statusText} - ${errorText}`);
-            throw new Error(`Error en la solicitud: ${response.status} ${response.statusText}`);
+            console.error(`Request error: ${response.status} ${response.statusText} - ${errorText}`);
+            throw new Error(`Request error: ${response.status} ${response.statusText}`);
         }
 
         const allUsers = await response.json();
@@ -26,8 +26,8 @@ export const fetchDataUserById = async (userId: number): Promise<UserData | null
 
         if (!response.ok) {
             const errorText = await response.text();
-            console.error(`Error en la solicitud: ${response.status} ${response.statusText} - ${errorText}`);
-            throw new Error(`Error en la solicitud: ${response.status} ${response.statusText}`);
+            console.error(`Request error: ${response.status} ${response.statusText} - ${errorText}`);
+            throw new Error(`Request error: ${response.status} ${response.statusText}`);
         }
 
         const dataFetched = await response.json();
@@ -53,20 +53,20 @@ export const createUserIfNotExists = async (name: string, email: string) => {
         });
 
         if (!response.ok) {
-            throw new Error(`Error en la solicitud: ${response.status} ${response.statusText}`);
+            throw new Error(`Request error: ${response.status} ${response.statusText}`);
         }
 
         const createdUser = await response.json();
         return createdUser;
     } catch (error) {
-        console.error('Error al crear el usuario:', error);
+        console.error('Error creating user:', error);
         throw error;
     }
 };
 
 
 
-export const createMovie = async (userId: number, movieData: any) => {
+export const createMoviePost = async (userId: number, movieData: any) => {
     try {
         const response = await fetch(`${API_BASE_URL}/movies/${userId}`, {
             method: 'POST',
@@ -76,12 +76,17 @@ export const createMovie = async (userId: number, movieData: any) => {
             body: JSON.stringify(movieData),
         });
 
-        const responseData = await response.json();
-
-        return {
-            status: response.status,
-            data: responseData,
-        };
+        if (response.status === 201) {
+            const createdMovie = await response.json(); // Obtener la película creada
+            console.log("Movie created:", createdMovie);
+            return createdMovie; // Retornar la película creada
+        } else {
+            console.error('Error creating movie:', response.status);
+            return {
+                status: response.status,
+                error: 'Error creating movie',
+            };
+        }
     } catch (error) {
         console.error('Error creating movie:', error);
         return {
@@ -91,7 +96,12 @@ export const createMovie = async (userId: number, movieData: any) => {
     }
 };
 
-export const updateMovie = async (movieId: number, movieData: any) => {
+
+
+
+
+
+export const updateMoviePut = async (movieId: number, movieData: any) => {
     try {
         const response = await fetch(`${API_BASE_URL}/movies/${movieId}`, {
             method: 'PUT',
@@ -115,5 +125,6 @@ export const updateMovie = async (movieId: number, movieData: any) => {
         };
     }
 };
+
 
 

@@ -1,9 +1,4 @@
-import React from 'react';
-
-interface DeleteGenreProps {
-    genreId: number;
-    onActionSuccess: () => void;
-}
+import { DeleteGenreProps } from "./actionTypes";
 
 export const DeleteGenre: React.FC<DeleteGenreProps> = ({ genreId, onActionSuccess }) => {
     const handleDeleteClick = async () => {
@@ -24,6 +19,6 @@ export const DeleteGenre: React.FC<DeleteGenreProps> = ({ genreId, onActionSucce
     };
 
     return (
-        <button onClick={handleDeleteClick}>Delete Genre</button>
+        <button className="action-button" onClick={handleDeleteClick}>Delete</button>
     );
 };

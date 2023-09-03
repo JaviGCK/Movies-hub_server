@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
 import { MovieForm } from '../forms/MovieForm';
-
-
-interface CreateMovieProps {
-  userId: number;
-  onCreateSuccess: () => void;
-}
+import { CreateMovieProps } from '../actions/actionTypes';
 
 export const CreateMovie: React.FC<CreateMovieProps> = ({ userId, onCreateSuccess }) => {
   const [success, setSuccess] = useState(false);

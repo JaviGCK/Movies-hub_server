@@ -1,11 +1,6 @@
-import React from 'react';
+import { ActionMovieProps } from "./actionTypes";
 
-interface DeleteMovieProps {
-    movieId: number;
-    onActionSuccess: () => void;
-}
-
-export const DeleteMovie: React.FC<DeleteMovieProps> = ({ movieId, onActionSuccess }) => {
+export const DeleteMovie: React.FC<ActionMovieProps> = ({ movieId, onActionSuccess }) => {
     const handleDeleteClick = async () => {
         try {
             const response = await fetch(`http://localhost:8080/movies/${movieId}`, {
@@ -25,7 +20,7 @@ export const DeleteMovie: React.FC<DeleteMovieProps> = ({ movieId, onActionSucce
 
     return (
         <div>
-            <button onClick={handleDeleteClick}>Delete Movie</button>
+            <button className="action-button" onClick={handleDeleteClick}>Delete Movie</button>
         </div>
     );
 };

@@ -1,12 +1,8 @@
-import React, { useState } from 'react';
+import { FC, useState } from 'react';
 import ReactModal from 'react-modal';
+import { ActionMovieProps } from './actionTypes';
 
-interface AddGenreProps {
-    movieId: number;
-    onActionSuccess: () => void;
-}
-
-export const AddGenre: React.FC<AddGenreProps> = ({ movieId, onActionSuccess }) => {
+export const AddGenre: FC<ActionMovieProps> = ({ movieId, onActionSuccess }) => {
     const [genreName, setGenreName] = useState('');
     const [error, setError] = useState<string>('');
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -50,14 +46,15 @@ export const AddGenre: React.FC<AddGenreProps> = ({ movieId, onActionSuccess }) 
 
     return (
         <div>
-            <button onClick={openModal}>Add Genre</button>
+            <button className='action-button' onClick={openModal}>Add Genre</button>
             <ReactModal
                 isOpen={isModalOpen}
                 onRequestClose={closeModal}
                 contentLabel="Add Genre Modal"
                 appElement={document.getElementById('root')!}
             >
-                <h3>Add Genre</h3>
+                <button onClick={closeModal}>X</button>
+                <h2 className='form-header'>Add Genre</h2>
                 {error && <p style={{ color: 'red' }}>{error}</p>}
                 <form onSubmit={handleSubmit}>
                     <input
@@ -68,7 +65,7 @@ export const AddGenre: React.FC<AddGenreProps> = ({ movieId, onActionSuccess }) 
                     />
                     <button type="submit">Add Genre</button>
                 </form>
-                <button onClick={closeModal}>Close</button>
+
             </ReactModal>
         </div>
     );

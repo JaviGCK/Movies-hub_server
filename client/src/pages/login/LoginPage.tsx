@@ -10,7 +10,7 @@ export const LoginPage = () => {
 
             <div className='login'>
                 <h1 className='login-title'>Movies<span className='login-title-span'>H</span>ub</h1>
-                <button onClick={(): Promise<void> => loginWithRedirect()} className='login-div'>
+                <button onClick={() => loginWithRedirect()} className='login-div'>
                     <h2 className='login-h2'>Log In</h2>
                     <BiLogIn className='login-icon' />
                 </button>
