@@ -27,7 +27,7 @@ export const MoviesListDetail: React.FC<MoviesListDetailProps> = ({ movies, onAc
                         <div className='movie-detail-animation' key={movie.id}>
                             <li className='list-movies-li'>
                                 <div className='movie-image-div'>
-                                    {/*acuerdate de meter aqui la url y quitar la imagen*/}
+                                    {/*acuerdate de meter aqui la url y quitar la imagen mutherfucker*/}
                                     <img className='movie-image' src={avatarImage} />
                                 </div>
                                 <div className='movie-details'>

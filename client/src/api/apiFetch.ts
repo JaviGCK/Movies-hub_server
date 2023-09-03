@@ -1,7 +1,5 @@
 const API_BASE_URL = 'http://localhost:8080';
 
-
-
 export const fetchDataAllUsers = async (): Promise<UserData[]> => {
     try {
         const response = await fetch(`${API_BASE_URL}/users`);
@@ -39,9 +37,6 @@ export const fetchDataUserById = async (userId: number): Promise<UserData | null
 };
 
 
-
-
-
 export const createUserIfNotExists = async (name: string, email: string) => {
     try {
         const response = await fetch(`${API_BASE_URL}/users`, {
@@ -77,9 +72,9 @@ export const createMoviePost = async (userId: number, movieData: any) => {
         });
 
         if (response.status === 201) {
-            const createdMovie = await response.json(); // Obtener la película creada
+            const createdMovie = await response.json();
             console.log("Movie created:", createdMovie);
-            return createdMovie; // Retornar la película creada
+            return createdMovie;
         } else {
             console.error('Error creating movie:', response.status);
             return {
