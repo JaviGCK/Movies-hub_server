@@ -5,32 +5,35 @@ import { uploadImage } from '../helpers/cloudinary'
 
 
 export const createMovie = async (req: Request, res: Response) => {
-    const { name, score, url } = req.body;
+    const { name, score } = req.body;
     const { userId } = req.params;
+    console.log(req.files);
 
     try {
 
+        if ((req.files as any)?.url) {
+            const upload = await uploadImage((req.files as any).url.tempFilePath);
+            const newMovie = await prismaClient.movie.create({
+                data: {
+                    name: name,
+                    url: upload.secure_url,
 
-        const newMovie = await prismaClient.movie.create({
-            data: {
-                name,
-                url,
-                score,
-                User: {
-                    connect: {
-                        id: converToType(userId)
+                    score: parseInt(score),
+                    User: {
+                        connect: {
+                            id: converToType(userId)
+                        }
                     }
                 }
-            }
-        });
-
-        res.status(201).send(newMovie);
+            });
+            res.status(201).json({ message: "Movie created succecfully" });
+        } else res.status(404).send('No user found')
     }
-    catch (error) {
-        res.status(500).send(error);
+    catch (err) {
+        console.error("Error creating movie:", err);
+        res.status(500).json({ err: "An error occurred while creating movie." });
     }
 }
-
 
 
 
@@ -74,37 +77,35 @@ export const getMovieById = async (req: Request, res: Response) => {
 
 export const updateMovie = async (req: Request, res: Response) => {
     const { movieId } = req.params;
-    const { name, url, score } = req.body;
+    const { name, score } = req.body;
 
     try {
 
-        const existingMovie = await prismaClient.movie.findUnique({
-            where: {
-                id: converToType(movieId)
-            }
-        });
+        console.log(req.params);
+        console.log(req.body);
+        if (req.files && req.files.url) {
+            const upload = await uploadImage((req.files as any).url.tempFilePath);
+            const updatedMovie = await prismaClient.movie.update({
+                where: {
+                    id: converToType(movieId)
+                },
+                data: {
+                    name: name,
+                    url: upload.secure_url,
+                    score: converToType(score),
+                }
+            });
 
-        if (!existingMovie) {
-            return res.status(404).send({ error: "Movie not found." });
+            return res.status(200).json({ message: "Movie updated successfully" });
+        } else {
+            return res.status(404).json({ error: "No movie found" });
         }
-
-        const updatedMovie = await prismaClient.movie.update({
-            where: {
-
-                id: converToType(movieId)
-            },
-            data: {
-                name,
-                url,
-                score
-            }
-        });
-
-        res.status(200).send(updatedMovie);
-    } catch (error) {
-        res.status(500).send(error);
+    } catch (err) {
+        console.error("Error updating movie:", err);
+        return res.status(500).json({ error: "An error occurred while updating movie." });
     }
 };
+
 
 
 export const removeMovies = async (req: Request, res: Response) => {
