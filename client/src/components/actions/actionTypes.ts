@@ -1,6 +1,7 @@
 export interface ActionMovieProps {
     movieId: number;
     onActionSuccess: () => void;
+    accessToken: string;
 }
 
 export interface CreateMovieProps {

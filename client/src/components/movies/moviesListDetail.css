@@ -95,7 +95,7 @@
 .delete-confirmation button {
     height: 40px;
     width: 70px;
-    margin: 50px;
+    margin: 35px 70px;
     border: none;
     background-color: #e51e1e;
     cursor: pointer;

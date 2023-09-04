@@ -19,6 +19,6 @@ export const DeleteGenre: React.FC<DeleteGenreProps> = ({ genreId, onActionSucce
     };
 
     return (
-        <button className="action-button" onClick={handleDeleteClick}>Delete</button>
+        <button onClick={handleDeleteClick}>Delete</button>
     );
 };

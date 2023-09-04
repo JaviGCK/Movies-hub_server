@@ -6,23 +6,24 @@ import { MoviesListDetail } from './movieListDetail';
 
 export const MoviesList = () => {
   const [userData, setUserData] = useState<UserData | null>(null);
-  const { isAuthenticated, user } = useAuth0();
+  const { isAuthenticated, user, getAccessTokenSilently } = useAuth0();
 
   const fetchUserData = async () => {
     if (isAuthenticated && user && user.email) {
       try {
+        const accessToken = await getAccessTokenSilently();
         const email = user.email;
         const name = user.given_name || "";
 
-        const allUsers = await fetchDataAllUsers();
+        const allUsers = await fetchDataAllUsers(accessToken);
 
         const matchedUser = allUsers.find((u) => u.email === email);
 
         if (!matchedUser) {
-          const newUser = await createUserIfNotExists(name, email);
+          const newUser = await createUserIfNotExists(name, email, accessToken);
           setUserData(newUser);
         } else {
-          const existingUserData = await fetchDataUserById(matchedUser.id);
+          const existingUserData = await fetchDataUserById(matchedUser.id, accessToken);
           setUserData(existingUserData);
         }
       } catch (error) {
@@ -44,6 +45,7 @@ export const MoviesList = () => {
       <Modals userData={userData} onActionSuccess={handleActionSuccess} />
       {userData ? (
         <MoviesListDetail movies={userData.movies || []} onActionSuccess={handleActionSuccess} />
+
       ) : (
         <p>Loading user data...</p>
       )}

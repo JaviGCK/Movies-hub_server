@@ -1,3 +1,4 @@
+import '../forms/movieForm.css'
 import { FC, useState } from 'react';
 import ReactModal from 'react-modal';
 import { ActionMovieProps } from './actionTypes';
@@ -26,7 +27,7 @@ export const AddGenre: FC<ActionMovieProps> = ({ movieId, onActionSuccess }) => 
                     onActionSuccess();
                     closeModal();
                 } else {
-                    setError(`Error adding genre. Status code: ${response.status}`);
+                    setError('Only three genres per movie');
                 }
 
             } catch (error) {
@@ -54,7 +55,7 @@ export const AddGenre: FC<ActionMovieProps> = ({ movieId, onActionSuccess }) => 
                 appElement={document.getElementById('root')!}
             >
                 <button onClick={closeModal}>X</button>
-                <h2 className='form-header'>Add Genre</h2>
+                <h3 className='form-header'>Add Genre</h3>
                 {error && <p style={{ color: 'red' }}>{error}</p>}
                 <form onSubmit={handleSubmit}>
                     <input

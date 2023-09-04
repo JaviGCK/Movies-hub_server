@@ -1,8 +1,14 @@
 const API_BASE_URL = 'http://localhost:8080';
 
-export const fetchDataAllUsers = async (): Promise<UserData[]> => {
+export const fetchDataAllUsers = async (accessToken: string): Promise<UserData[]> => {
+
     try {
-        const response = await fetch(`${API_BASE_URL}/users`);
+        const response = await fetch(`${API_BASE_URL}/users`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`,
+            },
+        });
 
         if (!response.ok) {
             const errorText = await response.text();
@@ -18,9 +24,14 @@ export const fetchDataAllUsers = async (): Promise<UserData[]> => {
     }
 };
 
-export const fetchDataUserById = async (userId: number): Promise<UserData | null> => {
+export const fetchDataUserById = async (userId: number, accessToken: string): Promise<UserData | null> => {
     try {
-        const response = await fetch(`${API_BASE_URL}/users/${userId}`);
+        const response = await fetch(`${API_BASE_URL}/users/${userId}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`,
+            },
+        });
 
         if (!response.ok) {
             const errorText = await response.text();
@@ -36,22 +47,25 @@ export const fetchDataUserById = async (userId: number): Promise<UserData | null
     }
 };
 
-
-export const createUserIfNotExists = async (name: string, email: string) => {
+export const createUserIfNotExists = async (name: string, email: string, accessToken: string) => {
     try {
         const response = await fetch(`${API_BASE_URL}/users`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`,
             },
             body: JSON.stringify({ name, email }),
         });
 
         if (!response.ok) {
+            const errorText = await response.text();
+            console.error(`Request error: ${response.status} ${response.statusText} - ${errorText}`);
             throw new Error(`Request error: ${response.status} ${response.statusText}`);
         }
 
         const createdUser = await response.json();
+        console.log('User created successfully:', createdUser);
         return createdUser;
     } catch (error) {
         console.error('Error creating user:', error);
@@ -59,21 +73,20 @@ export const createUserIfNotExists = async (name: string, email: string) => {
     }
 };
 
+export const createMoviePost = async (userId: number, movieData: FormData, accessToken: string) => {
 
-
-export const createMoviePost = async (userId: number, movieData: any) => {
     try {
         const response = await fetch(`${API_BASE_URL}/movies/${userId}`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`,
             },
-            body: JSON.stringify(movieData),
+            body: movieData,
         });
 
         if (response.status === 201) {
             const createdMovie = await response.json();
-            console.log("Movie created:", createdMovie);
+            console.log("Movie created successfully:", createdMovie);
             return createdMovie;
         } else {
             console.error('Error creating movie:', response.status);
@@ -81,6 +94,7 @@ export const createMoviePost = async (userId: number, movieData: any) => {
                 status: response.status,
                 error: 'Error creating movie',
             };
+
         }
     } catch (error) {
         console.error('Error creating movie:', error);
@@ -91,22 +105,21 @@ export const createMoviePost = async (userId: number, movieData: any) => {
     }
 };
 
+export const updateMoviePut = async (movieId: number, movieData: FormData, accessToken: string) => {
+    console.log(`${API_BASE_URL}/movies/${movieId}`);
 
 
-
-
-
-export const updateMoviePut = async (movieId: number, movieData: any) => {
     try {
         const response = await fetch(`${API_BASE_URL}/movies/${movieId}`, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`,
             },
-            body: JSON.stringify(movieData),
+            body: movieData,
         });
 
         const responseData = await response.json();
+
 
         return {
             status: response.status,
@@ -120,6 +133,3 @@ export const updateMoviePut = async (movieId: number, movieData: any) => {
         };
     }
 };
-
-
-

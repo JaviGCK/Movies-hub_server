@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './moviesListDetail.css';
 import { AddGenre, DeleteMovie, DeleteGenre, UpdateMovie } from '../actions/index';
 import { useAuth0 } from '@auth0/auth0-react';
 import { MoviesListDetailProps } from './movieTypes';
-import avatarImage from '../../img-prueba/Avatar.jpg';
 
 export const MoviesListDetail: React.FC<MoviesListDetailProps> = ({ movies, onActionSuccess }) => {
-    const { user } = useAuth0();
-
-    const [visibleGenreId, setVisibleGenreId] = useState(null);
+    const { user, getAccessTokenSilently } = useAuth0();
+    const [visibleGenreId, setVisibleGenreId] = useState<number | null>(null);
+    const [accessToken, setAccessToken] = useState<string | null>(null);
 
     const handleGenreClick = (genreId: any) => {
         if (visibleGenreId === genreId) {
@@ -17,6 +16,19 @@ export const MoviesListDetail: React.FC<MoviesListDetailProps> = ({ movies, onAc
             setVisibleGenreId(genreId);
         }
     };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const token = await getAccessTokenSilently();
+                setAccessToken(token || null);
+            } catch (error) {
+                console.error('Error fetching access token:', error);
+            }
+        };
+
+        fetchData();
+    }, [getAccessTokenSilently]);
 
     return (
         <section className='list-movies-section'>
@@ -27,8 +39,7 @@ export const MoviesListDetail: React.FC<MoviesListDetailProps> = ({ movies, onAc
                         <div className='movie-detail-animation' key={movie.id}>
                             <li className='list-movies-li'>
                                 <div className='movie-image-div'>
-                                    {/*acuerdate de meter aqui la url y quitar la imagen mutherfucker*/}
-                                    <img className='movie-image' src={avatarImage} />
+                                    <img className='movie-image' src={movie.url} alt={movie.name} />
                                 </div>
                                 <div className='movie-details'>
                                     <p className='movie-property'>Name: {movie.name}</p>
@@ -48,9 +59,9 @@ export const MoviesListDetail: React.FC<MoviesListDetailProps> = ({ movies, onAc
                                         </span>
                                     ))}</p>
                                     <div className='action-button-div'>
-                                        <AddGenre movieId={movie.id} onActionSuccess={onActionSuccess} />
+                                        <AddGenre movieId={movie.id} onActionSuccess={onActionSuccess} accessToken={accessToken || ""} />
                                         <UpdateMovie movieId={movie.id} onUpdateSuccess={onActionSuccess} />
-                                        <DeleteMovie movieId={movie.id} onActionSuccess={onActionSuccess} />
+                                        <DeleteMovie movieId={movie.id} onActionSuccess={onActionSuccess} accessToken={accessToken || ""} />
                                     </div>
                                 </div>
                             </li>
@@ -63,5 +74,3 @@ export const MoviesListDetail: React.FC<MoviesListDetailProps> = ({ movies, onAc
         </section>
     );
 };
-
-

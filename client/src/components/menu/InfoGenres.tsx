@@ -86,8 +86,8 @@ export const InfoGenres: FC<InfoGenresProps> = ({ onActionSuccess }) => {
                         {genreName}
                         {visibleGenreId === genreName && (
                             <span className='delete-confirmation-info-genres'>
-                                Are you sure you want to delete?
-                                <button className="action-button" onClick={handleDeleteGenresWithSameName}>Delete</button>
+                                Do you want to delete?
+                                <button onClick={handleDeleteGenresWithSameName}>Delete</button>
                             </span>
                         )}
                     </li>
