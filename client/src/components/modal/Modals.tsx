@@ -2,9 +2,8 @@ import './modals.css';
 import { useState, useCallback } from 'react';
 import { FaFilm, FaUser, FaTags } from 'react-icons/fa';
 import ReactModal from 'react-modal';
-import { CreateMovie } from '../menu/CreateMovie';
-import { InfoGenres } from '../menu/InfoGenres';
-import { UserInfo } from '../menu/UserInfo';
+import { CreateMovie, InfoGenres, UserInfo } from '../menu';
+
 
 interface ModalsProps {
     userData: UserData | null;

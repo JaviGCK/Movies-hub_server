@@ -1,11 +1,10 @@
-import './menu.css'
+import './menu.css';
 import { FC, useEffect, useState } from 'react';
 
 interface Genre {
     id: number;
     name: string;
     movieId: number;
-    onActionSuccess: () => void;
 }
 
 interface InfoGenresProps {
@@ -14,8 +13,8 @@ interface InfoGenresProps {
 
 export const InfoGenres: FC<InfoGenresProps> = ({ onActionSuccess }) => {
     const [genres, setGenres] = useState<Genre[]>([]);
-    const [visibleGenreId, setVisibleGenreId] = useState<string | null>(null);
-    const [genresWithSameName, setGenresWithSameName] = useState<number[]>([]);
+    const [visibleGenreName, setVisibleGenreName] = useState<string | null>(null);
+    const [genresWithSameName, setGenresWithSameName] = useState<Genre[]>([]);
 
     useEffect(() => {
         const fetchDataGenres = async () => {
@@ -44,36 +43,46 @@ export const InfoGenres: FC<InfoGenresProps> = ({ onActionSuccess }) => {
     const uniqueGenres = Array.from(new Set(genres.map((genre) => genre.name)));
 
     const handleGenreClick = (genreName: string) => {
-        const genreIds = genres
-            .filter((genre) => genre.name === genreName)
-            .map((genre) => genre.id);
+        const genresWithSameName = genres.filter((genre) => genre.name === genreName);
+        setGenresWithSameName(genresWithSameName);
 
-        setGenresWithSameName(genreIds);
-
-        if (visibleGenreId === genreName) {
-            setVisibleGenreId(null);
+        if (visibleGenreName === genreName) {
+            setVisibleGenreName(null);
         } else {
-            setVisibleGenreId(genreName);
+            setVisibleGenreName(genreName);
         }
     };
 
-    const handleDeleteGenresWithSameName = () => {
-        genresWithSameName.forEach(async (genreId) => {
-            const response = await fetch(`http://localhost:8080/genres/${genreId}`, {
-                method: 'DELETE',
-            });
+    const handleDeleteGenresWithSameName = async () => {
+        try {
+            const genreIdsToDelete = genresWithSameName.map((genre) => genre.id);
 
-            if (response.ok) {
-                const updatedGenres = genres.filter((genre) => !genresWithSameName.includes(genre.id));
+            const responses = await Promise.all(
+                genreIdsToDelete.map(async (genreId) => {
+                    const response = await fetch(`http://localhost:8080/genres/${genreId}`, {
+                        method: 'DELETE',
+                    });
+
+                    return { genreId, status: response.status };
+                })
+            );
+
+            const successfulDeletions = responses.filter((response) => response.status === 200);
+
+            if (successfulDeletions.length > 0) {
+                const updatedGenres = genres.filter((genre) => !genreIdsToDelete.includes(genre.id));
                 setGenres(updatedGenres);
                 setGenresWithSameName([]);
-                setVisibleGenreId(null);
+                setVisibleGenreName(null);
             } else {
-                console.error(`Error deleting genre with ID ${genreId}. Status code:`, response.status);
+                console.error('Error deleting genres. Status codes:', responses.map((response) => response.status));
             }
-        });
-        if (onActionSuccess) {
-            onActionSuccess();
+
+            if (onActionSuccess) {
+                onActionSuccess();
+            }
+        } catch (error) {
+            console.error('Error deleting genres:', error);
         }
     };
 
@@ -84,7 +93,7 @@ export const InfoGenres: FC<InfoGenresProps> = ({ onActionSuccess }) => {
                 {uniqueGenres.map((genreName) => (
                     <li className="genre-list-li" key={genreName} onClick={() => handleGenreClick(genreName)}>
                         {genreName}
-                        {visibleGenreId === genreName && (
+                        {visibleGenreName === genreName && (
                             <span className='delete-confirmation-info-genres'>
                                 Do you want to delete?
                                 <button onClick={handleDeleteGenresWithSameName}>Delete</button>
@@ -95,5 +104,4 @@ export const InfoGenres: FC<InfoGenresProps> = ({ onActionSuccess }) => {
             </ul>
         </div>
     );
-
 };

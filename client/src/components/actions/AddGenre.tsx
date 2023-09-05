@@ -1,4 +1,4 @@
-import '../forms/movieForm.css'
+import '../forms/movieForm.css';
 import { FC, useState } from 'react';
 import ReactModal from 'react-modal';
 import { ActionMovieProps } from './actionTypes';
@@ -11,29 +11,31 @@ export const AddGenre: FC<ActionMovieProps> = ({ movieId, onActionSuccess }) => 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (genreName.trim() !== '') {
-            try {
-                const response = await fetch(`http://localhost:8080/genres/${movieId}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ name: genreName }),
-                });
+        if (!genreName.trim()) {
+            setError('Genre name cannot be empty');
+            return;
+        }
 
-                if (response.ok) {
-                    setGenreName('');
-                    setError('');
-                    onActionSuccess();
-                    closeModal();
-                } else {
-                    setError('Only three genres per movie');
-                }
+        try {
+            const response = await fetch(`http://localhost:8080/genres/${movieId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name: genreName }),
+            });
 
-            } catch (error) {
-                console.error('Error adding genre:', error);
-                setError('Error adding genre. Please try again.');
+            if (response.ok) {
+                setGenreName('');
+                setError('');
+                onActionSuccess();
+                closeModal();
+            } else {
+                setError('Only three genres per movie');
             }
+        } catch (error) {
+            console.error('Error adding genre:', error);
+            setError('Error adding genre. Please try again.');
         }
     };
 
@@ -66,7 +68,6 @@ export const AddGenre: FC<ActionMovieProps> = ({ movieId, onActionSuccess }) => 
                     />
                     <button type="submit">Add Genre</button>
                 </form>
-
             </ReactModal>
         </div>
     );

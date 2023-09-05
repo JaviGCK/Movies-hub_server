@@ -3,7 +3,6 @@ import ReactModal from 'react-modal';
 import { MovieForm } from '../forms/MovieForm';
 import { UpdateMovieProps } from './actionTypes';
 
-
 export const UpdateMovie: React.FC<UpdateMovieProps> = ({ movieId, onUpdateSuccess }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -15,13 +14,8 @@ export const UpdateMovie: React.FC<UpdateMovieProps> = ({ movieId, onUpdateSucce
         closeModal();
     };
 
-    const openModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
 
     return (
         <div>
@@ -34,10 +28,7 @@ export const UpdateMovie: React.FC<UpdateMovieProps> = ({ movieId, onUpdateSucce
                 contentLabel="Update Movie Modal"
                 appElement={document.getElementById('root')!}
             >
-                <button onClick={closeModal}>
-                    X
-                </button>
-
+                <button onClick={closeModal}>X</button>
                 <MovieForm movieId={movieId} onActionSuccess={handleUpdateSuccess} />
             </ReactModal>
         </div>

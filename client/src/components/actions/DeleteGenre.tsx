@@ -7,7 +7,7 @@ export const DeleteGenre: React.FC<DeleteGenreProps> = ({ genreId, onActionSucce
                 method: 'DELETE',
             });
 
-            if (response.status) {
+            if (response.ok) {
                 onActionSuccess();
                 console.log('Deleted genre');
             } else {
@@ -18,7 +18,5 @@ export const DeleteGenre: React.FC<DeleteGenreProps> = ({ genreId, onActionSucce
         }
     };
 
-    return (
-        <button onClick={handleDeleteClick}>Delete</button>
-    );
+    return <button onClick={handleDeleteClick}>Delete</button>;
 };

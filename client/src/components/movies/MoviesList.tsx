@@ -38,14 +38,13 @@ export const MoviesList = () => {
 
   const handleActionSuccess = () => {
     fetchUserData();
-  }
+  };
 
   return (
     <section>
       <Modals userData={userData} onActionSuccess={handleActionSuccess} />
       {userData ? (
         <MoviesListDetail movies={userData.movies || []} onActionSuccess={handleActionSuccess} />
-
       ) : (
         <p>Loading user data...</p>
       )}

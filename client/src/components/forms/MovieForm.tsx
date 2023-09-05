@@ -12,18 +12,19 @@ interface MovieFormProps {
 export const MovieForm: React.FC<MovieFormProps> = ({ userId, movieId, onUpdate, onActionSuccess }) => {
     const { getAccessTokenSilently } = useAuth0();
 
-    const [movieData, setMovieData] = useState({
+    const initialMovieData = {
         name: '',
         url: null as File | null,
         score: '',
-    });
+    };
 
+    const [movieData, setMovieData] = useState(initialMovieData);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
     useEffect(() => {
-        if (movieId) {
-            const fetchMovieDetails = async () => {
+        const fetchMovieDetails = async () => {
+            if (movieId) {
                 try {
                     const accessToken = await getAccessTokenSilently();
                     const response = await fetch(`http://localhost:8080/movies/${movieId}`, {
@@ -32,6 +33,7 @@ export const MovieForm: React.FC<MovieFormProps> = ({ userId, movieId, onUpdate,
                             'Authorization': `Bearer ${accessToken}`,
                         },
                     });
+
                     if (response.status === 200) {
                         const movieDetails = await response.json();
                         setMovieData({
@@ -45,15 +47,14 @@ export const MovieForm: React.FC<MovieFormProps> = ({ userId, movieId, onUpdate,
                 } catch (error) {
                     console.error('Error fetching movie details:', error);
                 }
-            };
+            }
+        };
 
-
-            fetchMovieDetails();
-        }
-    }, [movieId]);
+        fetchMovieDetails();
+    }, [movieId, getAccessTokenSilently]);
 
     const handleFieldChange = (name: string, value: string | File | null) => {
-        setMovieData(prevMovieData => ({
+        setMovieData((prevMovieData) => ({
             ...prevMovieData,
             [name]: value,
         }));
@@ -86,21 +87,15 @@ export const MovieForm: React.FC<MovieFormProps> = ({ userId, movieId, onUpdate,
                 }
 
                 const accessToken = await getAccessTokenSilently();
-
-                let response;
-
-                if (userId) {
-                    response = await createMoviePost(userId, movieFormData, accessToken);
-                } else if (movieId) {
-                    response = await updateMoviePut(movieId, movieFormData, accessToken);
-                }
+                const response =
+                    userId
+                        ? await createMoviePost(userId, movieFormData, accessToken)
+                        : movieId
+                            ? await updateMoviePut(movieId, movieFormData, accessToken)
+                            : null;
 
                 if (response && response.status === 200) {
-                    setMovieData({
-                        name: '',
-                        url: null,
-                        score: '',
-                    });
+                    setMovieData(initialMovieData);
 
                     if (onUpdate) {
                         onUpdate();
@@ -131,7 +126,7 @@ export const MovieForm: React.FC<MovieFormProps> = ({ userId, movieId, onUpdate,
                         type="text"
                         id="name"
                         name="name"
-                        value=""
+                        value={movieData.name}
                         onChange={(e) => handleFieldChange('name', e.target.value)}
                         required
                     />
@@ -152,7 +147,7 @@ export const MovieForm: React.FC<MovieFormProps> = ({ userId, movieId, onUpdate,
                         type="number"
                         id="score"
                         name="score"
-                        value=""
+                        value={movieData.score}
                         onChange={(e) => handleFieldChange('score', e.target.value)}
                         required
                     />

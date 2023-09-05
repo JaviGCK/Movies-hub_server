@@ -25,8 +25,8 @@ export const DeleteMovie: React.FC<ActionMovieProps> = ({ movieId, onActionSucce
     };
 
     return (
-        <div>
-            <button className="action-button" onClick={handleDeleteClick}>Delete Movie</button>
-        </div>
+        <button className="action-button" onClick={handleDeleteClick}>
+            Delete Movie
+        </button>
     );
 };

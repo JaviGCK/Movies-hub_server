@@ -7,7 +7,6 @@ export const LoginPage = () => {
 
     return (
         <section>
-
             <div className='login'>
                 <h1 className='login-title'>Movies<span className='login-title-span'>H</span>ub</h1>
                 <button onClick={() => loginWithRedirect()} className='login-div'>
