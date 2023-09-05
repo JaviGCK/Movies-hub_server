@@ -15,6 +15,7 @@ export const RoutesPath = () => {
 
                 <Route path="/" element={<LoginPage />} />
 
+
                 <Route
                     path="/home"
                     element={

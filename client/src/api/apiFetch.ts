@@ -2,6 +2,7 @@ import { handleErrorResponse } from "../utils";
 
 const API_BASE_URL = 'http://localhost:8080';
 
+
 export const fetchDataAllUsers = async (accessToken: string): Promise<UserData[]> => {
     try {
         const response = await fetch(`${API_BASE_URL}/users`, {
