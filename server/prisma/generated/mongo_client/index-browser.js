@@ -125,10 +125,9 @@ exports.Prisma.UserScalarFieldEnum = {
 
 exports.Prisma.MovieScalarFieldEnum = {
   id: 'id',
-  poster: 'poster',
-  origin: 'origin',
-  year: 'year',
   name: 'name',
+  url: 'url',
+  score: 'score',
   createdAt: 'createdAt',
   updateAt: 'updateAt',
   userId: 'userId'

@@ -23,10 +23,9 @@ model User {
 
 model Movie {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  poster    String
-  origin    String
-  year      Int
   name      String
+  url       String
+  score     Int
   genres    Genre[]
   createdAt DateTime @default(now())
   updateAt  DateTime @updatedAt

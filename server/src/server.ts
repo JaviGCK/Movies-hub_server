@@ -3,8 +3,9 @@ import { genresRoutes, moviesRoutes, usersRoutes } from './routes';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
-import { checkJwt } from './middleware/checkJwt.middleware'
+
 import fileUpload from 'express-fileupload'
+import { checkJwt } from './middleware/checkjwt.middleware';
 
 const app: Express = express();
 
@@ -21,13 +22,5 @@ app.use(express.json());
 app.use('/users', checkJwt, usersRoutes);
 app.use('/movies', checkJwt, moviesRoutes);
 app.use('/genres', genresRoutes);
-
-app.use(express.json())
-
-app.use('/users', usersRoutes)
-
-app.use('/movies', moviesRoutes)
-
-app.use('/genres', genresRoutes)
 
 export default app

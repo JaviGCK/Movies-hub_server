@@ -3,7 +3,6 @@ import { prismaClient } from "../db/clientPrisma";
 import { converToType } from '../helpers/utils';
 import { uploadImage } from '../helpers/cloudinary';
 
-
 export const createMovie = async (req: Request, res: Response) => {
     const { name, score } = req.body;
     const { userId } = req.params;
@@ -43,8 +42,6 @@ export const getAllMovies = async (_: Request, res: Response) => {
         res.status(500).send("Internal Server Error");
     }
 }
-
-
 
 export const getMovieById = async (req: Request, res: Response) => {
     const { movieId } = req.params;

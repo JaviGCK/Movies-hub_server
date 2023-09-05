@@ -2087,19 +2087,18 @@ export namespace Prisma {
   }
 
   export type MovieAvgAggregateOutputType = {
-    year: number | null
+    score: number | null
   }
 
   export type MovieSumAggregateOutputType = {
-    year: number | null
+    score: number | null
   }
 
   export type MovieMinAggregateOutputType = {
     id: string | null
-    poster: string | null
-    origin: string | null
-    year: number | null
     name: string | null
+    url: string | null
+    score: number | null
     createdAt: Date | null
     updateAt: Date | null
     userId: string | null
@@ -2107,10 +2106,9 @@ export namespace Prisma {
 
   export type MovieMaxAggregateOutputType = {
     id: string | null
-    poster: string | null
-    origin: string | null
-    year: number | null
     name: string | null
+    url: string | null
+    score: number | null
     createdAt: Date | null
     updateAt: Date | null
     userId: string | null
@@ -2118,10 +2116,9 @@ export namespace Prisma {
 
   export type MovieCountAggregateOutputType = {
     id: number
-    poster: number
-    origin: number
-    year: number
     name: number
+    url: number
+    score: number
     createdAt: number
     updateAt: number
     userId: number
@@ -2130,19 +2127,18 @@ export namespace Prisma {
 
 
   export type MovieAvgAggregateInputType = {
-    year?: true
+    score?: true
   }
 
   export type MovieSumAggregateInputType = {
-    year?: true
+    score?: true
   }
 
   export type MovieMinAggregateInputType = {
     id?: true
-    poster?: true
-    origin?: true
-    year?: true
     name?: true
+    url?: true
+    score?: true
     createdAt?: true
     updateAt?: true
     userId?: true
@@ -2150,10 +2146,9 @@ export namespace Prisma {
 
   export type MovieMaxAggregateInputType = {
     id?: true
-    poster?: true
-    origin?: true
-    year?: true
     name?: true
+    url?: true
+    score?: true
     createdAt?: true
     updateAt?: true
     userId?: true
@@ -2161,10 +2156,9 @@ export namespace Prisma {
 
   export type MovieCountAggregateInputType = {
     id?: true
-    poster?: true
-    origin?: true
-    year?: true
     name?: true
+    url?: true
+    score?: true
     createdAt?: true
     updateAt?: true
     userId?: true
@@ -2259,10 +2253,9 @@ export namespace Prisma {
 
   export type MovieGroupByOutputType = {
     id: string
-    poster: string
-    origin: string
-    year: number
     name: string
+    url: string
+    score: number
     createdAt: Date
     updateAt: Date
     userId: string | null
@@ -2289,10 +2282,9 @@ export namespace Prisma {
 
   export type MovieSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    poster?: boolean
-    origin?: boolean
-    year?: boolean
     name?: boolean
+    url?: boolean
+    score?: boolean
     createdAt?: boolean
     updateAt?: boolean
     userId?: boolean
@@ -2303,10 +2295,9 @@ export namespace Prisma {
 
   export type MovieSelectScalar = {
     id?: boolean
-    poster?: boolean
-    origin?: boolean
-    year?: boolean
     name?: boolean
+    url?: boolean
+    score?: boolean
     createdAt?: boolean
     updateAt?: boolean
     userId?: boolean
@@ -2327,10 +2318,9 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetResult<{
       id: string
-      poster: string
-      origin: string
-      year: number
       name: string
+      url: string
+      score: number
       createdAt: Date
       updateAt: Date
       userId: string | null
@@ -2759,10 +2749,9 @@ export namespace Prisma {
    */ 
   interface MovieFieldRefs {
     readonly id: FieldRef<"Movie", 'String'>
-    readonly poster: FieldRef<"Movie", 'String'>
-    readonly origin: FieldRef<"Movie", 'String'>
-    readonly year: FieldRef<"Movie", 'Int'>
     readonly name: FieldRef<"Movie", 'String'>
+    readonly url: FieldRef<"Movie", 'String'>
+    readonly score: FieldRef<"Movie", 'Int'>
     readonly createdAt: FieldRef<"Movie", 'DateTime'>
     readonly updateAt: FieldRef<"Movie", 'DateTime'>
     readonly userId: FieldRef<"Movie", 'String'>
@@ -4145,10 +4134,9 @@ export namespace Prisma {
 
   export const MovieScalarFieldEnum: {
     id: 'id',
-    poster: 'poster',
-    origin: 'origin',
-    year: 'year',
     name: 'name',
+    url: 'url',
+    score: 'score',
     createdAt: 'createdAt',
     updateAt: 'updateAt',
     userId: 'userId'
@@ -4311,10 +4299,9 @@ export namespace Prisma {
     OR?: MovieWhereInput[]
     NOT?: MovieWhereInput | MovieWhereInput[]
     id?: StringFilter<"Movie"> | string
-    poster?: StringFilter<"Movie"> | string
-    origin?: StringFilter<"Movie"> | string
-    year?: IntFilter<"Movie"> | number
     name?: StringFilter<"Movie"> | string
+    url?: StringFilter<"Movie"> | string
+    score?: IntFilter<"Movie"> | number
     createdAt?: DateTimeFilter<"Movie"> | Date | string
     updateAt?: DateTimeFilter<"Movie"> | Date | string
     userId?: StringNullableFilter<"Movie"> | string | null
@@ -4324,10 +4311,9 @@ export namespace Prisma {
 
   export type MovieOrderByWithRelationInput = {
     id?: SortOrder
-    poster?: SortOrder
-    origin?: SortOrder
-    year?: SortOrder
     name?: SortOrder
+    url?: SortOrder
+    score?: SortOrder
     createdAt?: SortOrder
     updateAt?: SortOrder
     userId?: SortOrder
@@ -4340,10 +4326,9 @@ export namespace Prisma {
     AND?: MovieWhereInput | MovieWhereInput[]
     OR?: MovieWhereInput[]
     NOT?: MovieWhereInput | MovieWhereInput[]
-    poster?: StringFilter<"Movie"> | string
-    origin?: StringFilter<"Movie"> | string
-    year?: IntFilter<"Movie"> | number
     name?: StringFilter<"Movie"> | string
+    url?: StringFilter<"Movie"> | string
+    score?: IntFilter<"Movie"> | number
     createdAt?: DateTimeFilter<"Movie"> | Date | string
     updateAt?: DateTimeFilter<"Movie"> | Date | string
     userId?: StringNullableFilter<"Movie"> | string | null
@@ -4353,10 +4338,9 @@ export namespace Prisma {
 
   export type MovieOrderByWithAggregationInput = {
     id?: SortOrder
-    poster?: SortOrder
-    origin?: SortOrder
-    year?: SortOrder
     name?: SortOrder
+    url?: SortOrder
+    score?: SortOrder
     createdAt?: SortOrder
     updateAt?: SortOrder
     userId?: SortOrder
@@ -4372,10 +4356,9 @@ export namespace Prisma {
     OR?: MovieScalarWhereWithAggregatesInput[]
     NOT?: MovieScalarWhereWithAggregatesInput | MovieScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Movie"> | string
-    poster?: StringWithAggregatesFilter<"Movie"> | string
-    origin?: StringWithAggregatesFilter<"Movie"> | string
-    year?: IntWithAggregatesFilter<"Movie"> | number
     name?: StringWithAggregatesFilter<"Movie"> | string
+    url?: StringWithAggregatesFilter<"Movie"> | string
+    score?: IntWithAggregatesFilter<"Movie"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Movie"> | Date | string
     updateAt?: DateTimeWithAggregatesFilter<"Movie"> | Date | string
     userId?: StringNullableWithAggregatesFilter<"Movie"> | string | null
@@ -4491,10 +4474,9 @@ export namespace Prisma {
 
   export type MovieCreateInput = {
     id?: string
-    poster: string
-    origin: string
-    year: number
     name: string
+    url: string
+    score: number
     createdAt?: Date | string
     updateAt?: Date | string
     genres?: GenreCreateNestedManyWithoutMovieInput
@@ -4503,10 +4485,9 @@ export namespace Prisma {
 
   export type MovieUncheckedCreateInput = {
     id?: string
-    poster: string
-    origin: string
-    year: number
     name: string
+    url: string
+    score: number
     createdAt?: Date | string
     updateAt?: Date | string
     userId?: string | null
@@ -4514,10 +4495,9 @@ export namespace Prisma {
   }
 
   export type MovieUpdateInput = {
-    poster?: StringFieldUpdateOperationsInput | string
-    origin?: StringFieldUpdateOperationsInput | string
-    year?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     genres?: GenreUpdateManyWithoutMovieNestedInput
@@ -4525,10 +4505,9 @@ export namespace Prisma {
   }
 
   export type MovieUncheckedUpdateInput = {
-    poster?: StringFieldUpdateOperationsInput | string
-    origin?: StringFieldUpdateOperationsInput | string
-    year?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -4537,29 +4516,26 @@ export namespace Prisma {
 
   export type MovieCreateManyInput = {
     id?: string
-    poster: string
-    origin: string
-    year: number
     name: string
+    url: string
+    score: number
     createdAt?: Date | string
     updateAt?: Date | string
     userId?: string | null
   }
 
   export type MovieUpdateManyMutationInput = {
-    poster?: StringFieldUpdateOperationsInput | string
-    origin?: StringFieldUpdateOperationsInput | string
-    year?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MovieUncheckedUpdateManyInput = {
-    poster?: StringFieldUpdateOperationsInput | string
-    origin?: StringFieldUpdateOperationsInput | string
-    year?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -4741,25 +4717,23 @@ export namespace Prisma {
 
   export type MovieCountOrderByAggregateInput = {
     id?: SortOrder
-    poster?: SortOrder
-    origin?: SortOrder
-    year?: SortOrder
     name?: SortOrder
+    url?: SortOrder
+    score?: SortOrder
     createdAt?: SortOrder
     updateAt?: SortOrder
     userId?: SortOrder
   }
 
   export type MovieAvgOrderByAggregateInput = {
-    year?: SortOrder
+    score?: SortOrder
   }
 
   export type MovieMaxOrderByAggregateInput = {
     id?: SortOrder
-    poster?: SortOrder
-    origin?: SortOrder
-    year?: SortOrder
     name?: SortOrder
+    url?: SortOrder
+    score?: SortOrder
     createdAt?: SortOrder
     updateAt?: SortOrder
     userId?: SortOrder
@@ -4767,17 +4741,16 @@ export namespace Prisma {
 
   export type MovieMinOrderByAggregateInput = {
     id?: SortOrder
-    poster?: SortOrder
-    origin?: SortOrder
-    year?: SortOrder
     name?: SortOrder
+    url?: SortOrder
+    score?: SortOrder
     createdAt?: SortOrder
     updateAt?: SortOrder
     userId?: SortOrder
   }
 
   export type MovieSumOrderByAggregateInput = {
-    year?: SortOrder
+    score?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -5116,10 +5089,9 @@ export namespace Prisma {
 
   export type MovieCreateWithoutUserInput = {
     id?: string
-    poster: string
-    origin: string
-    year: number
     name: string
+    url: string
+    score: number
     createdAt?: Date | string
     updateAt?: Date | string
     genres?: GenreCreateNestedManyWithoutMovieInput
@@ -5127,10 +5099,9 @@ export namespace Prisma {
 
   export type MovieUncheckedCreateWithoutUserInput = {
     id?: string
-    poster: string
-    origin: string
-    year: number
     name: string
+    url: string
+    score: number
     createdAt?: Date | string
     updateAt?: Date | string
     genres?: GenreUncheckedCreateNestedManyWithoutMovieInput
@@ -5166,10 +5137,9 @@ export namespace Prisma {
     OR?: MovieScalarWhereInput[]
     NOT?: MovieScalarWhereInput | MovieScalarWhereInput[]
     id?: StringFilter<"Movie"> | string
-    poster?: StringFilter<"Movie"> | string
-    origin?: StringFilter<"Movie"> | string
-    year?: IntFilter<"Movie"> | number
     name?: StringFilter<"Movie"> | string
+    url?: StringFilter<"Movie"> | string
+    score?: IntFilter<"Movie"> | number
     createdAt?: DateTimeFilter<"Movie"> | Date | string
     updateAt?: DateTimeFilter<"Movie"> | Date | string
     userId?: StringNullableFilter<"Movie"> | string | null
@@ -5271,10 +5241,9 @@ export namespace Prisma {
 
   export type MovieCreateWithoutGenresInput = {
     id?: string
-    poster: string
-    origin: string
-    year: number
     name: string
+    url: string
+    score: number
     createdAt?: Date | string
     updateAt?: Date | string
     User?: UserCreateNestedOneWithoutMoviesInput
@@ -5282,10 +5251,9 @@ export namespace Prisma {
 
   export type MovieUncheckedCreateWithoutGenresInput = {
     id?: string
-    poster: string
-    origin: string
-    year: number
     name: string
+    url: string
+    score: number
     createdAt?: Date | string
     updateAt?: Date | string
     userId?: string | null
@@ -5308,20 +5276,18 @@ export namespace Prisma {
   }
 
   export type MovieUpdateWithoutGenresInput = {
-    poster?: StringFieldUpdateOperationsInput | string
-    origin?: StringFieldUpdateOperationsInput | string
-    year?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     User?: UserUpdateOneWithoutMoviesNestedInput
   }
 
   export type MovieUncheckedUpdateWithoutGenresInput = {
-    poster?: StringFieldUpdateOperationsInput | string
-    origin?: StringFieldUpdateOperationsInput | string
-    year?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -5329,39 +5295,35 @@ export namespace Prisma {
 
   export type MovieCreateManyUserInput = {
     id?: string
-    poster: string
-    origin: string
-    year: number
     name: string
+    url: string
+    score: number
     createdAt?: Date | string
     updateAt?: Date | string
   }
 
   export type MovieUpdateWithoutUserInput = {
-    poster?: StringFieldUpdateOperationsInput | string
-    origin?: StringFieldUpdateOperationsInput | string
-    year?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     genres?: GenreUpdateManyWithoutMovieNestedInput
   }
 
   export type MovieUncheckedUpdateWithoutUserInput = {
-    poster?: StringFieldUpdateOperationsInput | string
-    origin?: StringFieldUpdateOperationsInput | string
-    year?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     genres?: GenreUncheckedUpdateManyWithoutMovieNestedInput
   }
 
   export type MovieUncheckedUpdateManyWithoutUserInput = {
-    poster?: StringFieldUpdateOperationsInput | string
-    origin?: StringFieldUpdateOperationsInput | string
-    year?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

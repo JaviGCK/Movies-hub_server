@@ -4,7 +4,7 @@ import { createMovie, getAllMovies, getMovieById, removeMovies, removeMovieById,
 export const moviesRoutes = Router()
 
 moviesRoutes
-    .post('/', createMovie)
+    .post('/:userId', createMovie)
     .get('/', getAllMovies)
     .get('/:movieId', getMovieById)
     .put('/:movieId', updateMovie)
