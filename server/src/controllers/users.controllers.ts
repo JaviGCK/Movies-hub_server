@@ -1,129 +1,106 @@
-import { Request, Response } from 'express'
-import { prismaClient } from '../db/clientPrisma'
-import { converToType } from '../helpers/utils'
+import { Request, Response } from 'express';
+import { prismaClient } from '../db/clientPrisma';
+import { converToType } from '../helpers/utils';
 
 export const createUsers = async (req: Request, res: Response) => {
-    const { name, email, password } = req.body
+    const { name, email } = req.body;
 
     try {
-
-        if (!email) {
-            res.status(400).send('Missing required fileds')
-            return
-        }
-
         const newUser = await prismaClient.user.create({
             data: {
                 name,
                 email,
-                password
-            }
-        })
+            },
+        });
 
-        res.status(201).send(newUser)
+        res.status(201).send(newUser);
     } catch (error) {
-        res.status(500).send(error)
+        console.error('Error creating user:', error);
+        res.status(500).json({ error: 'An error occurred while creating the user.' });
     }
-}
+};
 
-export const getAllUsers = async (req: Request, res: Response) => {
-
+export const getAllUsers = async (_: Request, res: Response) => {
     try {
-
-        const allUsers = await prismaClient.user.findMany()
-
-        res.status(200).send(allUsers)
-
+        const allUsers = await prismaClient.user.findMany();
+        res.status(200).send(allUsers);
     } catch (error) {
-
-        res.status(500).send(error)
+        console.error('Error fetching all users:', error);
+        res.status(500).send('Internal Server Error');
     }
-}
+};
 
 export const getUserById = async (req: Request, res: Response) => {
-    const { userId } = req.params
+    const { userId } = req.params;
 
     try {
-
         const user = await prismaClient.user.findUnique({
-
             where: {
-                id: converToType(userId)
+                id: converToType(userId),
             },
             include: {
                 movies: {
                     select: {
+                        id: true,
                         name: true,
+                        url: true,
+                        score: true,
                         genres: {
                             select: {
-                                name: true
-                            }
-                        }
-                    }
-                }
+                                id: true,
+                                name: true,
+                            },
+                        },
+                    },
+                },
+            },
+        });
 
-            }
-        })
-
-        res.status(200).send(user);
-
+        if (user) {
+            res.status(200).send(user);
+        } else {
+            res.status(404).json({ error: 'User not found' });
+        }
     } catch (error) {
-
-        res.status(500).send(error)
+        console.error('Error fetching user by ID:', error);
+        res.status(500).send('Internal Server Error');
     }
-}
+};
 
 export const updateUser = async (req: Request, res: Response) => {
-
     const { userId } = req.params;
-
     const { name, email, password } = req.body;
 
     try {
-
-
         const updatedUser = await prismaClient.user.update({
-
             where: {
-
-                id: converToType(userId)
+                id: converToType(userId),
             },
             data: {
-
                 name,
                 email,
-                password
-            }
-        })
-        res.status(200).send(updatedUser)
-
+                password,
+            },
+        });
+        res.status(200).send(updatedUser);
     } catch (error) {
-
-        res.status(500).send(error)
+        console.error('Error updating user:', error);
+        res.status(500).json({ error: 'An error occurred while updating the user.' });
     }
-}
+};
 
 export const removeUser = async (req: Request, res: Response) => {
-
     const { userId } = req.params;
 
-
-
     try {
-
         await prismaClient.user.delete({
-
             where: {
-
-                id: converToType(userId)
-            }
-        })
-
-        res.status(204).send('User has been deleted')
-
+                id: converToType(userId),
+            },
+        });
+        res.status(204).send('User has been deleted');
     } catch (error) {
-
-        res.status(500).send(error)
+        console.error('Error removing user by ID:', error);
+        res.status(500).send('Internal Server Error');
     }
-
-}
+};

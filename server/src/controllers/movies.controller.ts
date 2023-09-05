@@ -1,164 +1,125 @@
 import { Request, Response } from "express";
 import { prismaClient } from "../db/clientPrisma";
-import { converToType } from '../helpers/utils'
+import { converToType } from '../helpers/utils';
+import { uploadImage } from '../helpers/cloudinary';
 
 
 export const createMovie = async (req: Request, res: Response) => {
-
-    const { name, origin, poster, year, score, description } = req.body;
+    const { name, score } = req.body;
+    const { userId } = req.params;
+    const urlFile = (req.files as any)?.url;
 
     try {
-
-
-        const newMovie = await prismaClient.movie.create({
-            data: {
-                name,
-                origin,
-                poster,
-                year,
-                description
-            }
-        });
-
-        res.status(201).send(newMovie);
-
+        if (urlFile) {
+            const upload = await uploadImage(urlFile.tempFilePath);
+            const newMovie = await prismaClient.movie.create({
+                data: {
+                    name,
+                    url: upload.secure_url,
+                    score: parseInt(score),
+                    User: {
+                        connect: {
+                            id: converToType(userId)
+                        }
+                    }
+                }
+            });
+            res.status(201).json({ message: "Movie created successfully" });
+        } else {
+            res.status(404).send('No user found');
+        }
     } catch (error) {
-
-        res.status(500).send(error);
+        console.error("Error creating movie:", error);
+        res.status(500).json({ error: "An error occurred while creating the movie." });
     }
 }
 
-
-export const getAllMovies = async (req: Request, res: Response) => {
-
+export const getAllMovies = async (_: Request, res: Response) => {
     try {
-        const movies = await prismaClient.movie.findMany({
-            include: {
-                genres: {
-                    select: {
-                        name: true
-                    }
-                },
-                score: {
-                    select: {
-                        score: true
-                    }
-                }
-            }
-        });
-
+        const movies = await prismaClient.movie.findMany();
         res.status(200).send(movies);
     } catch (error) {
-        res.status(500).send(error);
+        console.error('Error fetching all movies:', error);
+        res.status(500).send("Internal Server Error");
     }
 }
 
 
 
 export const getMovieById = async (req: Request, res: Response) => {
-    const { name } = req.body
     const { movieId } = req.params;
 
     try {
-
         const movie = await prismaClient.movie.findUnique({
-
-            where: {
-                id: converToType(movieId)
-            }, include: {
-                genres: {
-                    select: name
-                }, score: {
-                    select: {
-                        id: true,
-                        score: true
-                    }
-                }
-            }
-        })
-
-        res.status(200).send(movie);
-
-    } catch (error) {
-
-        res.status(500).send(error)
-    }
-}
-
-
-export const updateMovie = async (req: Request, res: Response) => {
-    const { movieId } = req.params;
-    const { name, url, score } = req.body;
-
-    try {
-
-        const existingMovie = await prismaClient.movie.findUnique({
-            where: {
-                id: converToType(movieId)
-            }
-        });
-
-        if (!existingMovie) {
-            return res.status(404).send({ error: "Movie not found." });
-        }
-
-        const updatedMovie = await prismaClient.movie.update({
-            where: {
-
-                id: converToType(movieId)
-            },
-            data: {
-                name,
-                url,
-                score
-            }
-        });
-
-        res.status(200).send(updatedMovie);
-    } catch (error) {
-        res.status(500).send(error);
-    }
-};
-
-
-export const removeMovies = async (req: Request, res: Response) => {
-
-    try {
-
-        await prismaClient.movie.deleteMany()
-
-        res.status(204).send('All Movies has been deleted')
-
-    } catch (error) {
-
-        res.status(500).send(error)
-    }
-
-}
-
-export const removeMovieById = async (req: Request, res: Response) => {
-    const { name } = req.body
-    const { movieId } = req.params;
-
-    try {
-
-        await prismaClient.movie.delete({
-
             where: {
                 id: converToType(movieId)
             },
             include: {
-                genres: {
-                    select: name
-                }
+                genres: true
             }
-        })
+        });
 
-        res.status(204).send('Movie has been deleted')
-
+        if (movie) {
+            res.status(200).send(movie);
+        } else {
+            res.status(404).json({ error: "Movie not found" });
+        }
     } catch (error) {
-
-        res.status(500).send(error)
+        console.error('Error fetching movie by ID:', error);
+        res.status(500).send("Internal Server Error");
     }
+}
 
+export const updateMovie = async (req: Request, res: Response) => {
+    const { movieId } = req.params;
+    const { name, score } = req.body;
+    const urlFile = (req.files as any)?.url;
+
+    try {
+        if (urlFile) {
+            const upload = await uploadImage(urlFile.tempFilePath);
+            const updatedMovie = await prismaClient.movie.update({
+                where: {
+                    id: converToType(movieId)
+                },
+                data: {
+                    name,
+                    url: upload.secure_url,
+                    score: converToType(score)
+                }
+            });
+            res.status(200).json({ message: "Movie updated successfully" });
+        } else {
+            res.status(404).json({ error: "No movie found" });
+        }
+    } catch (error) {
+        console.error("Error updating movie:", error);
+        res.status(500).json({ error: "An error occurred while updating the movie." });
+    }
+}
+
+export const removeMovies = async (_: Request, res: Response) => {
+    try {
+        await prismaClient.movie.deleteMany();
+        res.status(204).send('All movies have been deleted');
+    } catch (error) {
+        console.error('Error removing all movies:', error);
+        res.status(500).send("Internal Server Error");
+    }
+}
+
+export const removeMovieById = async (req: Request, res: Response) => {
+    const { movieId } = req.params;
+
+    try {
+        await prismaClient.movie.delete({
+            where: {
+                id: converToType(movieId)
+            }
+        });
+        res.status(204).send('Movie has been deleted');
+    } catch (error) {
+        console.error('Error removing movie by ID:', error);
+        res.status(500).send("Internal Server Error");
+    }
 }

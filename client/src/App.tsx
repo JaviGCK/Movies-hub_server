@@ -1,18 +1,10 @@
-
-import { ScoreProvider } from "./context/ScoreContext"
-import { RouterPaths } from "./routes/RouterPaths.router"
-
+import { RoutesPath } from './routes/RoutesPath.routes'
 
 function App() {
 
-
   return (
     <>
-
-      <ScoreProvider>
-        <RouterPaths />
-      </ScoreProvider>
-
+      <RoutesPath />
     </>
   )
 }
