@@ -42,7 +42,7 @@ DATA_SOURCE=mongo | postgres
 npm run migrate
 
 ### 6. Start the application:
-npm run dev
+npm run dev in server and client folder.
 
 The application server should now be running locally on [http://localhost:8080](http://localhost:8080).
 
