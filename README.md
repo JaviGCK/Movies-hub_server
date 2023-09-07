@@ -30,19 +30,13 @@ To run the project locally, follow these steps:
 git clone [https://github.com/JaviGCK/Movies-hub_server.git]
 
 ### 2. Navigate to the project directory:
-cd MoviesHub
+cd Movies-hub-server
 
 ### 3. Install dependencies:
 npm install
 
-### 4. Create a `.env` file in the project root and configure the environment variables:
-DATA_SOURCE=mongo | postgres
-
-### 5. Run the database migrations:
-npm run migrate
-
-### 6. Start the application:
-npm run dev in server and client folder.
+### 4. Start the application:
+npm run dev in server and client
 
 The application server should now be running locally on [http://localhost:8080](http://localhost:8080).
 
