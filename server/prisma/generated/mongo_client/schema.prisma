@@ -15,22 +15,22 @@ model User {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   name      String
   email     String   @unique
-  password  String
   movies    Movie[]
   createdAt DateTime @default(now())
   updateAt  DateTime @updatedAt
 }
 
 model Movie {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
-  url       String
-  score     Int
-  genres    Genre[]
-  createdAt DateTime @default(now())
-  updateAt  DateTime @updatedAt
-  User      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String?  @db.ObjectId
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  url         String
+  description String
+  score       Int
+  genres      Genre[]
+  createdAt   DateTime @default(now())
+  updateAt    DateTime @updatedAt
+  User        User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String?  @db.ObjectId
 }
 
 model Genre {

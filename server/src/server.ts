@@ -19,8 +19,8 @@ app.use(fileUpload({
 
 
 app.use(express.json());
-app.use('/users', checkJwt, usersRoutes);
-app.use('/movies', checkJwt, moviesRoutes);
+app.use('/users', usersRoutes);
+app.use('/movies', moviesRoutes);
 app.use('/genres', genresRoutes);
 
 export default app

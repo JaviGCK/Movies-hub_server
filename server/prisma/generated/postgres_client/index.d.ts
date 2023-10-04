@@ -2089,6 +2089,7 @@ export namespace Prisma {
     id: number | null
     name: string | null
     url: string | null
+    description: string | null
     score: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -2099,6 +2100,7 @@ export namespace Prisma {
     id: number | null
     name: string | null
     url: string | null
+    description: string | null
     score: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -2109,6 +2111,7 @@ export namespace Prisma {
     id: number
     name: number
     url: number
+    description: number
     score: number
     createdAt: number
     updatedAt: number
@@ -2133,6 +2136,7 @@ export namespace Prisma {
     id?: true
     name?: true
     url?: true
+    description?: true
     score?: true
     createdAt?: true
     updatedAt?: true
@@ -2143,6 +2147,7 @@ export namespace Prisma {
     id?: true
     name?: true
     url?: true
+    description?: true
     score?: true
     createdAt?: true
     updatedAt?: true
@@ -2153,6 +2158,7 @@ export namespace Prisma {
     id?: true
     name?: true
     url?: true
+    description?: true
     score?: true
     createdAt?: true
     updatedAt?: true
@@ -2250,6 +2256,7 @@ export namespace Prisma {
     id: number
     name: string
     url: string
+    description: string
     score: number
     createdAt: Date
     updatedAt: Date
@@ -2279,6 +2286,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     url?: boolean
+    description?: boolean
     score?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2292,6 +2300,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     url?: boolean
+    description?: boolean
     score?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2315,6 +2324,7 @@ export namespace Prisma {
       id: number
       name: string
       url: string
+      description: string
       score: number
       createdAt: Date
       updatedAt: Date
@@ -2719,6 +2729,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Movie", 'Int'>
     readonly name: FieldRef<"Movie", 'String'>
     readonly url: FieldRef<"Movie", 'String'>
+    readonly description: FieldRef<"Movie", 'String'>
     readonly score: FieldRef<"Movie", 'Int'>
     readonly createdAt: FieldRef<"Movie", 'DateTime'>
     readonly updatedAt: FieldRef<"Movie", 'DateTime'>
@@ -4066,6 +4077,7 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     url: 'url',
+    description: 'description',
     score: 'score',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
@@ -4236,6 +4248,7 @@ export namespace Prisma {
     id?: IntFilter<"Movie"> | number
     name?: StringFilter<"Movie"> | string
     url?: StringFilter<"Movie"> | string
+    description?: StringFilter<"Movie"> | string
     score?: IntFilter<"Movie"> | number
     createdAt?: DateTimeFilter<"Movie"> | Date | string
     updatedAt?: DateTimeFilter<"Movie"> | Date | string
@@ -4248,6 +4261,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     url?: SortOrder
+    description?: SortOrder
     score?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -4263,6 +4277,7 @@ export namespace Prisma {
     NOT?: MovieWhereInput | MovieWhereInput[]
     name?: StringFilter<"Movie"> | string
     url?: StringFilter<"Movie"> | string
+    description?: StringFilter<"Movie"> | string
     score?: IntFilter<"Movie"> | number
     createdAt?: DateTimeFilter<"Movie"> | Date | string
     updatedAt?: DateTimeFilter<"Movie"> | Date | string
@@ -4275,6 +4290,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     url?: SortOrder
+    description?: SortOrder
     score?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -4293,6 +4309,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Movie"> | number
     name?: StringWithAggregatesFilter<"Movie"> | string
     url?: StringWithAggregatesFilter<"Movie"> | string
+    description?: StringWithAggregatesFilter<"Movie"> | string
     score?: IntWithAggregatesFilter<"Movie"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Movie"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Movie"> | Date | string
@@ -4406,6 +4423,7 @@ export namespace Prisma {
   export type MovieCreateInput = {
     name: string
     url: string
+    description: string
     score: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -4417,6 +4435,7 @@ export namespace Prisma {
     id?: number
     name: string
     url: string
+    description: string
     score: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -4427,6 +4446,7 @@ export namespace Prisma {
   export type MovieUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     score?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4438,6 +4458,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     score?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4449,6 +4470,7 @@ export namespace Prisma {
     id?: number
     name: string
     url: string
+    description: string
     score: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -4458,6 +4480,7 @@ export namespace Prisma {
   export type MovieUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     score?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4467,6 +4490,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     score?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4673,6 +4697,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     url?: SortOrder
+    description?: SortOrder
     score?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -4689,6 +4714,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     url?: SortOrder
+    description?: SortOrder
     score?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -4699,6 +4725,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     url?: SortOrder
+    description?: SortOrder
     score?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -5035,6 +5062,7 @@ export namespace Prisma {
   export type MovieCreateWithoutUserInput = {
     name: string
     url: string
+    description: string
     score: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5045,6 +5073,7 @@ export namespace Prisma {
     id?: number
     name: string
     url: string
+    description: string
     score: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5084,6 +5113,7 @@ export namespace Prisma {
     id?: IntFilter<"Movie"> | number
     name?: StringFilter<"Movie"> | string
     url?: StringFilter<"Movie"> | string
+    description?: StringFilter<"Movie"> | string
     score?: IntFilter<"Movie"> | number
     createdAt?: DateTimeFilter<"Movie"> | Date | string
     updatedAt?: DateTimeFilter<"Movie"> | Date | string
@@ -5183,6 +5213,7 @@ export namespace Prisma {
   export type MovieCreateWithoutGenresInput = {
     name: string
     url: string
+    description: string
     score: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5193,6 +5224,7 @@ export namespace Prisma {
     id?: number
     name: string
     url: string
+    description: string
     score: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5218,6 +5250,7 @@ export namespace Prisma {
   export type MovieUpdateWithoutGenresInput = {
     name?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     score?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5228,6 +5261,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     score?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5238,6 +5272,7 @@ export namespace Prisma {
     id?: number
     name: string
     url: string
+    description: string
     score: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5246,6 +5281,7 @@ export namespace Prisma {
   export type MovieUpdateWithoutUserInput = {
     name?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     score?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5256,6 +5292,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     score?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5266,6 +5303,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     score?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
