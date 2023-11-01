@@ -1,4 +1,4 @@
-import express, { Express } from 'express';
+import express, { Express, Request, Response } from "express"
 import { genresRoutes, moviesRoutes, usersRoutes } from './routes';
 import morgan from 'morgan';
 import helmet from 'helmet';
@@ -23,4 +23,7 @@ app.use('/users', usersRoutes);
 app.use('/movies', moviesRoutes);
 app.use('/genres', genresRoutes);
 
+app.get("/", (req: Request, res: Response) => {
+    res.status(200).json({ message: "Welcome to the API World" })
+})
 export default app
